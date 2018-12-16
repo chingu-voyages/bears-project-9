@@ -11,6 +11,38 @@ import About from "./pages/About/About";
 import "./styles/App.sass";
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      dummyData: [
+        {
+          "productId": 1,
+          "productName": "Vesper",
+          "productPrice": 499.00,
+          "productURL": "https://via.placeholder.com/600/92c952"
+        },
+        {
+          "productId": 2,
+          "productName": "Kensington",
+          "productPrice": 399.00,
+          "productURL": "https://via.placeholder.com/600/771796"
+        },
+        {
+          "productId": 3,
+          "productName": "Arrow",
+          "productPrice": 199.00,
+          "productURL": "https://via.placeholder.com/600/24f355"
+        },
+        {
+          "productId": 4,
+          "productName": "Porter",
+          "productPrice": 499.00,
+          "productURL": "https://via.placeholder.com/600/d32776"
+        }
+      ]
+      }
+    }
+
   render() {
     return (
       <Router>
