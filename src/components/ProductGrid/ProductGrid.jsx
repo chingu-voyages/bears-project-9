@@ -38,6 +38,8 @@ const ProductGrid = ({ watchData }) => (
               productName={watchData[i].productName}
               productPrice={watchData[i].productPrice}
               productURL={watchData[i].productURL}
+              productBrand={watchData[i].productBrand}
+              productGender={watchData[i].productGender}
               key={i}
             />
           );
