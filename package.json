@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/chingu-voyages/bears-project-9/issues"
   },
-  "homepage": "https://github.com/chingu-voyages/bears-project-9#readme"
+  "homepage": "https://github.com/chingu-voyages/bears-project-9#readme",
+  "dependencies": {
+    "pg": "^7.7.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0"
+  }
 }
