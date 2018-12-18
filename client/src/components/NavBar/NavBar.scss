@@ -19,6 +19,11 @@ header {
   font-weight: normal;
 }
 
+.header__logo a {
+  text-decoration: none;
+  color: $primary-font-color;
+}
+
 .header__nav li {
   display: inline-block;
   margin-left: 20px;
