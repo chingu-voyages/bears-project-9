@@ -5,7 +5,9 @@ import "./NavBar.scss";
 const NavBar = props => (
   <header className="header">
     <div className="header__inner">
-      <h1 className="header__logo">HOROLOGY</h1>
+      <h1 className="header__logo">
+        <Link to="/">HOROLOGY</Link>
+      </h1>
       <nav className="header__nav">
         <ul>
           <li>
@@ -24,10 +26,10 @@ const NavBar = props => (
               </li>
             </Fragment>
           ) : (
-            <li>
-              <Link to="#">Sign In</Link>
-            </li>
-          )}
+              <li>
+                <Link to="#">Sign In</Link>
+              </li>
+            )}
         </ul>
       </nav>
     </div>
