@@ -1,9 +1,9 @@
-const { Watche } = require('./models');
+const { Watch } = require('./models');
 
 async function createWatches() {
   await Watch.destroy({ where: {} });
   try {
-    const watches = await Watche.bulkCreate([
+    const watches = await Watch.bulkCreate([
       {
         name: 'Watch 1',
         description: 'fancy watch',
@@ -38,3 +38,5 @@ async function seed() {
     process.exit();
   }
 }
+
+seed();
