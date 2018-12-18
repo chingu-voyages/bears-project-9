@@ -1,8 +1,19 @@
 {
   "name": "bears-project-9",
+<<<<<<< HEAD
   "version": "1.0.0",
   "description": "chingu voyage",
   "main": "index.js",
+=======
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1"
+  },
+>>>>>>> 853c83549c73df255be3d26ce4feae9c7d0d4c9b
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node seed.js",
@@ -28,7 +39,18 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.42.0"
   },
+<<<<<<< HEAD
   "devDependencies": {
     "nodemon": "^1.18.9"
+=======
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "node-sass": "^4.11.0"
+>>>>>>> 853c83549c73df255be3d26ce4feae9c7d0d4c9b
   }
 }
