@@ -11,11 +11,17 @@ class WishlistItem extends Component {
     );
   };
 
+  deleteItem = id => {
+    let row = document.getElementById(id);
+    row.parentNode.removeChild(row);
+  };
+
   render() {
-    const { item, deleteWishlistItem } = this.props;
+    const { item } = this.props;
+    const id = "wishlist" + item.productId;
 
     return (
-      <div className="wishlist-item" id={item.productId}>
+      <div className="wishlist-item" id={id}>
         <Modal>
           {modalProps => (
             <WishlistItemModal
@@ -29,7 +35,10 @@ class WishlistItem extends Component {
           {item.productName} - {item.productGender}
         </div>
         <div className="wishlist-price">${item.productPrice}</div>
-        <button className="wishlist-delete" onClick={deleteWishlistItem}>
+        <button
+          className="wishlist-delete"
+          onClick={this.deleteItem.bind(this, id)}
+        >
           &times;
         </button>
         <button className="add-to-cart" onClick={this.addToCart}>
