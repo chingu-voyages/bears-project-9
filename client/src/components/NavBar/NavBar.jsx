@@ -16,7 +16,7 @@ const NavBar = props => (
           {props.loggedIn ? (
             <Fragment>
               <li>
-                <Link to="#">Wishlist</Link>
+                <Link to="/wishlist">Wishlist</Link>
               </li>
               <li>
                 <Link to="#">Cart</Link>
@@ -26,14 +26,14 @@ const NavBar = props => (
               </li>
             </Fragment>
           ) : (
-              <li>
-                <Link to="#">Sign In</Link>
-              </li>
-            )}
+            <li>
+              <Link to="#">Sign In</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
-  </header >
+  </header>
 );
 
 export default NavBar;
