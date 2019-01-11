@@ -41,24 +41,9 @@ class Wishlist extends React.Component {
     // ***** OR **** delete state from this page and gather wishlist data by filtering the fetched data from App.js. for 'isWishlist:true' property *********
   }
 
-  deleteWishlistItem = e => {
-    e.preventDefault();
-
-    const data = this.state.wishlistData;
-
-    const wishlistData = data.filter(item => {
-      return item.productId !== Number(e.target.parentElement.id);
-    });
-    this.setState({ wishlistData });
-  };
-
   render() {
     const items = this.state.wishlistData.map((item, i) => (
-      <WishlistItem
-        item={item}
-        key={i}
-        deleteWishlistItem={this.deleteWishlistItem}
-      />
+      <WishlistItem item={item} key={i} />
     ));
 
     return (
