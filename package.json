@@ -30,7 +30,10 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.42.0"
