@@ -13,7 +13,9 @@ const Watch = sequelize.define('watches', {
   name: Sequelize.STRING,
   description: Sequelize.STRING,
   price: Sequelize.INTEGER,
-  image: Sequelize.STRING
+  image: Sequelize.STRING,
+  brand: Sequelize.STRING,
+  gender: Sequelize.STRING
 });
 
 const User = sequelize.define('users', {
