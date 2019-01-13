@@ -34,12 +34,13 @@ const ProductGrid = ({ watchData }) => (
         watchData.map((watch, i) => {
           return(
             <WatchTile
-              productId={watchData[i].productId}
-              productName={watchData[i].productName}
-              productPrice={watchData[i].productPrice}
-              productURL={watchData[i].productURL}
-              productBrand={watchData[i].productBrand}
-              productGender={watchData[i].productGender}
+              productId={watchData[i].id}
+              productName={watchData[i].name}
+              productDescription={watchData[i].description}
+              productPrice={watchData[i].price}
+              productURL={watchData[i].image}
+              productBrand={watchData[i].brand}
+              productGender={watchData[i].gender}
               key={i}
             />
           );
