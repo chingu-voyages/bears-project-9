@@ -16,7 +16,13 @@ const Watch = sequelize.define('watches', {
   image: Sequelize.STRING
 });
 
+const User = sequelize.define('users', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+});
+
 module.exports = {
   sequelize,
-  Watch
+  Watch,
+  User
 }

@@ -1,4 +1,4 @@
-const { Watch } = require('./models');
+const { Watch, User } = require('./models');
 
 async function createWatches() {
   await Watch.destroy({ where: {} });
@@ -28,10 +28,28 @@ async function createWatches() {
   }
 }
 
+async function createUsers() {
+  await User.destroy({ where: {} });
+  try {
+    const users = await User.bulkCreate([
+        {
+          username: 'tara',
+          password: 'tara',
+        },
+        {
+          username: 'john',
+          password: 'john',
+        }
+      ]);
+  } catch(e) {
+    console.log(e);
+  }
+}
 
 async function seed() {
   try {
     await createWatches();
+    await createUsers();
   } catch (e) {
     console.log(e);
   } finally {
