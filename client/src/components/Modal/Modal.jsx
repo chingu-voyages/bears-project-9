@@ -33,12 +33,12 @@ class Modal extends Component {
         {this.state.isOpen &&
           <div className="modal modal__background" onClick={this.outsideClick}>
             <div className="modal__content" style={this.state.style}>
-              <button className="modal__button_close" onClick={this.closeModal}>&times;</button>
-              <div className="modal__body">
-                {this.state.body}
-                <div className="modal__buttons">
-                  {this.state.buttons}
-                </div>
+              <button className="modal__button_close" onClick={this.closeModal}>
+                &times;
+              </button>
+              {this.state.body}
+              <div className="modal__buttons">
+                {this.state.buttons}
               </div>
             </div>
           </div>

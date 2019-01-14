@@ -1,4 +1,7 @@
 const { Watch, User } = require('./models');
+const bcrypt = require('bcrypt');
+
+// const pw = bcrypt.hashSync("1234", bcrypt.genSaltSync(10), null);
 
 async function createWatches() {
   await Watch.destroy({ where: {} });
@@ -64,11 +67,11 @@ async function createUsers() {
     const users = await User.bulkCreate([
         {
           username: 'tara',
-          password: 'tara',
+          password: bcrypt.hashSync("tara", bcrypt.genSaltSync(10), null),
         },
         {
           username: 'john',
-          password: 'john',
+          password: bcrypt.hashSync("john", bcrypt.genSaltSync(10), null),
         }
       ]);
   } catch(e) {

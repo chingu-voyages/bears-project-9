@@ -13,23 +13,24 @@ const NavBar = props => (
           <li>
             <Link to="/about">About</Link>
           </li>
-          {props.loggedIn ? (
-            <Fragment>
+          {props.loggedIn
+            ? (
+              <Fragment>
+                <li>
+                  <Link to="/wishlist">Wishlist</Link>
+                </li>
+                <li>
+                  <Link to="#">Cart</Link>
+                </li>
+                <li>
+                  <Link to="#">Sign Out</Link>
+                </li>
+              </Fragment>
+            ) : (
               <li>
-                <Link to="/wishlist">Wishlist</Link>
+                <Link to="/signin">Sign In</Link>
               </li>
-              <li>
-                <Link to="#">Cart</Link>
-              </li>
-              <li>
-                <Link to="#">Sign Out</Link>
-              </li>
-            </Fragment>
-          ) : (
-            <li>
-              <Link to="#">Sign In</Link>
-            </li>
-          )}
+            )}
         </ul>
       </nav>
     </div>

@@ -43,14 +43,14 @@ usersRouter.post('/', async (req, res) => {
 
 usersRouter.post('/login', async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = await User.find({ where: { name } });
+    const { username, password } = req.body;
+    const user = await User.find({ where: { username } });
     const passwordValid = await bcrypt.compare(password, user.password);
     const { id } = user;
     if (passwordValid) {
       const token = sign({
         id,
-        name,
+        username,
       });
       res.json({ token });
     } else {

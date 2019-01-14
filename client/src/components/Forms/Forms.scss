@@ -1,0 +1,21 @@
+@import "../../styles/_variables.sass";
+
+.form label, .form input {
+  width: 100%;
+}
+
+.login-form, .signup-form {
+  width: 300px;
+  margin: 100px auto;
+}
+
+.login-form p, .signup-form p {
+  text-align: center;
+}
+
+.login-form button:last-child, .signup-form button:last-child {
+  background: transparent;
+  border: none;
+  outline: transparent;
+  text-decoration: underline;
+}

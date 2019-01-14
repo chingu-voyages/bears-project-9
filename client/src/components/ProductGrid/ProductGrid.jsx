@@ -6,7 +6,7 @@ const ProductGrid = ({ watchData }) => (
   <div className="productGrid">
       <div className="selectField">
         <select name="Brand" className="selectBox">
-          <option value="Brand" disabled selected>Brand</option>
+          <option>Brand</option>
           <option value="Cartier">Cartier</option>
           <option value="Omega">Omega</option>
           <option value="Rolex">Rolex</option>
@@ -14,14 +14,14 @@ const ProductGrid = ({ watchData }) => (
         </select>
 
         <select name="Gender" className="selectBox">
-          <option value="Gender" disabled selected>Gender</option>
+          <option>Gender</option>
           <option value="Unisex">Unisex</option>
           <option value="Women's">Women's</option>
           <option value="Men's">Men's</option>
         </select>
 
         <select name="Price" className="selectBox">
-          <option value="Price" disabled selected>Price</option>
+          <option>Price</option>
           <option value="Below $200">Below $200</option>
           <option value="$201-$500">$201-$500</option>
           <option value="$501-$1000">$501-$1000</option>
