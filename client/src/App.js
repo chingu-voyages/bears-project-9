@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
+import Authenticate from "./pages/Authenticate/Authenticate";
+import { API } from "./utils";
 import "./styles/App.sass";
 import axios from 'axios';
 
@@ -11,7 +13,9 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      watchData: []
+      watchData: [],
+      loggedIn: false,
+      user: ''
     };
   }
 
@@ -26,6 +30,25 @@ class App extends Component {
     await this.fetchWatches();
   }
 
+  login = async userData => {
+    const token = await API.login(userData);
+    console.log(token)
+    this.setState({
+      loggedIn: true,
+      user: ''
+    });
+  }
+
+  signup = async userData => {
+    const user = await API.signup(userData);
+    console.log(user)
+    this.setState({
+      loggedIn: true,
+      user: user.data
+    });
+  }
+
+
   render() {
     return (
       <Router>
@@ -34,27 +57,37 @@ class App extends Component {
             {routeProps => (
               <Landing
                 {...routeProps}
-                // other props can be added here this will allow login/logout logic to live in this component
-                // along with whatever other functionality and the relevant data we want to live in state in this component
+                loggedIn={this.state.loggedIn}
                 watchData={this.state.watchData}
               />
             )}
           </Route>
+
           <Route exact path="/about">
             {routeProps => (
               <About
                 {...routeProps}
-                // other props can be added here this will allow login/logout logic to live in this component
-                // along with whatever other functionality and the relevant data we want to live in state in this component
+              loggedIn={this.state.loggedIn}
               />
             )}
           </Route>
+
           <Route exact path="/wishlist">
             {routeProps => (
               <Wishlist
                 {...routeProps}
-                // other props can be added here this will allow login/logout logic to live in this component
-                // along with whatever other functionality and the relevant data we want to live in state in this component
+              loggedIn={this.state.loggedIn}
+              />
+            )}
+          </Route>
+          
+          <Route exact path="/signin">
+            {routeProps => (
+              <Authenticate
+                {...routeProps}
+                loggedIn={this.state.loggedIn}
+                login={this.login}
+                signup={this.signup}
               />
             )}
           </Route>
