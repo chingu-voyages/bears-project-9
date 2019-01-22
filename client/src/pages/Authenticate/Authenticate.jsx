@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-// import { Redirect } from "react-router-dom";
 import NavBar from '../../components/NavBar/NavBar';
 import { Login, Signup } from '../../components/Forms';
 
@@ -13,10 +12,14 @@ class Authenticate extends Component {
   }
 
   render() {
-    // if (this.props.loggedIn) return this.props.history.goBack();
+    if (this.props.loggedIn) this.props.history.goBack();
     return (
       <Fragment>
-        <NavBar loginForm={this.state.loginForm} />
+        <NavBar
+          loggedIn={this.props.loggedIn}
+          logout={this.props.logout}
+        />
+
         {this.state.loginForm
           ? (
             <Login
@@ -30,7 +33,6 @@ class Authenticate extends Component {
             />
           )}
       </Fragment>
-
     );
   }
 }

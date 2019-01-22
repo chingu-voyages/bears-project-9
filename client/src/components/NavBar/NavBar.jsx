@@ -23,7 +23,7 @@ const NavBar = props => (
                   <Link to="#">Cart</Link>
                 </li>
                 <li>
-                  <Link to="#">Sign Out</Link>
+                  <button onClick={props.logout}>Sign Out</button>
                 </li>
               </Fragment>
             ) : (

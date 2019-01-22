@@ -48,7 +48,11 @@ class Wishlist extends React.Component {
 
     return (
       <div className="wishlist">
-        <NavBar />
+        <NavBar
+          loggedIn={this.props.loggedIn}
+          logout={this.props.logout}
+        />
+        
         <section className="wishlist-section">
           <div className="wishlist-card">
             <h2 className="wishlist-title">Wishlist</h2>
