@@ -9,16 +9,13 @@ const Landing = props => {
 
   return (
     <div>
-      <NavBar />
-
-      <Modal>
-        {modalProps => (
-          <ModalDemo {...modalProps} />
-        )}
-      </Modal>
-
+      <NavBar
+        loggedIn={props.loggedIn}
+        logout={props.logout}
+      />
+      
       <ProductGrid
-        watchData = {props.watchData}
+        watchData={props.watchData}
       />
 
     </div>

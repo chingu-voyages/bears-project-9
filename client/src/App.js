@@ -38,6 +38,11 @@ class App extends Component {
     });
   }
 
+  logout = () => {
+    // remove token, destroy session, etc.
+    this.setState({ loggedIn: false, user: '' });
+  }
+
   signup = async userData => {
     const user = await API.signup(userData);
     console.log(user)
@@ -57,6 +62,7 @@ class App extends Component {
               <Landing
                 {...routeProps}
                 loggedIn={this.state.loggedIn}
+                logout={this.logout}
                 watchData={this.state.watchData}
               />
             )}
@@ -66,7 +72,8 @@ class App extends Component {
             {routeProps => (
               <About
                 {...routeProps}
-              loggedIn={this.state.loggedIn}
+                loggedIn={this.state.loggedIn}
+                logout={this.logout}
               />
             )}
           </Route>
@@ -75,7 +82,8 @@ class App extends Component {
             {routeProps => (
               <Wishlist
                 {...routeProps}
-              loggedIn={this.state.loggedIn}
+                loggedIn={this.state.loggedIn}
+                logout={this.logout}
               />
             )}
           </Route>
@@ -86,6 +94,7 @@ class App extends Component {
                 {...routeProps}
                 loggedIn={this.state.loggedIn}
                 login={this.login}
+                logout={this.logout}
                 signup={this.signup}
               />
             )}

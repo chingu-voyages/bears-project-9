@@ -38,3 +38,19 @@ header {
 .header__nav a:hover {
   color: $light-gray;
 }
+
+.header__nav button {
+  background: transparent;
+  border: none;
+  color: $primary-font-color;
+  cursor: pointer;
+  font-family: $primary-font-family;
+  font-size: 1.6rem;
+  outline: transparent;
+  padding: 0;
+  text-decoration: none;
+}
+
+.header__nav button:hover {
+  color: $light-gray;
+}

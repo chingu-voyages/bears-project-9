@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
+import Modal from "../../components/Modal/Modal";
 import WishlistItem from "../../components/WishlistItem/WishlistItem";
 import "./Wishlist.sass";
 
@@ -42,19 +43,29 @@ class Wishlist extends React.Component {
   }
 
   render() {
-    const items = this.state.wishlistData.map((item, i) => (
-      <WishlistItem item={item} key={i} />
-    ));
+    // const items = this.state.wishlistData.map((item, i) => (
+    //   <WishlistItem item={item} key={i} />
+    // ));
 
     return (
       <div className="wishlist">
-        <NavBar />
-        <section className="wishlist-section">
-          <div className="wishlist-card">
-            <h2 className="wishlist-title">Wishlist</h2>
-            {items}
-          </div>
-        </section>
+        <NavBar
+          loggedIn={this.props.loggedIn}
+          logout={this.props.logout}
+        />
+
+        <Modal>
+          {modalProps => (
+            <section className="wishlist-section">
+              <div className="wishlist-card">
+                <h2 className="wishlist-title">Wishlist</h2>
+                {this.state.wishlistData.map((item, i) => (
+                  <WishlistItem {...modalProps} item={item} key={i} />
+                ))}
+              </div>
+            </section>
+          )}
+        </Modal>
       </div>
     );
   }
