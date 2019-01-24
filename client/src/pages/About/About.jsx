@@ -6,7 +6,7 @@ const About = props => (
   <div className="about">
     <NavBar
       loggedIn={props.loggedIn}
-      logout={this.props.logout}
+      logout={props.logout}
     />
     
     <section className="about-section">
