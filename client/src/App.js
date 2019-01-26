@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PageWrapper from "./components/PageWrapper/PageWrapper";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
@@ -15,6 +16,7 @@ class App extends Component {
     this.state = {
       watchData: [],
       loggedIn: false,
+      showCart: false,
       user: ''
     };
   }
@@ -53,54 +55,64 @@ class App extends Component {
     });
   }
 
+  toggleCart = () => {
+    this.setState({ showCart: !this.state.showCart });
+  }
 
   render() {
     return (
       <Router>
-        <Switch>
-          <Route exact path="/">
-            {routeProps => (
-              <Landing
-                {...routeProps}
-                loggedIn={this.state.loggedIn}
-                logout={this.logout}
-                watchData={this.state.watchData}
-              />
-            )}
-          </Route>
+        <PageWrapper
+          loggedIn={this.state.loggedIn}
+          logout={this.logout}
+          showCart={this.state.showCart}
+          toggleCart={this.toggleCart}
+        >
+          <Switch>
+            <Route exact path="/">
+              {routeProps => (
+                <Landing
+                  {...routeProps}
+                  loggedIn={this.state.loggedIn}
+                  logout={this.logout}
+                  watchData={this.state.watchData}
+                />
+              )}
+            </Route>
 
-          <Route exact path="/about">
-            {routeProps => (
-              <About
-                {...routeProps}
-                loggedIn={this.state.loggedIn}
-                logout={this.logout}
-              />
-            )}
-          </Route>
+            <Route exact path="/about">
+              {routeProps => (
+                <About
+                  {...routeProps}
+                  loggedIn={this.state.loggedIn}
+                  logout={this.logout}
+                />
+              )}
+            </Route>
 
-          <Route exact path="/wishlist">
-            {routeProps => (
-              <Wishlist
-                {...routeProps}
-                loggedIn={this.state.loggedIn}
-                logout={this.logout}
-              />
-            )}
-          </Route>
+            <Route exact path="/wishlist">
+              {routeProps => (
+                <Wishlist
+                  {...routeProps}
+                  loggedIn={this.state.loggedIn}
+                  logout={this.logout}
+                />
+              )}
+            </Route>
 
-          <Route exact path="/signin">
-            {routeProps => (
-              <Authenticate
-                {...routeProps}
-                loggedIn={this.state.loggedIn}
-                login={this.login}
-                logout={this.logout}
-                signup={this.signup}
-              />
-            )}
-          </Route>
-        </Switch>
+            <Route exact path="/signin">
+              {routeProps => (
+                <Authenticate
+                  {...routeProps}
+                  loggedIn={this.state.loggedIn}
+                  login={this.login}
+                  logout={this.logout}
+                  signup={this.signup}
+                />
+              )}
+            </Route>
+          </Switch>
+        </PageWrapper>
       </Router>
     );
   }

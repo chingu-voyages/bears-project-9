@@ -4,10 +4,10 @@ import "./About.sass";
 
 const About = props => (
   <div className="about">
-    <NavBar
+    {/* <NavBar
       loggedIn={props.loggedIn}
       logout={props.logout}
-    />
+    /> */}
     
     <section className="about-section">
       <div className="about-card">

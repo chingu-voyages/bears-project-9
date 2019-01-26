@@ -20,7 +20,7 @@ const NavBar = props => (
                   <Link to="/wishlist">Wishlist</Link>
                 </li>
                 <li>
-                  <Link to="#">Cart</Link>
+                  <button onClick={props.toggleCart}>Cart</button>
                 </li>
                 <li>
                   <button onClick={props.logout}>Sign Out</button>
