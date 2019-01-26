@@ -9,10 +9,10 @@ const Landing = props => {
 
   return (
     <div>
-      <NavBar
+      {/* <NavBar
         loggedIn={props.loggedIn}
         logout={props.logout}
-      />
+      /> */}
       
       <ProductGrid
         watchData={props.watchData}

@@ -49,10 +49,10 @@ class Wishlist extends React.Component {
 
     return (
       <div className="wishlist">
-        <NavBar
+        {/* <NavBar
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
-        />
+        /> */}
 
         <Modal>
           {modalProps => (

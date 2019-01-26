@@ -15,10 +15,10 @@ class Authenticate extends Component {
     if (this.props.loggedIn) this.props.history.goBack();
     return (
       <Fragment>
-        <NavBar
+        {/* <NavBar
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
-        />
+        /> */}
 
         {this.state.loginForm
           ? (
