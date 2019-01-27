@@ -1,12 +1,10 @@
 import React, { PureComponent } from "react";
-// import Modal from "../../components/Modal/Modal";
-// import WishlistItemModal from "../../components/WishlistItem/WishlistItemModal";
 import "./WishlistItem.sass";
 
 class WishlistItem extends PureComponent {
 
   itemModal = () => {
-    const { item } = this.props;
+    const { addToCart, item } = this.props;
     this.props.setModal({
       body: (
         <img
@@ -15,20 +13,9 @@ class WishlistItem extends PureComponent {
           src={item.productURL400}
         />
       ),
-      buttons: <button onClick={this.addToCart}>Add to cart</button>
-      // style: {
-      //   width: "500px",
-      //   color: "#850000"
-      // }
+      buttons: <button onClick={() => addToCart(item.productId)}>Add to cart</button>
     });
   }
-
-  addToCart = () => {
-    // TODO
-    alert(
-      "<added to cart message - maybe tooltip?>. Replace this button with 'add to cart' button component"
-    );
-  };
 
   deleteItem = id => {
     let row = document.getElementById(id);
@@ -36,21 +23,11 @@ class WishlistItem extends PureComponent {
   };
 
   render() {
-    const { item } = this.props;
+    const { addToCart, item } = this.props;
     const id = "wishlist" + item.productId;
 
     return (
       <div className="wishlist-item" id={id}>
-        {/* <Modal>
-          {modalProps => (
-            <WishlistItemModal
-              {...modalProps}
-              productURL30={item.productURL30}
-              productURL400={item.productURL400}
-            />
-          )}
-        </Modal> */}
-
         <div className="wishlist-img-container">
           <img
             className="wishlist-img"
@@ -70,7 +47,7 @@ class WishlistItem extends PureComponent {
         >
           &times;
         </button>
-        <button className="add-to-cart" onClick={this.addToCart}>
+        <button className="add-to-cart" onClick={() => addToCart(item.productId)}>
           Add to cart
         </button>
       </div>

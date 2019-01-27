@@ -2,7 +2,7 @@ import React from "react";
 import "./ProductGrid.scss";
 import WatchTile from "../WatchTile/WatchTile"
 
-const ProductGrid = ({ watchData }) => (
+const ProductGrid = props => (
   <div className="productGrid">
       <div className="selectField">
         <select name="Brand" className="selectBox">
@@ -31,16 +31,17 @@ const ProductGrid = ({ watchData }) => (
 
     <div className="watchGrid">
       {
-        watchData.map((watch, i) => {
+        props.watchData.map((watch, i) => {
           return(
             <WatchTile
-              productId={watchData[i].id}
-              productName={watchData[i].name}
-              productDescription={watchData[i].description}
-              productPrice={watchData[i].price}
-              productURL={watchData[i].image}
-              productBrand={watchData[i].brand}
-              productGender={watchData[i].gender}
+              addToCart={props.addToCart}
+              productId={watch.id}
+              productName={watch.name}
+              productDescription={watch.description}
+              productPrice={watch.price}
+              productURL={watch.image}
+              productBrand={watch.brand}
+              productGender={watch.gender}
               key={i}
             />
           );

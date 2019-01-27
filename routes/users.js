@@ -34,10 +34,10 @@ usersRouter.post('/', async (req, res) => {
       username,
       password
     });
-    res.json({user, token});
-  } catch(e) {
+    res.json({ user, token });
+  } catch (e) {
     console.log(e);
-    res.status(500).json({msg: e.message});
+    res.status(500).json({ msg: e.message });
   }
 });
 
@@ -46,13 +46,19 @@ usersRouter.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.find({ where: { username } });
     const passwordValid = await bcrypt.compare(password, user.password);
-    const { id } = user;
+    const { cart, id, wishlist } = user;
     if (passwordValid) {
       const token = sign({
         id,
         username,
       });
-      res.json({ token });
+      const userData = {
+        cart,
+        id,
+        username,
+        wishlist
+      }
+      res.json({ token, user: userData });
     } else {
       throw Error('Invalid credentials');
     }
@@ -61,6 +67,17 @@ usersRouter.post('/login', async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 });
+
+usersRouter.put('/:id', async (req, res) => {
+  console.log(req.body);
+  try {
+    User.update(req.body, {
+      where: { id: req.params.id }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+})
 
 module.exports = {
   usersRouter

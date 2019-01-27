@@ -60,7 +60,12 @@ class Wishlist extends React.Component {
               <div className="wishlist-card">
                 <h2 className="wishlist-title">Wishlist</h2>
                 {this.state.wishlistData.map((item, i) => (
-                  <WishlistItem {...modalProps} item={item} key={i} />
+                  <WishlistItem
+                    {...modalProps}
+                    addToCart={this.props.addToCart}
+                    item={item}
+                    key={i}
+                  />
                 ))}
               </div>
             </section>

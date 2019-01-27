@@ -14,10 +14,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      cart: {},
       watchData: [],
       loggedIn: false,
       showCart: false,
-      user: ''
+      wishlist: {},
+      user: {}
     };
   }
 
@@ -33,11 +35,19 @@ class App extends Component {
   }
 
   login = async userData => {
-    const token = await API.login(userData);
-    console.log(token)
+    const res = await API.login(userData);
+    const { token, user } = res.data;
+    let cart = {};
+    let wishlist = {};
+    if (user.cart) cart = JSON.parse(user.cart);
+    if (user.wishlist) wishlist = JSON.parse(user.wishlist);
+    // add logic here to reconcile guest cart, held in localStorage
+    // with user cart, held in db
     this.setState({
+      cart,
       loggedIn: true,
-      user: ''
+      user,
+      wishlist
     });
   }
 
@@ -59,12 +69,51 @@ class App extends Component {
     this.setState({ showCart: !this.state.showCart });
   }
 
+  addToCart = id => {
+    const { cart, user, watchData } = this.state;
+    const watch = watchData.filter(watch => watch.id === id);
+    let quantity;
+    if (cart[id]) quantity = cart[id].quantity + 1;
+    else quantity = 1;
+    const newCart = {
+      ...cart,
+      [id]: {
+        ...watch[0],
+        quantity
+      }
+    }
+    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    }
+
+    this.setState({ cart: newCart });
+  }
+
+  removeFromCart = id => {
+    const { cart, user } = this.state;
+    const newCart = {
+      ...cart,
+    }
+    delete newCart[id];
+    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    }
+
+    this.setState({ cart: newCart });
+  }
+
   render() {
     return (
       <Router>
         <PageWrapper
+          cart={this.state.cart}
           loggedIn={this.state.loggedIn}
           logout={this.logout}
+          removeFromCart={this.removeFromCart}
           showCart={this.state.showCart}
           toggleCart={this.toggleCart}
         >
@@ -73,6 +122,7 @@ class App extends Component {
               {routeProps => (
                 <Landing
                   {...routeProps}
+                  addToCart={this.addToCart}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                   watchData={this.state.watchData}
@@ -94,6 +144,7 @@ class App extends Component {
               {routeProps => (
                 <Wishlist
                   {...routeProps}
+                  addToCart={this.addToCart}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                 />
