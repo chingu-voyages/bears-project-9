@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import Modal from "../../components/Modal/Modal";
 import WishlistItem from "../../components/WishlistItem/WishlistItem";
 import "./Wishlist.sass";
@@ -49,11 +48,6 @@ class Wishlist extends React.Component {
 
     return (
       <div className="wishlist">
-        {/* <NavBar
-          loggedIn={this.props.loggedIn}
-          logout={this.props.logout}
-        /> */}
-
         <Modal>
           {modalProps => (
             <section className="wishlist-section">

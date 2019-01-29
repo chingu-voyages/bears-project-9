@@ -21,8 +21,8 @@ const Watch = sequelize.define('watches', {
 const User = sequelize.define('users', {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
-  wishlist: Sequelize.STRING,
-  cart: Sequelize.STRING
+  wishlist: Sequelize.TEXT,
+  cart: Sequelize.TEXT
 });
 
 module.exports = {
