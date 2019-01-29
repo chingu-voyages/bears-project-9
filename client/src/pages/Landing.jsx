@@ -4,24 +4,21 @@ import Modal from "../components/Modal/Modal";
 import ModalDemo from "../components/Modal/ModalDemo";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 
-
 const Landing = props => {
-
   return (
     <div>
       {/* <NavBar
         loggedIn={props.loggedIn}
         logout={props.logout}
       /> */}
-      
+
       <ProductGrid
         addToCart={props.addToCart}
+        addToWishlist={props.addToWishlist}
         watchData={props.watchData}
       />
-
     </div>
   );
-
-}
+};
 
 export default Landing;

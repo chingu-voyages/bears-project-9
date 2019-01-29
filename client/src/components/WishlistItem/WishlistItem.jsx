@@ -2,52 +2,49 @@ import React, { PureComponent } from "react";
 import "./WishlistItem.sass";
 
 class WishlistItem extends PureComponent {
-
   itemModal = () => {
-    const { addToCart, item } = this.props;
+    const { addToCart, watch } = this.props;
+    const { id, image400 } = watch;
+
     this.props.setModal({
       body: (
         <img
           className="wishlist-img-modal"
           alt="wishlist-watch"
-          src={item.productURL400}
+          src={image400}
         />
       ),
-      buttons: <button onClick={() => addToCart(item.productId)}>Add to cart</button>
+      buttons: <button onClick={() => addToCart(id)}>Add to cart</button>
     });
-  }
-
-  deleteItem = id => {
-    let row = document.getElementById(id);
-    row.parentNode.removeChild(row);
   };
 
   render() {
-    const { addToCart, item } = this.props;
-    const id = "wishlist" + item.productId;
+    const { addToCart, removeFromWishlist, watch } = this.props;
+    const { id, name, price, gender, image30 } = watch;
+    const altDesc = `${name} - ${gender}`;
 
     return (
       <div className="wishlist-item" id={id}>
         <div className="wishlist-img-container">
           <img
             className="wishlist-img"
-            alt="wishlist-watch"
-            src={item.productURL30}
+            alt={altDesc}
+            src={image30}
             onClick={this.itemModal}
           />
         </div>
 
         <div className="wishlist-description">
-          {item.productName} - {item.productGender}
+          {name} - {gender}
         </div>
-        <div className="wishlist-price">${item.productPrice}</div>
+        <div className="wishlist-price">${price}</div>
         <button
           className="wishlist-delete"
-          onClick={this.deleteItem.bind(this, id)}
+          onClick={() => removeFromWishlist(id)}
         >
           &times;
         </button>
-        <button className="add-to-cart" onClick={() => addToCart(item.productId)}>
+        <button className="add-to-cart" onClick={() => addToCart(id)}>
           Add to cart
         </button>
       </div>

@@ -7,7 +7,7 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import { API } from "./utils";
 import "./styles/App.sass";
-import axios from 'axios';
+import axios from "axios";
 
 const BASE_URL = "http://localhost:3001";
 class App extends Component {
@@ -49,25 +49,25 @@ class App extends Component {
       user,
       wishlist
     });
-  }
+  };
 
   logout = () => {
     // remove token, destroy session, etc.
-    this.setState({ loggedIn: false, user: '' });
-  }
+    this.setState({ loggedIn: false, user: "" });
+  };
 
   signup = async userData => {
     const user = await API.signup(userData);
-    console.log(user)
+    console.log(user);
     this.setState({
       loggedIn: true,
       user: user.data
     });
-  }
+  };
 
   toggleCart = () => {
     this.setState({ showCart: !this.state.showCart });
-  }
+  };
 
   addToCart = id => {
     const { cart, user, watchData } = this.state;
@@ -81,30 +81,64 @@ class App extends Component {
         ...watch[0],
         quantity
       }
-    }
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    };
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
 
     if (this.state.loggedIn) {
       API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     }
 
     this.setState({ cart: newCart });
+
+    this.fetchUsers();
+  };
+
+  async fetchUsers() {
+    const resp = await axios.get(`${BASE_URL}/watches`);
+    this.setState({ watchData: resp.data });
+    console.log(this.state.watchData);
+    return resp.data;
   }
 
   removeFromCart = id => {
     const { cart, user } = this.state;
     const newCart = {
-      ...cart,
-    }
+      ...cart
+    };
     delete newCart[id];
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
 
     if (this.state.loggedIn) {
       API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     }
 
     this.setState({ cart: newCart });
-  }
+    this.fetchUsers();
+  };
+
+  addToWishlist = id => {
+    const { wishlist, user, watchData } = this.state;
+    const watch = watchData.filter(watch => watch.id === id);
+
+    const newWishlist = { ...wishlist, [id]: { ...watch[0] } };
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { wishlist: JSON.stringify(newWishlist) });
+    }
+
+    this.setState({ wishlist: newWishlist });
+  };
+
+  removeFromWishlist = id => {
+    const { wishlist, user } = this.state;
+    const newWishlist = { ...wishlist };
+    delete newWishlist[id];
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { wishlist: JSON.stringify(newWishlist) });
+    }
+    this.setState({ wishlist: newWishlist });
+  };
 
   render() {
     return (
@@ -123,6 +157,7 @@ class App extends Component {
                 <Landing
                   {...routeProps}
                   addToCart={this.addToCart}
+                  addToWishlist={this.addToWishlist}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                   watchData={this.state.watchData}
@@ -145,8 +180,11 @@ class App extends Component {
                 <Wishlist
                   {...routeProps}
                   addToCart={this.addToCart}
+                  removeFromWishlist={this.removeFromWishlist}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
+                  watchData={this.state.watchData}
+                  wishlist={this.state.wishlist}
                 />
               )}
             </Route>
