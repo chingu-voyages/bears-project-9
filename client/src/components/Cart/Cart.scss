@@ -1,9 +1,11 @@
 @import "../../styles/_variables.sass";
 
 .cart {
-  background: #111;
+  background: #ececec;
+  color: #393939;
   height: 100%;
   min-width: 400px;
+  padding: 10px;
   position: fixed;
   top: 0;
   right: 0;
@@ -16,16 +18,59 @@
     text-align: center;
     padding: 20px;
   }
+  h3:last-child {
+    font-size: 1.3rem;
+    text-align: center;
+  }
 }
 
 .cart__close-btn {
   background: transparent;
   border: none;
-  color: white;
   cursor: pointer;
   float: right;
   font-size: 2.5rem;
   margin-top: 5px;
   margin-right: 5px;
   outline: transparent;
+}
+
+.cart__item {
+  background: #fff;
+  display: flex;
+  margin: 12px 0;
+  padding: 5px;
+  width: 100%;
+  img {
+    height: 50px;
+    width: 50px;
+  }
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: .7rem;
+    outline: transparent;
+    &:hover {
+      color: aqua;
+    }
+  }
+}
+
+.cart__item_item-data {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 0 5px 10px;
+  width: 100%;
+  h3 {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+  p {
+    text-indent: 15px;
+    width: 50%;
+  }
+  h4 {
+    width: 50%;
+  }
 }

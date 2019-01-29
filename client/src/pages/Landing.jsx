@@ -15,6 +15,7 @@ const Landing = props => {
       /> */}
       
       <ProductGrid
+        addToCart={props.addToCart}
         watchData={props.watchData}
       />
 
