@@ -71,9 +71,10 @@ usersRouter.post('/login', async (req, res) => {
 usersRouter.put('/:id', async (req, res) => {
   console.log(req.body);
   try {
-    User.update(req.body, {
+    const response = User.update(req.body, {
       where: { id: req.params.id }
     });
+    res.send(response);
   } catch (e) {
     console.log(e);
   }

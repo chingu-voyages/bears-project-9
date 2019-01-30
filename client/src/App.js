@@ -10,18 +10,17 @@ import "./styles/App.sass";
 import axios from "axios";
 
 const BASE_URL = "http://localhost:3001";
+
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cart: {},
-      watchData: [],
-      loggedIn: false,
-      showCart: false,
-      wishlist: {},
-      user: {}
-    };
-  }
+  state = {
+    cart: {},
+    cartLoading: false,
+    watchData: [],
+    loggedIn: false,
+    showCart: false,
+    wishlist: {},
+    user: {}
+  };
 
   async fetchWatches() {
     const resp = await axios.get(`${BASE_URL}/watches`);
@@ -69,7 +68,8 @@ class App extends Component {
     this.setState({ showCart: !this.state.showCart });
   };
 
-  addToCart = id => {
+  addToCart = async id => {
+    await this.setState({ cartLoading: true });
     const { cart, user, watchData } = this.state;
     const watch = watchData.filter(watch => watch.id === id);
     let quantity;
@@ -83,37 +83,58 @@ class App extends Component {
       }
     };
     localStorage.setItem("horology-cart", JSON.stringify(newCart));
-
-    if (this.state.loggedIn) {
-      API.updateUser(user.id, { cart: JSON.stringify(newCart) });
-    }
-
-    this.setState({ cart: newCart });
-
-    this.fetchUsers();
+    if (this.state.loggedIn)
+      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    // setting a timeout to prevent the UI loading element from flashing too quickly
+    // whicm might make it appear like a glitch rather than a loading indicator
+    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
   };
 
-  async fetchUsers() {
-    const resp = await axios.get(`${BASE_URL}/watches`);
-    this.setState({ watchData: resp.data });
-    console.log(this.state.watchData);
-    return resp.data;
-  }
-
-  removeFromCart = id => {
+  removeFromCart = async id => {
+    await this.setState({ cartLoading: true });
     const { cart, user } = this.state;
     const newCart = {
       ...cart
     };
     delete newCart[id];
     localStorage.setItem("horology-cart", JSON.stringify(newCart));
+    if (this.state.loggedIn)
+      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    // setting a timeout to prevent the UI loading element from flashing too quickly
+    // whicm might make it appear like a glitch rather than a loading indicator
+    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+  };
 
-    if (this.state.loggedIn) {
-      API.updateUser(user.id, { cart: JSON.stringify(newCart) });
-    }
+  addOneToQty = async id => {
+    await this.setState({ cartLoading: true });
+    const { cart, user } = this.state;
+    const newCart = {
+      ...cart
+    };
+    newCart[id].quantity = cart[id].quantity + 1;
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+    if (this.state.loggedIn)
+      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    // setting a timeout to prevent the UI loading element from flashing too quickly
+    // whicm might make it appear like a glitch rather than a loading indicator
+    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+  };
 
-    this.setState({ cart: newCart });
-    this.fetchUsers();
+  subtractOneFromQty = async id => {
+    await this.setState({ cartLoading: true });
+    const { cart, user } = this.state;
+    if (cart[id].quantity === 1) return this.removeFromCart(id);
+    const quantity = cart[id].quantity - 1;
+    const newCart = {
+      ...cart
+    };
+    newCart[id].quantity = quantity;
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+    if (this.state.loggedIn)
+      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+    // setting a timeout to prevent the UI loading element from flashing too quickly
+    // whicm might make it appear like a glitch rather than a loading indicator
+    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
   };
 
   addToWishlist = id => {
@@ -144,11 +165,14 @@ class App extends Component {
     return (
       <Router>
         <PageWrapper
+          addOneToQty={this.addOneToQty}
           cart={this.state.cart}
+          cartLoading={this.state.cartLoading}
           loggedIn={this.state.loggedIn}
           logout={this.logout}
           removeFromCart={this.removeFromCart}
           showCart={this.state.showCart}
+          subtractOneFromQty={this.subtractOneFromQty}
           toggleCart={this.toggleCart}
         >
           <Switch>

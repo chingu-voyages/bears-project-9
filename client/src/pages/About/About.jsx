@@ -1,14 +1,8 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import "./About.sass";
 
-const About = props => (
-  <div className="about">
-    {/* <NavBar
-      loggedIn={props.loggedIn}
-      logout={props.logout}
-    /> */}
-    
+const About = () => (
+  <div className="about">    
     <section className="about-section">
       <div className="about-card">
         HOROLOGY is Bears Team 09’s exploration in building a fully functional
