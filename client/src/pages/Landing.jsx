@@ -7,7 +7,10 @@ const Landing = props => {
       <ProductGrid
         addToCart={props.addToCart}
         addToWishlist={props.addToWishlist}
+        removeFromWishlist={props.removeFromWishlist}
         watchData={props.watchData}
+        wishlist={props.wishlist}
+        loggedIn={props.loggedIn}
       />
     </div>
   );
