@@ -186,9 +186,11 @@ class App extends Component {
                   {...routeProps}
                   addToCart={this.addToCart}
                   addToWishlist={this.addToWishlist}
+                  removeFromWishlist={this.removeFromWishlist}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                   watchData={this.state.watchData}
+                  wishlist={this.state.wishlist}
                 />
               )}
             </Route>
