@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import Cart from "../Cart/Cart";
 import "./PageWrapper.scss";
@@ -11,6 +11,8 @@ class PageWrapper extends Component {
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
           toggleCart={this.props.toggleCart}
+          wishlistCount={this.props.wishlistCount}
+          cartCount={this.props.cartCount}
         />
 
         <Cart
@@ -24,7 +26,6 @@ class PageWrapper extends Component {
         />
 
         {this.props.children}
-
       </div>
     );
   }

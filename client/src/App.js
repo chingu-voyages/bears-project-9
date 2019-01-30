@@ -162,6 +162,8 @@ class App extends Component {
   };
 
   render() {
+    const cartCount = Object.keys(this.state.cart).length;
+    const wishlistCount = Object.keys(this.state.wishlist).length;
     return (
       <Router>
         <PageWrapper
@@ -174,6 +176,8 @@ class App extends Component {
           showCart={this.state.showCart}
           subtractOneFromQty={this.subtractOneFromQty}
           toggleCart={this.toggleCart}
+          cartCount={cartCount}
+          wishlistCount={wishlistCount}
         >
           <Switch>
             <Route exact path="/">
