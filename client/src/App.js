@@ -7,7 +7,7 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import { API } from "./utils";
 import "./styles/App.sass";
-import axios from 'axios';
+import axios from "axios";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -48,25 +48,25 @@ class App extends Component {
       user,
       wishlist
     });
-  }
+  };
 
   logout = () => {
     // remove token, destroy session, etc.
-    this.setState({ loggedIn: false, user: '' });
-  }
+    this.setState({ loggedIn: false, user: "" });
+  };
 
   signup = async userData => {
     const user = await API.signup(userData);
-    console.log(user)
+    console.log(user);
     this.setState({
       loggedIn: true,
       user: user.data
     });
-  }
+  };
 
   toggleCart = () => {
     this.setState({ showCart: !this.state.showCart });
-  }
+  };
 
   addToCart = async id => {
     await this.setState({ cartLoading: true });
@@ -81,44 +81,44 @@ class App extends Component {
         ...watch[0],
         quantity
       }
-    }
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    };
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
     if (this.state.loggedIn)
       await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
     setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
-  }
+  };
 
   removeFromCart = async id => {
     await this.setState({ cartLoading: true });
     const { cart, user } = this.state;
     const newCart = {
-      ...cart,
-    }
+      ...cart
+    };
     delete newCart[id];
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
     if (this.state.loggedIn)
       await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
     setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
-  }
+  };
 
   addOneToQty = async id => {
     await this.setState({ cartLoading: true });
     const { cart, user } = this.state;
     const newCart = {
-      ...cart,
-    }
+      ...cart
+    };
     newCart[id].quantity = cart[id].quantity + 1;
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
     if (this.state.loggedIn)
       await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
     setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
-  }
+  };
 
   subtractOneFromQty = async id => {
     await this.setState({ cartLoading: true });
@@ -126,16 +126,40 @@ class App extends Component {
     if (cart[id].quantity === 1) return this.removeFromCart(id);
     const quantity = cart[id].quantity - 1;
     const newCart = {
-      ...cart,
-    }
+      ...cart
+    };
     newCart[id].quantity = quantity;
-    localStorage.setItem('horology-cart', JSON.stringify(newCart));
+    localStorage.setItem("horology-cart", JSON.stringify(newCart));
     if (this.state.loggedIn)
       await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
     setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
-  }
+  };
+
+  addToWishlist = id => {
+    const { wishlist, user, watchData } = this.state;
+    const watch = watchData.filter(watch => watch.id === id);
+
+    const newWishlist = { ...wishlist, [id]: { ...watch[0] } };
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { wishlist: JSON.stringify(newWishlist) });
+    }
+
+    this.setState({ wishlist: newWishlist });
+  };
+
+  removeFromWishlist = id => {
+    const { wishlist, user } = this.state;
+    const newWishlist = { ...wishlist };
+    delete newWishlist[id];
+
+    if (this.state.loggedIn) {
+      API.updateUser(user.id, { wishlist: JSON.stringify(newWishlist) });
+    }
+    this.setState({ wishlist: newWishlist });
+  };
 
   render() {
     return (
@@ -157,6 +181,7 @@ class App extends Component {
                 <Landing
                   {...routeProps}
                   addToCart={this.addToCart}
+                  addToWishlist={this.addToWishlist}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                   watchData={this.state.watchData}
@@ -179,8 +204,11 @@ class App extends Component {
                 <Wishlist
                   {...routeProps}
                   addToCart={this.addToCart}
+                  removeFromWishlist={this.removeFromWishlist}
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
+                  watchData={this.state.watchData}
+                  wishlist={this.state.wishlist}
                 />
               )}
             </Route>

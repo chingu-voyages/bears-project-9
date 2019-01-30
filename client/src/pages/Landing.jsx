@@ -1,18 +1,16 @@
 import React from "react";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 
-
 const Landing = props => {
-
   return (
-    // <div>
+    <div>
       <ProductGrid
         addToCart={props.addToCart}
+        addToWishlist={props.addToWishlist}
         watchData={props.watchData}
       />
-    // </div>
+    </div>
   );
-
-}
+};
 
 export default Landing;
