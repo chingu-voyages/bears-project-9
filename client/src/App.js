@@ -9,8 +9,6 @@ import { API } from "./utils";
 import "./styles/App.sass";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001";
-
 class App extends Component {
   state = {
     cart: {},
@@ -24,10 +22,12 @@ class App extends Component {
     filterFor: { brand: "", gender: "", price: "" }
   };
 
-  async fetchWatches() {
-    const resp = await axios.get(`${BASE_URL}/watches`);
-    this.setState({ watchData: resp.data, filteredData: resp.data });
-    console.log(this.state.watchData);
+  fetchWatches = async () => {
+    const resp = await API.getWatches();
+    this.setState({
+      watchData: resp.data,
+      filteredData: resp.data
+    });
     return resp.data;
   }
 
