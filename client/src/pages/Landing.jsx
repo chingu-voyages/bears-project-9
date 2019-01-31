@@ -1,26 +1,21 @@
 import React from "react";
-import NavBar from "../components/NavBar/NavBar";
-import Modal from "../components/Modal/Modal";
-import ModalDemo from "../components/Modal/ModalDemo";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 
-
 const Landing = props => {
-
   return (
     <div>
-      <NavBar
-        loggedIn={props.loggedIn}
-        logout={props.logout}
-      />
-      
       <ProductGrid
+        addToCart={props.addToCart}
+        addToWishlist={props.addToWishlist}
+        removeFromWishlist={props.removeFromWishlist}
         watchData={props.watchData}
+        filteredData={props.filteredData}
+        wishlist={props.wishlist}
+        loggedIn={props.loggedIn}
+        handleProductFilter={props.handleProductFilter}
       />
-
     </div>
   );
-
-}
+};
 
 export default Landing;

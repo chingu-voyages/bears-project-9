@@ -1,26 +1,13 @@
 @import "../../styles/_variables.sass";
 
-.watchGrid{
+.watchGrid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.selectField{
+.selectField {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.selectBox{
-  font-size: 14px;
-  font-family: $secondary-font-family;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  background: transparent;
-  width: 20%;
-  margin: 2%;
-  outline: none;
-  border: 1px solid $dark-gray;
 }

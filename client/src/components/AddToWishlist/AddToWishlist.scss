@@ -1,0 +1,20 @@
+@import "../../styles/_variables.sass";
+
+.add-to-wishlist {
+  position: relative;
+  display: inline-block;
+
+  .wishlist-white {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+    color: white;
+  }
+
+  .wishlist-dark {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+    color: $dark-backsplash;
+  }
+}

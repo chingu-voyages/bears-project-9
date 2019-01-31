@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import NavBar from '../../components/NavBar/NavBar';
 import { Login, Signup } from '../../components/Forms';
 
 class Authenticate extends Component {
@@ -15,11 +14,6 @@ class Authenticate extends Component {
     if (this.props.loggedIn) this.props.history.goBack();
     return (
       <Fragment>
-        <NavBar
-          loggedIn={this.props.loggedIn}
-          logout={this.props.logout}
-        />
-
         {this.state.loginForm
           ? (
             <Login

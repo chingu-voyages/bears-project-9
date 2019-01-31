@@ -1,0 +1,19 @@
+@import "../../styles/_variables.sass";
+
+.badge-component {
+  position: relative;
+  display: inline-block;
+
+  .badge-label {
+    position: absolute;
+    right: -20px;
+    top: -18px;
+    background: $light-backsplash;
+
+    text-align: center;
+    border-radius: 3px;
+    color: $primary-font-color;
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+}

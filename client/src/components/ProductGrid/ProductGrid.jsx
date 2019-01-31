@@ -1,54 +1,103 @@
 import React from "react";
 import "./ProductGrid.scss";
-import WatchTile from "../WatchTile/WatchTile"
+import WatchTile from "../WatchTile/WatchTile";
+import AddToWishlist from "../AddToWishlist/AddToWishlist";
+import ProductFilter from "../ProductFilter/ProductFilter";
 
-const ProductGrid = ({ watchData }) => (
-  <div className="productGrid">
+const ProductGrid = props => {
+  const {
+    loggedIn,
+    filteredData,
+    wishlist,
+    addToWishlist,
+    removeFromWishlist,
+    addToCart,
+    handleProductFilter
+  } = props;
+
+  const brandOptions = filteredData
+    .map(watch => watch.brand)
+    .reduce((opts, brands) => {
+      if (!opts.includes(brands)) opts.push(brands);
+      return opts;
+    }, []);
+  const genderOptions = filteredData
+    .map(watch => watch.gender)
+    .reduce((opts, genders) => {
+      if (!opts.includes(genders)) opts.push(genders);
+      return opts;
+    }, []);
+  const priceOptions = filteredData
+    .map(watch => watch.price)
+    .reduce((opts, prices) => {
+      if (!opts.includes(prices)) opts.push(prices);
+      return opts;
+    }, []);
+
+  return (
+    <div className="productGrid">
       <div className="selectField">
-        <select name="Brand" className="selectBox">
-          <option>Brand</option>
-          <option value="Cartier">Cartier</option>
-          <option value="Omega">Omega</option>
-          <option value="Rolex">Rolex</option>
-          <option value="Tag Heuer">Tag Heuer</option>
-        </select>
+        <ProductFilter
+          categoryName="Brand"
+          filterHandler={handleProductFilter}
+          options={brandOptions}
+        />
+        <ProductFilter
+          categoryName="Gender"
+          filterHandler={handleProductFilter}
+          options={genderOptions}
+        />
+        <ProductFilter
+          categoryName="Price"
+          filterHandler={handleProductFilter}
+          options={priceOptions}
+        />
+      </div>
 
-        <select name="Gender" className="selectBox">
-          <option>Gender</option>
-          <option value="Unisex">Unisex</option>
-          <option value="Women's">Women's</option>
-          <option value="Men's">Men's</option>
-        </select>
-
-        <select name="Price" className="selectBox">
-          <option>Price</option>
-          <option value="Below $200">Below $200</option>
-          <option value="$201-$500">$201-$500</option>
-          <option value="$501-$1000">$501-$1000</option>
-          <option value="$1000+">$1000+</option>
-        </select>
+      <div className="watchGrid">
+        {loggedIn
+          ? filteredData.map(watch => {
+              const inWishlist = wishlist[watch.id] ? true : false;
+              return (
+                <AddToWishlist
+                  addToWishlist={addToWishlist}
+                  removeFromWishlist={removeFromWishlist}
+                  inWishlist={inWishlist}
+                  productId={watch.id}
+                  key={watch.id}
+                >
+                  <WatchTile
+                    addToCart={addToCart}
+                    productId={watch.id}
+                    productName={watch.name}
+                    productDescription={watch.description}
+                    productPrice={watch.price}
+                    productURL={watch.image}
+                    productBrand={watch.brand}
+                    productGender={watch.gender}
+                    key={watch.id}
+                  />
+                </AddToWishlist>
+              );
+            })
+          : filteredData.map(watch => {
+              return (
+                <WatchTile
+                  addToCart={addToCart}
+                  productId={watch.id}
+                  productName={watch.name}
+                  productDescription={watch.description}
+                  productPrice={watch.price}
+                  productURL={watch.image}
+                  productBrand={watch.brand}
+                  productGender={watch.gender}
+                  key={watch.id}
+                />
+              );
+            })}
+      </div>
     </div>
-
-    <div className="watchGrid">
-      {
-        watchData.map((watch, i) => {
-          return(
-            <WatchTile
-              productId={watchData[i].id}
-              productName={watchData[i].name}
-              productDescription={watchData[i].description}
-              productPrice={watchData[i].price}
-              productURL={watchData[i].image}
-              productBrand={watchData[i].brand}
-              productGender={watchData[i].gender}
-              key={i}
-            />
-          );
-        })
-
-      }
-    </div>
-  </div>
-);
+  );
+};
 
 export default ProductGrid;
