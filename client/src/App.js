@@ -16,15 +16,17 @@ class App extends Component {
     cart: {},
     cartLoading: false,
     watchData: [],
+    filteredData: [],
     loggedIn: false,
     showCart: false,
     wishlist: {},
-    user: {}
+    user: {},
+    filterFor: { brand: "", gender: "", price: "" }
   };
 
   async fetchWatches() {
     const resp = await axios.get(`${BASE_URL}/watches`);
-    this.setState({ watchData: resp.data });
+    this.setState({ watchData: resp.data, filteredData: resp.data });
     console.log(this.state.watchData);
     return resp.data;
   }
@@ -161,6 +163,21 @@ class App extends Component {
     this.setState({ wishlist: newWishlist });
   };
 
+  handleProductFilter = obj => {
+    const categories = ["brand", "gender", "price"];
+    const filterFor = { ...this.state.filterFor, ...obj };
+    let filteredData = [...this.state.watchData];
+
+    categories.forEach(cat => {
+      if (filterFor[cat]) {
+        filteredData = filteredData.filter(watch => {
+          return watch[cat].toString() === filterFor[cat].toString();
+        });
+      }
+    });
+    this.setState({ filterFor, filteredData });
+  };
+
   render() {
     const cartCount = Object.keys(this.state.cart).length;
     const wishlistCount = Object.keys(this.state.wishlist).length;
@@ -190,7 +207,9 @@ class App extends Component {
                   loggedIn={this.state.loggedIn}
                   logout={this.logout}
                   watchData={this.state.watchData}
+                  filteredData={this.state.filteredData}
                   wishlist={this.state.wishlist}
+                  handleProductFilter={this.handleProductFilter}
                 />
               )}
             </Route>
