@@ -9,8 +9,10 @@ const Landing = props => {
         addToWishlist={props.addToWishlist}
         removeFromWishlist={props.removeFromWishlist}
         watchData={props.watchData}
+        filteredData={props.filteredData}
         wishlist={props.wishlist}
         loggedIn={props.loggedIn}
+        handleProductFilter={props.handleProductFilter}
       />
     </div>
   );
