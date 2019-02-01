@@ -10,7 +10,11 @@ export const API = {
   signup: function (userData) {
     return axios.post(`${BASE_URL}/users`, userData);
   },
-  
+
+  currentuser: function (headers) {
+    return axios.get(`${BASE_URL}/currentuser`, {...headers});
+  },
+
   getWatches: function () {
     return axios.get(`${BASE_URL}/watches`);
   },
