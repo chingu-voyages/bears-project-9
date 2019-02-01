@@ -37,7 +37,7 @@ const NavBar = props => {
                 </li>
                 <li>
                   <Badge badgeLabel={cartCount}>
-                    <button onClick={toggleCart} onClick={resetProductFilter}>
+                    <button onClick={toggleCart}>
                       Cart
                     </button>
                   </Badge>
