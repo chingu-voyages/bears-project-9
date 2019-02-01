@@ -185,7 +185,10 @@ class App extends Component {
   };
 
   render() {
-    const cartCount = Object.keys(this.state.cart).length;
+    const cartCount = Object.keys(this.state.cart).reduce((qty, watchId) => {
+      return !watchId ? qty : qty + this.state.cart[watchId]["quantity"];
+    }, 0);
+
     const wishlistCount = Object.keys(this.state.wishlist).length;
 
     return (
