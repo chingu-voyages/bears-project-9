@@ -13,6 +13,11 @@ const NavBar = props => {
     resetProductFilter
   } = props;
 
+  const handleClickSignout = () => {
+    resetProductFilter();
+    logout();
+  };
+
   return (
     <header className="header">
       <div className="header__inner">
@@ -37,15 +42,11 @@ const NavBar = props => {
                 </li>
                 <li>
                   <Badge badgeLabel={cartCount}>
-                    <button onClick={toggleCart}>
-                      Cart
-                    </button>
+                    <button onClick={toggleCart}>Cart</button>
                   </Badge>
                 </li>
                 <li>
-                  <button onClick={logout} onClick={resetProductFilter}>
-                    Sign Out
-                  </button>
+                  <button onClick={handleClickSignout}>Sign Out</button>
                 </li>
               </Fragment>
             ) : (
