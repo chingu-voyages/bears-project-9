@@ -13,6 +13,9 @@ const Landing = props => {
         wishlist={props.wishlist}
         loggedIn={props.loggedIn}
         handleProductFilter={props.handleProductFilter}
+        brandFilterValue={props.brandFilterValue}
+        genderFilterValue={props.genderFilterValue}
+        priceFilterValue={props.priceFilterValue}
       />
     </div>
   );

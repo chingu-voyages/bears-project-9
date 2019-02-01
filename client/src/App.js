@@ -178,9 +178,16 @@ class App extends Component {
     this.setState({ filterFor, filteredData });
   };
 
+  resetProductFilter = () => {
+    const filteredData = [...this.state.watchData];
+    const filterFor = { brand: "", gender: "", price: "" };
+    this.setState({ filteredData, filterFor });
+  };
+
   render() {
     const cartCount = Object.keys(this.state.cart).length;
     const wishlistCount = Object.keys(this.state.wishlist).length;
+
     return (
       <Router>
         <PageWrapper
@@ -195,6 +202,7 @@ class App extends Component {
           toggleCart={this.toggleCart}
           cartCount={cartCount}
           wishlistCount={wishlistCount}
+          resetProductFilter={this.resetProductFilter}
         >
           <Switch>
             <Route exact path="/">
@@ -210,6 +218,9 @@ class App extends Component {
                   filteredData={this.state.filteredData}
                   wishlist={this.state.wishlist}
                   handleProductFilter={this.handleProductFilter}
+                  brandFilterValue={this.state.filterFor.brand}
+                  genderFilterValue={this.state.filterFor.gender}
+                  priceFilterValue={this.state.filterFor.price}
                 />
               )}
             </Route>

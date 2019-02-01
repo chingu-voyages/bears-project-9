@@ -13,6 +13,7 @@ class PageWrapper extends Component {
           toggleCart={this.props.toggleCart}
           wishlistCount={this.props.wishlistCount}
           cartCount={this.props.cartCount}
+          resetProductFilter={this.props.resetProductFilter}
         />
 
         <Cart

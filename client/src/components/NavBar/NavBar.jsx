@@ -4,13 +4,22 @@ import Badge from "../Badge/Badge";
 import "./NavBar.scss";
 
 const NavBar = props => {
-  const { cartCount, wishlistCount, loggedIn, toggleCart, logout } = props;
+  const {
+    cartCount,
+    wishlistCount,
+    loggedIn,
+    toggleCart,
+    logout,
+    resetProductFilter
+  } = props;
 
   return (
     <header className="header">
       <div className="header__inner">
         <h1 className="header__logo">
-          <Link to="/">HOROLOGY</Link>
+          <Link to="/" onClick={resetProductFilter}>
+            HOROLOGY
+          </Link>
         </h1>
         <nav className="header__nav">
           <ul>
@@ -21,21 +30,29 @@ const NavBar = props => {
               <Fragment>
                 <li>
                   <Badge badgeLabel={wishlistCount}>
-                    <Link to="/wishlist">Wishlist</Link>
+                    <Link to="/wishlist" onClick={resetProductFilter}>
+                      Wishlist
+                    </Link>
                   </Badge>
                 </li>
                 <li>
                   <Badge badgeLabel={cartCount}>
-                    <button onClick={toggleCart}>Cart</button>
+                    <button onClick={toggleCart} onClick={resetProductFilter}>
+                      Cart
+                    </button>
                   </Badge>
                 </li>
                 <li>
-                  <button onClick={logout}>Sign Out</button>
+                  <button onClick={logout} onClick={resetProductFilter}>
+                    Sign Out
+                  </button>
                 </li>
               </Fragment>
             ) : (
               <li>
-                <Link to="/signin">Sign In</Link>
+                <Link to="/signin" onClick={resetProductFilter}>
+                  Sign In
+                </Link>
               </li>
             )}
           </ul>
