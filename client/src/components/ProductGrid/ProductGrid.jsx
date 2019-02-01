@@ -12,7 +12,10 @@ const ProductGrid = props => {
     addToWishlist,
     removeFromWishlist,
     addToCart,
-    handleProductFilter
+    handleProductFilter,
+    brandFilterValue,
+    genderFilterValue,
+    priceFilterValue
   } = props;
 
   const brandOptions = filteredData
@@ -21,18 +24,21 @@ const ProductGrid = props => {
       if (!opts.includes(brands)) opts.push(brands);
       return opts;
     }, []);
+  brandOptions.unshift("Brand");
   const genderOptions = filteredData
     .map(watch => watch.gender)
     .reduce((opts, genders) => {
       if (!opts.includes(genders)) opts.push(genders);
       return opts;
     }, []);
+  genderOptions.unshift("Gender");
   const priceOptions = filteredData
     .map(watch => watch.price)
     .reduce((opts, prices) => {
       if (!opts.includes(prices)) opts.push(prices);
       return opts;
     }, []);
+  priceOptions.unshift("Price");
 
   return (
     <div className="productGrid">
@@ -41,16 +47,19 @@ const ProductGrid = props => {
           categoryName="Brand"
           filterHandler={handleProductFilter}
           options={brandOptions}
+          value={brandFilterValue}
         />
         <ProductFilter
           categoryName="Gender"
           filterHandler={handleProductFilter}
           options={genderOptions}
+          value={genderFilterValue}
         />
         <ProductFilter
           categoryName="Price"
           filterHandler={handleProductFilter}
           options={priceOptions}
+          value={priceFilterValue}
         />
       </div>
 
