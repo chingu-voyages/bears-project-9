@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import PageWrapper from "./components/PageWrapper/PageWrapper";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
+import Admin from "./pages/Admin/Admin";
 import { API } from "./utils";
 import "./styles/App.sass";
 import axios from "axios";
@@ -18,6 +19,7 @@ class App extends Component {
     watchData: [],
     filteredData: [],
     loggedIn: false,
+    isAdmin: false,
     showCart: false,
     wishlist: {},
     user: {},
@@ -45,6 +47,7 @@ class App extends Component {
     // add logic here to reconcile guest cart, held in localStorage
     // with user cart, held in db
     this.setState({
+      isAdmin: user.admin,
       cart,
       loggedIn: true,
       user,
@@ -197,6 +200,7 @@ class App extends Component {
           addOneToQty={this.addOneToQty}
           cart={this.state.cart}
           cartLoading={this.state.cartLoading}
+          isAdmin={this.state.isAdmin}
           loggedIn={this.state.loggedIn}
           logout={this.logout}
           removeFromCart={this.removeFromCart}
@@ -240,15 +244,16 @@ class App extends Component {
 
             <Route exact path="/wishlist">
               {routeProps => (
-                <Wishlist
-                  {...routeProps}
-                  addToCart={this.addToCart}
-                  removeFromWishlist={this.removeFromWishlist}
-                  loggedIn={this.state.loggedIn}
-                  logout={this.logout}
-                  watchData={this.state.watchData}
-                  wishlist={this.state.wishlist}
-                />
+                this.state.loggedIn
+                  ? (
+                    <Wishlist
+                      {...routeProps}
+                      addToCart={this.addToCart}
+                      removeFromWishlist={this.removeFromWishlist}
+                      watchData={this.state.watchData}
+                      wishlist={this.state.wishlist}
+                    />
+                  ) : <Redirect to="/" />
               )}
             </Route>
 
@@ -261,6 +266,23 @@ class App extends Component {
                   logout={this.logout}
                   signup={this.signup}
                 />
+              )}
+            </Route>
+
+            <Route exact path="/admin">
+              {routeProps => (
+                this.state.isAdmin
+                  ? (
+                    <Admin
+                      {...routeProps}
+                      logout={this.logout}
+                      watchData={this.state.watchData}
+                      handleProductFilter={this.handleProductFilter}
+                      brandFilterValue={this.state.filterFor.brand}
+                      genderFilterValue={this.state.filterFor.gender}
+                      priceFilterValue={this.state.filterFor.price}
+                    />
+                  ) : <Redirect to="/" />
               )}
             </Route>
           </Switch>

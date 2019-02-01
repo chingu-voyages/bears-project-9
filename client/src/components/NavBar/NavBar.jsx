@@ -6,6 +6,7 @@ import "./NavBar.scss";
 const NavBar = props => {
   const {
     cartCount,
+    isAdmin,
     wishlistCount,
     loggedIn,
     toggleCart,
@@ -28,6 +29,12 @@ const NavBar = props => {
         </h1>
         <nav className="header__nav">
           <ul>
+            {isAdmin &&
+              <li>
+                <Link to="/admin" onClick={resetProductFilter}>
+                  Admin
+                </Link>
+              </li>}
             <li>
               <Link to="/about">About</Link>
             </li>
@@ -50,12 +57,12 @@ const NavBar = props => {
                 </li>
               </Fragment>
             ) : (
-              <li>
-                <Link to="/signin" onClick={resetProductFilter}>
-                  Sign In
+                <li>
+                  <Link to="/signin" onClick={resetProductFilter}>
+                    Sign In
                 </Link>
-              </li>
-            )}
+                </li>
+              )}
           </ul>
         </nav>
       </div>

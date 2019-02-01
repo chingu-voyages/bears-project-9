@@ -8,6 +8,7 @@ class PageWrapper extends Component {
     return (
       <div className="page-wrapper">
         <NavBar
+          isAdmin={this.props.isAdmin}
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
           toggleCart={this.props.toggleCart}

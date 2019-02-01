@@ -79,11 +79,22 @@ async function createUsers() {
     const users = await User.bulkCreate([
       {
         username: "tara",
-        password: bcrypt.hashSync("tara", bcrypt.genSaltSync(10), null)
+        password: bcrypt.hashSync("tara", bcrypt.genSaltSync(10), null),
+        admin: true
       },
       {
         username: "john",
-        password: bcrypt.hashSync("john", bcrypt.genSaltSync(10), null)
+        password: bcrypt.hashSync("john", bcrypt.genSaltSync(10), null),
+        admin: true
+      },
+      {
+        username: "test",
+        password: bcrypt.hashSync("test", bcrypt.genSaltSync(10), null),
+        admin: true
+      },
+      {
+        username: "user",
+        password: bcrypt.hashSync("test", bcrypt.genSaltSync(10), null)
       }
     ]);
   } catch (e) {
