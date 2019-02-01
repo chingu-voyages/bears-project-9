@@ -7,9 +7,6 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import { API } from "./utils";
 import "./styles/App.sass";
-import axios from "axios";
-
-const BASE_URL = "http://localhost:3001";
 
 class App extends Component {
   state = {
@@ -20,19 +17,57 @@ class App extends Component {
     loggedIn: false,
     showCart: false,
     wishlist: {},
+    token: '',
     user: {},
     filterFor: { brand: "", gender: "", price: "" }
   };
 
-  async fetchWatches() {
-    const resp = await axios.get(`${BASE_URL}/watches`);
-    this.setState({ watchData: resp.data, filteredData: resp.data });
-    console.log(this.state.watchData);
+  fetchWatches = async () => {
+    const resp = await API.getWatches();
+    this.setState({
+      watchData: resp.data,
+      filteredData: resp.data
+    });
     return resp.data;
   }
 
   async componentDidMount() {
     await this.fetchWatches();
+
+    if (localStorage.getItem('token')) {
+
+      this.setState({
+        loggedIn: true,
+        token: localStorage.getItem('token')
+      });
+
+      await this.getCurrentUser();
+    }
+  }
+
+  buildHeaders() {
+    const { token } = this.state;
+
+    return {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+  }
+  async getCurrentUser() {
+    try {
+      const headers = this.buildHeaders();
+      const resp = await API.currentuser(headers);
+      console.log(resp.data);
+      console.log(resp.data.user);
+
+      this.setState({
+        loggedIn: true,
+        user: resp.data.user
+      });
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   login = async userData => {
@@ -50,11 +85,13 @@ class App extends Component {
       user,
       wishlist
     });
+    localStorage.setItem('token', token);
   };
 
   logout = () => {
     // remove token, destroy session, etc.
     this.setState({ loggedIn: false, user: "" });
+    localStorage.removeItem('token');
   };
 
   signup = async userData => {
