@@ -16,6 +16,16 @@ const app = express();
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
+
+
+app.get('/verify', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({msg: 'logged in'});
+});
+
+app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({msg: 'logged in', user: req.user });
+});
+
 app.use('/watches', watchesRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);

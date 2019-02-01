@@ -11,6 +11,14 @@ export const API = {
     return axios.post(`${BASE_URL}/users`, userData);
   },
 
+  currentuser: function (headers) {
+    return axios.get(`${BASE_URL}/currentuser`, {...headers});
+  },
+
+  getWatches: function () {
+    return axios.get(`${BASE_URL}/watches`);
+  },
+
   updateUser: function (id, userData) {
     return axios.put(`${BASE_URL}/users/${id}`, userData)
   }
