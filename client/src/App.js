@@ -56,16 +56,25 @@ class App extends Component {
       }
     };
   }
+
   async getCurrentUser() {
     try {
       const headers = this.buildHeaders();
       const resp = await API.currentuser(headers);
       console.log(resp.data);
       console.log(resp.data.user);
+      const user = resp.data.user;
+      let cart = {};
+      let wishlist = {};
+      if (user.cart) cart = JSON.parse(user.cart);
+      if (user.wishlist) wishlist = JSON.parse(user.wishlist);
 
       this.setState({
+        isAdmin: user.admin,
         loggedIn: true,
-        user: resp.data.user
+        cart,
+        wishlist,
+        user
       });
     } catch(e) {
       console.log(e);
@@ -312,6 +321,7 @@ class App extends Component {
                   ? (
                     <Admin
                       {...routeProps}
+                      fetchWatches={this.fetchWatches}
                       logout={this.logout}
                       watchData={this.state.watchData}
                       handleProductFilter={this.handleProductFilter}

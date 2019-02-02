@@ -1,16 +1,20 @@
-const adminRouter = require("express").Router();
+const express = require("express");
+const adminRouter = express();
 const adminController = require("../controllers/adminController");
+const db = require("../models");
 
-adminRouter.route("/")
-  .get(adminController.getAllWatches)
-  .post(adminController.createNewWatch);
+adminRouter.route("/watch")
+  .get(adminController.adminGetWatches)
+  .post(adminController.adminCreateWatch);
 
-adminRouter.route("/:id")
-  .get(adminController.getSingleWatch)
-  .put(adminController.updateWatch)
-  .delete(adminController.deleteWatch);
+adminRouter.route("/watch/:id")
+  .get(adminController.adminGetWatch)
+  .put(adminController.adminUpdateWatch)
+  .delete(adminController.adminDeleteWatch);
+
 
 // function isAdmin(req, res, next) {
+//   console.log(req);
 //   if (req.isAuthenticated())
 //     return next();
 //   res.json({ isAuthenticated: false });
