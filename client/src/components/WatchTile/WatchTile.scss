@@ -1,15 +1,24 @@
 @import "../../styles/_variables.sass";
 
-.watchURL {
-  width: 300px;
-  height: 300px;
-  padding: 5%;
-}
-
 .watchTile {
+  border: 1px solid #393939;
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  margin: 10px 10px 75px 10px;
   text-align: center;
+  width: 300px;
+  img {
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+  div {
+    margin-top: 5px;
+    width: 100%;
+  }
 }
 
-.watchTile p{
+.watchTile p {
   color: $primary-font-color;
 }

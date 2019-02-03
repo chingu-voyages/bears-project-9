@@ -1,10 +1,10 @@
 @import "../../styles/_variables.sass";
 
-.form label, .form input {
+.form label, .form input, .form textarea {
   width: 100%;
 }
 
-.login-form, .signup-form {
+.login-form, .signup-form, .watch-form {
   width: 300px;
   margin: 100px auto;
 }
@@ -18,4 +18,9 @@
   border: none;
   outline: transparent;
   text-decoration: underline;
+}
+
+.watch-form_submit {
+  margin: 10px auto;
+  width: 100px;
 }

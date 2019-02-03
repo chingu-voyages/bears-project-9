@@ -13,9 +13,18 @@ const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
   description: Sequelize.STRING,
   price: Sequelize.INTEGER,
-  image: Sequelize.STRING,
-  image30: Sequelize.STRING,
-  image400: Sequelize.STRING,
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: "https://via.placeholder.com/600/92c952"
+  },
+  image30: {
+    type: Sequelize.STRING,
+    defaultValue: "https://via.placeholder.com/30/92c952"
+  },
+  image400: {
+    type: Sequelize.STRING,
+    defaultValue: "https://via.placeholder.com/400/92c952"
+  },
   brand: Sequelize.STRING,
   gender: Sequelize.STRING
 });

@@ -81,7 +81,7 @@ const ProductGrid = props => {
                     productName={watch.name}
                     productDescription={watch.description}
                     productPrice={watch.price}
-                    productURL={watch.image}
+                    productURL={watch.image400}
                     productBrand={watch.brand}
                     productGender={watch.gender}
                     key={watch.id}
@@ -97,7 +97,7 @@ const ProductGrid = props => {
                   productName={watch.name}
                   productDescription={watch.description}
                   productPrice={watch.price}
-                  productURL={watch.image}
+                  productURL={watch.image400}
                   productBrand={watch.brand}
                   productGender={watch.gender}
                   key={watch.id}
