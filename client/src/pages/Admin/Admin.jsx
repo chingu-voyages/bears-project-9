@@ -47,7 +47,10 @@ class Admin extends Component {
             )}
 
             {watchForm && (
-              <AddWatch />
+              <AddWatch
+                fetchWatches={this.props.fetchWatches}
+                toggleDisplay={this.toggleDisplay}
+              />
             )}
 
             {users && (

@@ -46,6 +46,7 @@ export class AddWatch extends Component {
       watchData.image = file.secure_url;
       watchData.image400 = file.eager[0].secure_url;
       watchData.image30 = file.eager[1].secure_url;
+      watchData.publicId = file.public_id;
     }
     API.createWatch(watchData);
   }

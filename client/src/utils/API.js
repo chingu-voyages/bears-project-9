@@ -33,5 +33,9 @@ export const API = {
 
   deleteWatch: function (id) {
     return axios.delete(`${BASE_URL}/admin/watch/${id}`);
-  }
+  },
+
+  removeImage: function (id, watchData) {
+    return axios.put(`${BASE_URL}/admin/image/${id}`, watchData)
+  },
 }

@@ -8,9 +8,11 @@ adminRouter.route("/watch")
   .post(adminController.adminCreateWatch);
 
 adminRouter.route("/watch/:id")
-  .get(adminController.adminGetWatch)
   .put(adminController.adminUpdateWatch)
   .delete(adminController.adminDeleteWatch);
+
+adminRouter.route("/image/:id")
+  .put(adminController.removeImage);
 
 
 // function isAdmin(req, res, next) {

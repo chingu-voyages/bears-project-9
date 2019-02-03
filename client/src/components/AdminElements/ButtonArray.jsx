@@ -8,22 +8,22 @@ export class ButtonArray extends Component {
       <div className={this.props.className}>
       <button
         disabled={watchForm}
-        onClick={() => this.props.stateChange("watchForm")}>
+        onClick={() => this.props.toggleDisplay("watchForm")}>
         Add Watch
        </button>
       <button
         disabled={userForm}
-        onClick={() => this.props.stateChange("userForm")}>
+        onClick={() => this.props.toggleDisplay("userForm")}>
         Add User
        </button>
       <button
         disabled={watches}
-        onClick={() => this.props.stateChange("watches")}>
+        onClick={() => this.props.toggleDisplay("watches")}>
         Watches
        </button>
       <button
         disabled={users}
-        onClick={() => this.props.stateChange("users")}>
+        onClick={() => this.props.toggleDisplay("users")}>
         Users
        </button>
     </div>

@@ -4,9 +4,12 @@ import { API } from "../../utils/API";
 import "react-table/react-table.css";
 import "./Tables.scss";
 
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload/`
+
 export class WatchTable extends Component {
   state = {
-    watchData: this.props.watchData
+    watchData: this.props.watchData,
+    data: ''
   }
 
   updateRow = async row => {
@@ -29,10 +32,94 @@ export class WatchTable extends Component {
     this.setState({ watchData });
   }
 
+  deleteWatchModal = id => {
+    this.props.setModal({
+      body: (
+        <h2>Are you sure you want to delete this watch?</h2>
+      ),
+      buttons: (
+        <Fragment>
+          <button onClick={() => this.deleteWatch(id)}>Yes, delete it</button>
+          <button onClick={this.props.closeModal}>Cancel</button>
+        </Fragment>
+      )
+    })
+  }
+
   deleteWatch = async id => {
     await API.deleteWatch(id);
     const watchData = await this.props.fetchWatches();
     this.setState({ watchData });
+  }
+
+  imageModal = row => {
+    const { brand, name, id, image, publicId } = row.original;
+    console.log(publicId);
+    this.props.setModal({
+      body: <img src={image} alt={`${brand} - ${name}`} />,
+      buttons: (
+        <Fragment>
+          <button onClick={() => this.removeImage(id, { publicId: publicId })}>Delete</button>
+          <button onClick={this.props.closeModal}>Close</button>
+        </Fragment>
+      )
+    })
+  }
+
+  handleSelectImage = async event => {
+    const files = event.target.files;
+    if (!files[0].type.includes('image')) return;
+    const data = new FormData();
+    await data.append("file", files[0]);
+    await data.append("upload_preset", "horology");
+    this.setState({ data });
+  }
+
+  saveImageToCloud = async () => {
+    const res = await fetch(CLOUDINARY_URL, {
+      method: "POST",
+      body: this.state.data
+    });
+    const file = await res.json();
+    return file;
+  }
+
+  addImageToWatch = async id => {
+    if (this.state.data) {
+      const watchData = {};
+      const file = await this.saveImageToCloud();
+      console.log(file);
+      watchData.image = file.secure_url;
+      watchData.image400 = file.eager[0].secure_url;
+      watchData.image30 = file.eager[1].secure_url;
+      watchData.publicId = file.public_id;
+      const watch = await API.updateWatch(id, watchData)
+      console.log(watch);
+    }
+  }
+
+  removeImage = (id, imageData) => {
+    API.removeImage(id, imageData);
+  }
+
+  uploadImageModal = row => {
+    this.props.setModal({
+      body:
+        <input
+          type="file"
+          id="file"
+          name="file"
+          onChange={this.handleSelectImage}
+          placeholder="upload an image"
+        />,
+      buttons: (
+        <Fragment>
+          <button onClick={() => this.addImageToWatch(row.original.id)}>Upload</button>
+          <button onClick={this.props.closeModal}>Cancel</button>
+        </Fragment>
+      )
+    })
+
   }
 
   // editable react table
@@ -70,15 +157,24 @@ export class WatchTable extends Component {
                   <i className="fas fa-save" />
                 </button>
                 <button
+                  disabled={row.original.image}
                   onClick={() => this.uploadImageModal(row)}
-                  title="upload new image"
+                  title={row.original.image
+                    ? "you must delete the existing image before you can upload another"
+                    : "upload new image"}
                 >
                   <i className="fas fa-upload" />
                 </button>
-                <button onClick={() => this.imageModal(row)} title="see image">
+                <button
+                  disabled={!row.original.image}
+                  onClick={() => this.imageModal(row)}
+                  title={!row.original.image
+                    ? "there is no image uploaded for this watch"
+                    : "see image"}
+                >
                   <i className="fas fa-images" />
                 </button>
-                <button onClick={() => this.deleteWatch(row.original.id)} title="delete watch">
+                <button onClick={() => this.deleteWatchModal(row.original.id)} title="delete watch">
                   <i className="fas fa-trash-alt" />
                 </button>
               </div>
