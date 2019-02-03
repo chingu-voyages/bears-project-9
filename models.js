@@ -15,9 +15,10 @@ const Watch = sequelize.define("watches", {
   price: Sequelize.INTEGER,
   image: Sequelize.STRING,
   image30: Sequelize.STRING,
-  image400: Sequelize.STRING,
+  image400:Sequelize.STRING,
   brand: Sequelize.STRING,
-  gender: Sequelize.STRING
+  gender: Sequelize.STRING,
+  publicId: Sequelize.STRING
 });
 
 const User = sequelize.define("users", {

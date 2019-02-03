@@ -22,6 +22,9 @@ class WishlistItem extends PureComponent {
     const { addToCart, removeFromWishlist, watch } = this.props;
     const { id, name, price, gender, image30 } = watch;
     const altDesc = `${name} - ${gender}`;
+    const imageURL = image30
+      ? image30
+      : "https://via.placeholder.com/30/92c952";
 
     return (
       <div className="wishlist-item" id={id}>
@@ -29,7 +32,7 @@ class WishlistItem extends PureComponent {
           <img
             className="wishlist-img"
             alt={altDesc}
-            src={image30}
+            src={imageURL}
             onClick={this.itemModal}
           />
         </div>

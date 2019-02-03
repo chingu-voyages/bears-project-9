@@ -6,7 +6,7 @@ const WatchTile = props => {
   const { addToCart, productId, productName, productPrice, productURL } = props;
   return (
     <div className="watchTile">
-      <img className="watchURL" alt="watch" src={productURL} />
+      <img alt="watch" src={productURL} />
       <div>
         <h3>{productName}</h3>
         <p>${productPrice}</p>

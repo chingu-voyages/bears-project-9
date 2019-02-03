@@ -20,6 +20,7 @@ class PageWrapper extends Component {
         <Cart
           addOneToQty={this.props.addOneToQty}
           cart={this.props.cart}
+          cartData={this.props.cartData}
           cartLoading={this.props.cartLoading}
           removeFromCart={this.props.removeFromCart}
           showCart={this.props.showCart}

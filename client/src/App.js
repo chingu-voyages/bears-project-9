@@ -6,12 +6,13 @@ import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Admin from "./pages/Admin/Admin";
-import { API } from "./utils";
+import { API, utils } from "./utils";
 import "./styles/App.sass";
 
 class App extends Component {
   state = {
     cart: {},
+    cartData: {},
     cartLoading: false,
     watchData: [],
     filteredData: [],
@@ -58,6 +59,7 @@ class App extends Component {
   }
 
   async getCurrentUser() {
+    const { watchData } = this.state;
     try {
       const headers = this.buildHeaders();
       const resp = await API.currentuser(headers);
@@ -66,17 +68,25 @@ class App extends Component {
       const user = resp.data.user;
       let cart = {};
       let wishlist = {};
-      if (user.cart) cart = JSON.parse(user.cart);
+      let cartData = {};
+
+      if (user.cart) {
+        const oldCart = JSON.parse(user.cart);
+        cart = utils.checkCartItems(watchData, oldCart);
+        cartData = utils.parseCartData(watchData, cart)
+      };
       if (user.wishlist) wishlist = JSON.parse(user.wishlist);
+
 
       this.setState({
         isAdmin: user.admin,
         loggedIn: true,
         cart,
+        cartData,
         wishlist,
         user
       });
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -84,15 +94,25 @@ class App extends Component {
   login = async userData => {
     const res = await API.login(userData);
     const { token, user } = res.data;
+    const { watchData } = this.state;
     let cart = {};
     let wishlist = {};
-    if (user.cart) cart = JSON.parse(user.cart);
+    let cartData = {};
+
+    if (user.cart) {
+      const oldCart = JSON.parse(user.cart);
+      cart = utils.checkCartItems(watchData, oldCart);
+      cartData = utils.parseCartData(watchData, cart)
+    }
+
     if (user.wishlist) wishlist = JSON.parse(user.wishlist);
+    // if we want to allow guest shopping carts,
     // add logic here to reconcile guest cart, held in localStorage
     // with user cart, held in db
     this.setState({
       isAdmin: user.admin,
       cart,
+      cartData,
       loggedIn: true,
       user,
       wishlist
@@ -121,71 +141,85 @@ class App extends Component {
 
   addToCart = async id => {
     await this.setState({ cartLoading: true });
-    const { cart, user, watchData } = this.state;
-    const watch = watchData.filter(watch => watch.id === id);
+    const { user, watchData } = this.state;
+
     let quantity;
-    if (cart[id]) quantity = cart[id].quantity + 1;
+    if (this.state.cart[id])
+      quantity = this.state.cart[id].quantity + 1;
     else quantity = 1;
-    const newCart = {
-      ...cart,
-      [id]: {
-        ...watch[0],
-        quantity
-      }
-    };
-    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+
+    const cart = { ...this.state.cart };
+    cart[id] = { id, quantity };
+
+    const oldCartData = { ...this.state.cartData };
+    const cartData = utils.parseCartData(watchData, cart, oldCartData);
+
+    localStorage.setItem("horology-cart", JSON.stringify(cart));
+
     if (this.state.loggedIn)
-      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+      await API.updateUser(user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
-    // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+    // which might make it appear like a glitch rather than a loading indicator
+    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
   };
 
   removeFromCart = async id => {
     await this.setState({ cartLoading: true });
-    const { cart, user } = this.state;
-    const newCart = {
-      ...cart
-    };
-    delete newCart[id];
-    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+
+    const cart = { ...this.state.cart };
+    delete cart[id];
+
+    const cartData = { ...this.state.cartData };
+    delete cartData[id];
+
+    localStorage.setItem("horology-cart", JSON.stringify(cart));
+
     if (this.state.loggedIn)
-      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+      await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
   };
 
   addOneToQty = async id => {
     await this.setState({ cartLoading: true });
-    const { cart, user } = this.state;
-    const newCart = {
-      ...cart
-    };
-    newCart[id].quantity = cart[id].quantity + 1;
-    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+
+    const cart = { ...this.state.cart };
+    cart[id].quantity = cart[id].quantity + 1;
+
+    const cartData = { ...this.state.cartData };
+    cartData[id].quantity = cartData[id].quantity + 1;
+
+    localStorage.setItem("horology-cart", JSON.stringify(cart));
+
     if (this.state.loggedIn)
-      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+      await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
   };
 
   subtractOneFromQty = async id => {
     await this.setState({ cartLoading: true });
-    const { cart, user } = this.state;
-    if (cart[id].quantity === 1) return this.removeFromCart(id);
-    const quantity = cart[id].quantity - 1;
-    const newCart = {
-      ...cart
-    };
-    newCart[id].quantity = quantity;
-    localStorage.setItem("horology-cart", JSON.stringify(newCart));
+
+    if (this.state.cart[id].quantity === 1)
+      return this.removeFromCart(id);
+
+    const quantity = this.state.cart[id].quantity - 1;
+
+    const cart = { ...this.state.cart };
+    cart[id].quantity = quantity;
+
+    const cartData = { ...this.state.cartData };
+    cartData[id].quantity = quantity;
+
+    localStorage.setItem("horology-cart", JSON.stringify(cart));
+
     if (this.state.loggedIn)
-      await API.updateUser(user.id, { cart: JSON.stringify(newCart) });
+      await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart: newCart, cartLoading: false }), 500);
+    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
   };
 
   addToWishlist = id => {
@@ -245,6 +279,7 @@ class App extends Component {
         <PageWrapper
           addOneToQty={this.addOneToQty}
           cart={this.state.cart}
+          cartData={this.state.cartData}
           cartLoading={this.state.cartLoading}
           isAdmin={this.state.isAdmin}
           loggedIn={this.state.loggedIn}
@@ -324,10 +359,6 @@ class App extends Component {
                       fetchWatches={this.fetchWatches}
                       logout={this.logout}
                       watchData={this.state.watchData}
-                      handleProductFilter={this.handleProductFilter}
-                      brandFilterValue={this.state.filterFor.brand}
-                      genderFilterValue={this.state.filterFor.gender}
-                      priceFilterValue={this.state.filterFor.price}
                     />
                   ) : <Redirect to="/" />
               )}
