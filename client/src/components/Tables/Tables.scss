@@ -1,0 +1,15 @@
+@import "../../styles/_variables.sass";
+
+.rt-th {
+  text-align: left;
+}
+
+.table-action-icons {
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    outline: transparent;
+  }
+}

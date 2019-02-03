@@ -23,6 +23,10 @@ const Watch = sequelize.define("watches", {
 const User = sequelize.define("users", {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   wishlist: Sequelize.TEXT,
   cart: Sequelize.TEXT
 });

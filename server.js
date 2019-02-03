@@ -8,6 +8,7 @@ const { Watch, User } = require('./models');
 
 const { watchesRouter } = require('./routes/watches');
 const { usersRouter } = require('./routes/users');
+const { adminRouter } = require('./routes/admin');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -27,6 +28,7 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 
 app.use('/watches', watchesRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
