@@ -1,16 +1,28 @@
 import React, { Component, Fragment } from 'react';
 import Modal from "../../components/Modal/Modal";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import { AddWatch } from "../../components/Forms";
-import { ButtonArray, WatchTable } from "../../components/AdminElements";
+import { ButtonArray, UserTable, WatchTable } from "../../components/AdminElements";
 import { API } from "../../utils";
 import "./Admin.sass";
 
 class Admin extends Component {
   state = {
     users: false,
+    userData: '',
     userForm: false,
     watches: true,
     watchForm: false
+  }
+
+  async componentDidMount() {
+    await this.fetchUsers();
+  }
+
+  fetchUsers = async () => {
+    const res = await API.getUsers();
+    this.setState({ userData: res.data });
+    return res.data;
   }
 
   toggleDisplay = toShow => {
@@ -26,44 +38,51 @@ class Admin extends Component {
   }
 
   render() {
-    const { users, userForm, watches, watchForm } = this.state;
+    const { users, userData, userForm, watches, watchForm } = this.state;
+    const { props } = this;
+    console.log(userData);
     return (
-      <Modal>
-        {modalProps => (
-          <Fragment>
-            <h2 className="admin__title">Admin Page</h2>
-            <ButtonArray
-              className="admin__btn-wrapper"
-              state={this.state}
-              toggleDisplay={this.toggleDisplay}
-            />
-
-            {watches && (
-              <WatchTable
-                {...modalProps}
-                fetchWatches={this.props.fetchWatches}
-                watchData={this.props.watchData}
-              />
-            )}
-
-            {watchForm && (
-              <AddWatch
-                fetchWatches={this.props.fetchWatches}
+      <PageWrapper {...props.sharedProps}>
+        <Modal>
+          {modalProps => (
+            <Fragment>
+              <h2 className="admin__title">Admin Page</h2>
+              <ButtonArray
+                className="admin__btn-wrapper"
+                state={this.state}
                 toggleDisplay={this.toggleDisplay}
               />
-            )}
 
-            {users && (
-              "Here are all the users."
-            )}
+              {watches && (
+                <WatchTable
+                  {...modalProps}
+                  fetchWatches={this.props.fetchWatches}
+                  watchData={this.props.watchData}
+                />
+              )}
 
-            {userForm && (
-              "Do you want to add a new user?"
-            )}
+              {watchForm && (
+                <AddWatch
+                  fetchWatches={this.props.fetchWatches}
+                  toggleDisplay={this.toggleDisplay}
+                />
+              )}
 
-          </Fragment>
-        )}
-      </Modal>
+              {users && (
+                <UserTable
+                  fetchUsers={this.fetchUsers}
+                  userData={this.state.userData}
+                />
+              )}
+
+              {userForm && (
+                "Do you want to add a new user?"
+              )}
+
+            </Fragment>
+          )}
+        </Modal>
+      </PageWrapper>
     );
   }
 }

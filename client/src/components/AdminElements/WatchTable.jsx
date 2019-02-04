@@ -8,8 +8,14 @@ const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_
 
 export class WatchTable extends Component {
   state = {
+    imageUrl: "",
     watchData: this.props.watchData,
     data: ''
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   updateRow = async row => {
@@ -86,32 +92,41 @@ export class WatchTable extends Component {
 
   addImageToWatch = async id => {
     if (this.state.data) {
-      const watchData = {};
+      const watchImageData = {};
       const file = await this.saveImageToCloud();
       console.log(file);
-      watchData.image = file.secure_url;
-      watchData.image400 = file.eager[0].secure_url;
-      watchData.image30 = file.eager[1].secure_url;
-      watchData.publicId = file.public_id;
-      const watch = await API.updateWatch(id, watchData)
-      console.log(watch);
+      watchImageData.image = file.secure_url;
+      watchImageData.image400 = file.eager[0].secure_url;
+      watchImageData.image30 = file.eager[1].secure_url;
+      watchImageData.publicId = file.public_id;
+      await API.updateWatch(id, watchImageData);
+      const watchData = await this.props.fetchWatches();
+      this.setState({ watchData });
+      this.props.closeModal();
     }
   }
 
-  removeImage = (id, imageData) => {
-    API.removeImage(id, imageData);
+  removeImage = async (id, imageData) => {
+    await API.removeImage(id, imageData);
+    const watchData = await this.props.fetchWatches();
+    this.setState({ watchData });
+    this.props.closeModal();
   }
 
   uploadImageModal = row => {
     this.props.setModal({
-      body:
-        <input
-          type="file"
-          id="file"
-          name="file"
-          onChange={this.handleSelectImage}
-          placeholder="upload an image"
-        />,
+      body: (
+        <Fragment>
+          <label>Image upload:</label>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            onChange={this.handleSelectImage}
+            placeholder="upload an image"
+          />
+        </Fragment>
+      ),
       buttons: (
         <Fragment>
           <button onClick={() => this.addImageToWatch(row.original.id)}>Upload</button>

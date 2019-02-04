@@ -5,6 +5,7 @@ import AddToWishlist from "../AddToWishlist/AddToWishlist";
 import ProductFilter from "../ProductFilter/ProductFilter";
 
 const ProductGrid = props => {
+  console.log(props.loggedIn);
   const {
     loggedIn,
     filteredData,

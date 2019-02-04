@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
-import PageWrapper from "./components/PageWrapper/PageWrapper";
+import Cart from "./components/Cart/Cart";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
@@ -274,97 +274,94 @@ class App extends Component {
 
     const wishlistCount = Object.keys(this.state.wishlist).length;
 
+    const sharedProps = {
+      addOneToQty: this.addOneToQty,
+      cartCount,
+      cartData: this.state.cartData,
+      cartLoading: this.state.cartLoading,
+      isAdmin: this.state.isAdmin,
+      loggedIn: this.state.loggedIn,
+      logout: this.logout,
+      removeFromCart: this.removeFromCart,
+      resetProductFilter: this.resetProductFilter,
+      showCart: this.state.showCart,
+      subtractOneFromQty: this.subtractOneFromQty,
+      toggleCart: this.toggleCart,
+      wishlistCount
+    }
+
     return (
       <Router>
-        <PageWrapper
-          addOneToQty={this.addOneToQty}
-          cart={this.state.cart}
-          cartData={this.state.cartData}
-          cartLoading={this.state.cartLoading}
-          isAdmin={this.state.isAdmin}
-          loggedIn={this.state.loggedIn}
-          logout={this.logout}
-          removeFromCart={this.removeFromCart}
-          showCart={this.state.showCart}
-          subtractOneFromQty={this.subtractOneFromQty}
-          toggleCart={this.toggleCart}
-          cartCount={cartCount}
-          wishlistCount={wishlistCount}
-          resetProductFilter={this.resetProductFilter}
-        >
-          <Switch>
-            <Route exact path="/">
-              {routeProps => (
-                <Landing
-                  {...routeProps}
-                  addToCart={this.addToCart}
-                  addToWishlist={this.addToWishlist}
-                  removeFromWishlist={this.removeFromWishlist}
-                  loggedIn={this.state.loggedIn}
-                  logout={this.logout}
-                  watchData={this.state.watchData}
-                  filteredData={this.state.filteredData}
-                  wishlist={this.state.wishlist}
-                  handleProductFilter={this.handleProductFilter}
-                  brandFilterValue={this.state.filterFor.brand}
-                  genderFilterValue={this.state.filterFor.gender}
-                  priceFilterValue={this.state.filterFor.price}
-                />
-              )}
-            </Route>
+        <Switch>
+          <Route exact path="/">
+            {routeProps => (
+              <Landing
+                {...routeProps}
+                addToCart={this.addToCart}
+                addToWishlist={this.addToWishlist}
+                brandFilterValue={this.state.filterFor.brand}
+                filteredData={this.state.filteredData}
+                genderFilterValue={this.state.filterFor.gender}
+                handleProductFilter={this.handleProductFilter}
+                priceFilterValue={this.state.filterFor.price}
+                removeFromWishlist={this.removeFromWishlist}
+                sharedProps={sharedProps}
+                watchData={this.state.watchData}
+                wishlist={this.state.wishlist}
+              />
+            )}
+          </Route>
 
-            <Route exact path="/about">
-              {routeProps => (
-                <About
-                  {...routeProps}
-                  loggedIn={this.state.loggedIn}
-                  logout={this.logout}
-                />
-              )}
-            </Route>
+          <Route exact path="/about">
+            {routeProps => (
+              <About
+                {...routeProps}
+                sharedProps={sharedProps}
+              />
+            )}
+          </Route>
 
-            <Route exact path="/wishlist">
-              {routeProps => (
-                this.state.loggedIn
-                  ? (
-                    <Wishlist
-                      {...routeProps}
-                      addToCart={this.addToCart}
-                      removeFromWishlist={this.removeFromWishlist}
-                      watchData={this.state.watchData}
-                      wishlist={this.state.wishlist}
-                    />
-                  ) : <Redirect to="/" />
-              )}
-            </Route>
+          <Route exact path="/wishlist">
+            {routeProps => (
+              this.state.loggedIn
+                ? (
+                  <Wishlist
+                    {...routeProps}
+                    addToCart={this.addToCart}
+                    removeFromWishlist={this.removeFromWishlist}
+                    sharedProps={sharedProps}
+                    watchData={this.state.watchData}
+                    wishlist={this.state.wishlist}
+                  />
+                ) : <Redirect to="/" />
+            )}
+          </Route>
 
-            <Route exact path="/signin">
-              {routeProps => (
-                <Authenticate
-                  {...routeProps}
-                  loggedIn={this.state.loggedIn}
-                  login={this.login}
-                  logout={this.logout}
-                  signup={this.signup}
-                />
-              )}
-            </Route>
+          <Route exact path="/signin">
+            {routeProps => (
+              <Authenticate
+                {...routeProps}
+                login={this.login}
+                sharedProps={sharedProps}
+                signup={this.signup}
+              />
+            )}
+          </Route>
 
-            <Route exact path="/admin">
-              {routeProps => (
-                this.state.isAdmin
-                  ? (
-                    <Admin
-                      {...routeProps}
-                      fetchWatches={this.fetchWatches}
-                      logout={this.logout}
-                      watchData={this.state.watchData}
-                    />
-                  ) : <Redirect to="/" />
-              )}
-            </Route>
-          </Switch>
-        </PageWrapper>
+          <Route exact path="/admin">
+            {routeProps => (
+              this.state.isAdmin
+                ? (
+                  <Admin
+                    {...routeProps}
+                    fetchWatches={this.fetchWatches}
+                    sharedProps={sharedProps}
+                    watchData={this.state.watchData}
+                  />
+                ) : <Redirect to="/" />
+            )}
+          </Route>
+        </Switch>
       </Router>
     );
   }

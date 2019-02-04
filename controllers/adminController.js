@@ -53,13 +53,23 @@ module.exports = {
 
   },
 
+  adminGetUsers: async (req, res) => {
+    try {
+      const users = await db.User.findAll({});
+      console.log(users);
+      res.json(users);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   removeImage: async (req, res) => {
-    console.log("Hi");
-    console.log(req.body);
     let removal;
     try {
       const result = await cloudinary.v2.uploader.destroy(req.body.publicId, { invalidate: true });
-      console.log(result.result);
+      // if the result comes back 'not found',
+      // that means Cloudinary no longer has the image
+      //  and the URLs should also be removed from the db
       if (result.result === 'ok' || result.result === "not found") {
         removal = await db.Watch.update({
           image: '',
@@ -67,7 +77,6 @@ module.exports = {
           image30: '',
           publicId: ''
         }, { where: { id: req.params.id }});
-        console.log(removal);
       }
       res.json(removal);
     }

@@ -3,7 +3,7 @@
 .cart {
   background: #ececec;
   color: #393939;
-  height: 100%;
+  height: 100vh;
   min-width: 400px;
   padding: 10px;
   position: fixed;
@@ -41,9 +41,19 @@
   margin: 12px 0;
   padding: 5px;
   width: 100%;
+  div:first-child {
+    background: #000;
+    display: flex;
+    min-height: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    padding: 3px;
+  }
   img {
-    height: 50px;
-    width: 50px;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
   }
   .cart__remove-btn {
     background: transparent;

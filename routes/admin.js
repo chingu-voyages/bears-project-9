@@ -7,6 +7,9 @@ adminRouter.route("/watch")
   .get(adminController.adminGetWatches)
   .post(adminController.adminCreateWatch);
 
+adminRouter.route("/users")
+  .get(adminController.adminGetUsers);
+
 adminRouter.route("/watch/:id")
   .put(adminController.adminUpdateWatch)
   .delete(adminController.adminDeleteWatch);
