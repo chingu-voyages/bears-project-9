@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils";
 import "./Forms.scss";
 
@@ -10,6 +11,7 @@ export class AddWatch extends Component {
     data: "",
     description: "",
     gender: "",
+    loading: false,
     name: "",
     price: ""
   }
@@ -39,7 +41,9 @@ export class AddWatch extends Component {
 
   createWatch = async event => {
     event.preventDefault();
+    await this.setState({ loading: true });
     const watchData = { ...this.state };
+    delete watchData.loading;
     if (this.state.data) {
       const file = await this.saveImageToCloud();
       console.log(file);
@@ -48,11 +52,23 @@ export class AddWatch extends Component {
       watchData.image30 = file.eager[1].secure_url;
       watchData.publicId = file.public_id;
     }
-    API.createWatch(watchData);
+    await API.adminCreateWatch(watchData);
+    const newState = {
+      brand: "",
+      data: "",
+      description: "",
+      gender: "",
+      loading: false,
+      name: "",
+      price: ""
+    }
+    await this.props.fetchWatches();
+    setTimeout(() => this.setState(newState), 500);
   }
 
   render() {
     const { brand, description, gender, name, price } = this.state;
+    const spinner = <Spinner style={{ height: "15px", width: "15px", display: "inline-block" }} />
     return (
       <form className="form watch-form">
         <label>Brand:</label>
@@ -100,10 +116,11 @@ export class AddWatch extends Component {
         />
         <button
           className="watch-form_submit"
+          disabled={this.state.loading || (!brand || !name || !price || !gender)}
           // disabled={!username || !password}
           onClick={this.createWatch}
         >
-          Submit
+          {this.state.loading ? spinner : "Submit"}
         </button>
       </form>
     );

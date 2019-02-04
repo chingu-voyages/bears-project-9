@@ -3,35 +3,32 @@ import NavBar from "../NavBar/NavBar";
 import Cart from "../Cart/Cart";
 import "./PageWrapper.scss";
 
-class PageWrapper extends Component {
-  render() {
-    return (
-      <div className="page-wrapper">
-        <NavBar
-          isAdmin={this.props.isAdmin}
-          loggedIn={this.props.loggedIn}
-          logout={this.props.logout}
-          toggleCart={this.props.toggleCart}
-          wishlistCount={this.props.wishlistCount}
-          cartCount={this.props.cartCount}
-          resetProductFilter={this.props.resetProductFilter}
-        />
+const PageWrapper = props => {
+  return (
+    <div className="page-wrapper">
+      <NavBar
+        isAdmin={props.isAdmin}
+        loggedIn={props.loggedIn}
+        logout={props.logout}
+        toggleCart={props.toggleCart}
+        wishlistCount={props.wishlistCount}
+        cartCount={props.cartCount}
+        resetProductFilter={props.resetProductFilter}
+      />
 
-        <Cart
-          addOneToQty={this.props.addOneToQty}
-          cart={this.props.cart}
-          cartData={this.props.cartData}
-          cartLoading={this.props.cartLoading}
-          removeFromCart={this.props.removeFromCart}
-          showCart={this.props.showCart}
-          subtractOneFromQty={this.props.subtractOneFromQty}
-          toggleCart={this.props.toggleCart}
-        />
+      {props.children}
 
-        {this.props.children}
-      </div>
-    );
-  }
+      <Cart
+        addOneToQty={props.addOneToQty}
+        cartData={props.cartData}
+        cartLoading={props.cartLoading}
+        removeFromCart={props.removeFromCart}
+        showCart={props.showCart}
+        subtractOneFromQty={props.subtractOneFromQty}
+        toggleCart={props.toggleCart}
+      />
+    </div>
+  );
 }
 
 export default PageWrapper;

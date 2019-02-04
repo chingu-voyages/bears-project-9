@@ -11,7 +11,7 @@ class Authenticate extends Component {
   }
 
   render() {
-    if (this.props.loggedIn) this.props.history.goBack();
+    if (this.props.sharedProps.loggedIn) this.props.history.goBack();
     return (
       <Fragment>
         {this.state.loginForm

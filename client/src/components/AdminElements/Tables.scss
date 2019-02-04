@@ -5,6 +5,9 @@
 }
 
 .table-action-icons {
+  display: flex;
+  height: 20px;
+  justify-content: space-evenly;
   button {
     background: transparent;
     border: none;

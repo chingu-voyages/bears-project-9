@@ -20,6 +20,7 @@ class WishlistItem extends PureComponent {
 
   render() {
     const { addToCart, removeFromWishlist, watch } = this.props;
+    console.log(watch)
     const { id, name, price, gender, image30 } = watch;
     const altDesc = `${name} - ${gender}`;
     const imageURL = image30

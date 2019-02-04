@@ -15,27 +15,44 @@ export const API = {
     return axios.get(`${BASE_URL}/currentuser`, {...headers});
   },
 
-  getWatches: function () {
-    return axios.get(`${BASE_URL}/watches`);
-  },
-
   updateUser: function (id, userData) {
     return axios.put(`${BASE_URL}/users/${id}`, userData)
   },
 
-  createWatch: function (watchData) {
+  getWatches: function () {
+    return axios.get(`${BASE_URL}/watches`);
+  },
+
+
+  adminGetUsers: function () {
+    return axios.get(`${BASE_URL}/admin/users`);
+  },
+
+  adminCreateUser: function (userData) {
+    return axios.post(`${BASE_URL}/admin/users`, userData)
+  },
+
+  adminUpdateUser: function (id, userData) {
+    return axios.put(`${BASE_URL}/admin/users/${id}`, userData)
+  },
+
+  adminDeleteUser: function (id) {
+    return axios.delete(`${BASE_URL}/admin/users/${id}`)
+  },
+
+  adminCreateWatch: function (watchData) {
     return axios.post(`${BASE_URL}/admin/watch`, watchData);
   },
 
-  updateWatch: function (id, watchData) {
+  adminUpdateWatch: function (id, watchData) {
     return axios.put(`${BASE_URL}/admin/watch/${id}`, watchData);
   },
 
-  deleteWatch: function (id) {
+  adminDeleteWatch: function (id) {
     return axios.delete(`${BASE_URL}/admin/watch/${id}`);
   },
 
-  removeImage: function (id, watchData) {
+  adminRemoveImage: function (id, watchData) {
     return axios.put(`${BASE_URL}/admin/image/${id}`, watchData)
   },
 }
