@@ -4,9 +4,14 @@
   width: 100%;
 }
 
-.login-form, .signup-form, .watch-form {
+.login-form, .signup-form, .watch-form, .user-form {
   width: 300px;
   margin: 100px auto;
+}
+
+.user-form button, .watch-form button {
+  width: 60px;
+  height: 30px;
 }
 
 .login-form p, .signup-form p {

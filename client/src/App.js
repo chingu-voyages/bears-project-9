@@ -122,7 +122,7 @@ class App extends Component {
 
   logout = () => {
     // remove token, destroy session, etc.
-    this.setState({ loggedIn: false, user: "" });
+    this.setState({ isAdmin: false, loggedIn: false, user: "" });
     localStorage.removeItem('token');
   };
 

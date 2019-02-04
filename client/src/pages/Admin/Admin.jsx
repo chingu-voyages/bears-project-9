@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Modal from "../../components/Modal/Modal";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
-import { AddWatch } from "../../components/Forms";
+import { AddUser, AddWatch } from "../../components/Forms";
 import { ButtonArray, UserTable, WatchTable } from "../../components/AdminElements";
 import { API } from "../../utils";
 import "./Admin.sass";
@@ -12,6 +12,7 @@ class Admin extends Component {
     userData: '',
     userForm: false,
     watches: true,
+    watchData: '',
     watchForm: false
   }
 
@@ -20,7 +21,7 @@ class Admin extends Component {
   }
 
   fetchUsers = async () => {
-    const res = await API.getUsers();
+    const res = await API.adminGetUsers();
     this.setState({ userData: res.data });
     return res.data;
   }
@@ -70,13 +71,17 @@ class Admin extends Component {
 
               {users && (
                 <UserTable
+                  {...modalProps}
                   fetchUsers={this.fetchUsers}
                   userData={this.state.userData}
                 />
               )}
 
               {userForm && (
-                "Do you want to add a new user?"
+                <AddUser
+                  fetchUsers={this.fetchUsers}
+                  toggleDisplay={this.toggleDisplay}
+                />
               )}
 
             </Fragment>

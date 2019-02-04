@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
+import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils/API";
 import "react-table/react-table.css";
 import "./Tables.scss";
@@ -8,9 +9,10 @@ const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_
 
 export class WatchTable extends Component {
   state = {
+    data: '',
     imageUrl: "",
-    watchData: this.props.watchData,
-    data: ''
+    loading: false,
+    watchData: this.props.watchData
   }
 
   handleInputChange = event => {
@@ -19,23 +21,17 @@ export class WatchTable extends Component {
   }
 
   updateRow = async row => {
-    console.log(row);
+    this.setState({ loading: true });
     const { brand, description, gender, name, price, id, } = row.original;
-
-    if (!id)
-      await API.createWatch(row.original);
-    else {
-      const updateObject = {};
-      updateObject.brand = brand;
-      updateObject.description = description;
-      updateObject.gender = gender;
-      updateObject.name = name;
-      updateObject.price = price;
-      await API.updateWatch(id, updateObject)
-    }
-
+    const updateObject = {};
+    updateObject.brand = brand;
+    updateObject.description = description;
+    updateObject.gender = gender;
+    updateObject.name = name;
+    updateObject.price = price;
+    await API.adminUpdateWatch(id, updateObject);
     const watchData = await this.props.fetchWatches();
-    this.setState({ watchData });
+    setTimeout(() => this.setState({ watchData, loading: false }), 500);
   }
 
   deleteWatchModal = id => {
@@ -53,9 +49,13 @@ export class WatchTable extends Component {
   }
 
   deleteWatch = async id => {
-    await API.deleteWatch(id);
+    this.setState({ loading: true });
+    await API.adminDeleteWatch(id);
     const watchData = await this.props.fetchWatches();
-    this.setState({ watchData });
+    setTimeout(async () => {
+      await this.setState({ watchData, loading: false });
+      this.props.closeModal();
+    }, 500);
   }
 
   imageModal = row => {
@@ -65,7 +65,7 @@ export class WatchTable extends Component {
       body: <img src={image} alt={`${brand} - ${name}`} />,
       buttons: (
         <Fragment>
-          <button onClick={() => this.removeImage(id, { publicId: publicId })}>Delete</button>
+          <button onClick={() => this.adminRemoveImage(id, { publicId: publicId })}>Delete</button>
           <button onClick={this.props.closeModal}>Close</button>
         </Fragment>
       )
@@ -99,7 +99,7 @@ export class WatchTable extends Component {
       watchImageData.image400 = file.eager[0].secure_url;
       watchImageData.image30 = file.eager[1].secure_url;
       watchImageData.publicId = file.public_id;
-      await API.updateWatch(id, watchImageData);
+      await API.adminUpdateWatch(id, watchImageData);
       const watchData = await this.props.fetchWatches();
       this.setState({ watchData });
       this.props.closeModal();
