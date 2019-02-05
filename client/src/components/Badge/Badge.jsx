@@ -1,7 +1,7 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import "./Badge.scss";
 
-class Badge extends React.Component {
+class Badge extends PureComponent {
   state = {
     hovered: false
   };

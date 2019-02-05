@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
-import Cart from "./components/Cart/Cart";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
@@ -75,8 +74,8 @@ class App extends Component {
         cart = utils.checkCartItems(watchData, oldCart);
         cartData = utils.parseCartData(watchData, cart)
       };
-      if (user.wishlist) wishlist = JSON.parse(user.wishlist);
-
+      if (user.wishlist)
+        wishlist = JSON.parse(user.wishlist);
 
       this.setState({
         isAdmin: user.admin,
@@ -121,7 +120,6 @@ class App extends Component {
   };
 
   logout = () => {
-    // remove token, destroy session, etc.
     this.setState({ isAdmin: false, loggedIn: false, user: "" });
     localStorage.removeItem('token');
   };

@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import ReactTable from "react-table";
 import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils/API";
 import "react-table/react-table.css";
 import "./Tables.scss";
 
-export class UserTable extends Component {
+export class UserTable extends PureComponent {
   state = {
     loading: false,
     userData: this.props.userData || []
@@ -49,7 +49,6 @@ export class UserTable extends Component {
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
-          console.log(e.target)
           const userData = [...this.state.userData];
           userData[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ userData });
@@ -98,6 +97,12 @@ export class UserTable extends Component {
             Header: "Admin?",
             accessor: "admin",
             Cell: this.renderEditable
+          }
+        ]}
+        defaultSorted={[
+          {
+            id: "username",
+            desc: false
           }
         ]}
         defaultPageSize={10}

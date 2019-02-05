@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils";
 import "./Forms.scss";
 
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload/`
 
-export class AddWatch extends Component {
+export class AddWatch extends PureComponent {
   state = {
     brand: "",
     data: "",

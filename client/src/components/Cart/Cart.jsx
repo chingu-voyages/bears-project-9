@@ -1,5 +1,5 @@
 import React, { Fragment, PureComponent } from 'react';
-import Spinner from "../Spinner/Spinner";
+import { CartItem } from "./CartItem";
 import "./Cart.scss";
 
 class Cart extends PureComponent {
@@ -25,33 +25,21 @@ class Cart extends PureComponent {
             onClick={toggleCart}
           >
             &times;
-        </button>
-          <h2>Here's the cart!</h2>
+          </button>
+          <h2>Shopping Cart</h2>
           {Object.keys(cartData).map((key, index) => {
             total += (cartData[key].quantity * cartData[key].price);
             return (
-              <div className="cart__item" key={index}>
-                <div>
-                  <img src={cartData[key].image400} />
-                </div>
-                <div className="cart__item-data">
-                  <h3>{cartData[key].brand} - {cartData[key].name}</h3>
-                  <div className="cart__item-qty">
-                    <p>Qty: {cartData[key].quantity}</p>
-                    {cartLoading
-                      ? <Spinner style={{ height: "15px", width: "15px", marginLeft: "10px" }} />
-                      : (
-                        <Fragment>
-                          <button disabled={cartLoading} className="cart__qty-btn" onClick={() => addOneToQty(cartData[key].id)}>+</button>
-                          <button disabled={cartLoading} className="cart__qty-btn" onClick={() => subtractOneFromQty(cartData[key].id)}>-</button>
-                        </Fragment>
-                      )
-                    }
-                  </div>
-                  <h4>Price: ${cartData[key].quantity * cartData[key].price}</h4>
-                </div>
-                <button className="cart__remove-btn" onClick={() => removeFromCart(cartData[key].id)}>remove</button>
-              </div>
+              <CartItem
+                addOneToQty={addOneToQty}
+                key={key}
+                index={index}
+                cartData={cartData}
+                id={key}
+                cartLoading={cartLoading}
+                removeFromCart={removeFromCart}
+                subtractOneFromQty={subtractOneFromQty}
+              />
             )
           })}
           <h3>Total: ${total}</h3>

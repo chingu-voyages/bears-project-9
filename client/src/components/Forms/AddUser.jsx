@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils";
 import "./Forms.scss";
 
-export class AddUser extends Component {
+export class AddUser extends PureComponent {
   state = {
     username: '',
     password: '',
@@ -15,16 +15,13 @@ export class AddUser extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const { name } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState({ [name]: value });
   };
 
   createUser = async event => {
     event.preventDefault();
     await this.setState({ loading: true });
-    const userData = { ...this.state }
-    await API.adminCreateUser(userData);
+    await API.adminCreateUser(this.state);
     const newState = {
       username: '',
       password: '',
@@ -64,7 +61,6 @@ export class AddUser extends Component {
         <button
           className="user-form_submit"
           disabled={this.state.loading || (!username || !password)}
-          // disabled={!username || !password}
           onClick={this.createUser}
         >
           {this.state.loading ? spinner : "Submit"}

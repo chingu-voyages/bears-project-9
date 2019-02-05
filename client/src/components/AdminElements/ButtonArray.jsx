@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export class ButtonArray extends Component {
+export class ButtonArray extends PureComponent {
 
   render() {
     const { users, userForm, watches, watchForm } = this.props.state;

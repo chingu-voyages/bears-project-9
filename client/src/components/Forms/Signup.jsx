@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import "./Forms.scss";
 
-export class Signup extends Component {
+export class Signup extends PureComponent {
   state = {
     username: '',
     password: '',
