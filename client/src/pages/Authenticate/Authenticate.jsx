@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import { Login, Signup } from '../../components/Forms';
 
 class Authenticate extends Component {
@@ -13,7 +14,7 @@ class Authenticate extends Component {
   render() {
     if (this.props.sharedProps.loggedIn) this.props.history.goBack();
     return (
-      <Fragment>
+      <PageWrapper {...this.props.sharedProps}>
         {this.state.loginForm
           ? (
             <Login
@@ -26,7 +27,7 @@ class Authenticate extends Component {
               toggleForms={this.toggleForms}
             />
           )}
-      </Fragment>
+      </PageWrapper>
     );
   }
 }

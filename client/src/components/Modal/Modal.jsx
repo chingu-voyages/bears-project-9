@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import "./Modal.scss";
 
-class Modal extends Component {
+class Modal extends PureComponent {
   state = {
     isOpen: false,
     body: "",
