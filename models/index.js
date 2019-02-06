@@ -8,17 +8,24 @@ var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/../config.json')[env];
 var db = {};
 
-if (config.use_env_variable) {
-  const { Client } = require('pg');
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
+// if (config.use_env_variable) {
+//   // const { Client } = require('pg');
+//   // const client = new Client({
+//   //   connectionString: process.env.DATABASE_URL,
+//   //   ssl: true,
+//   // });
+//   // client.connect();
+//   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+// } else {
+  var sequelize = new Sequelize({
+    database: process.env.DATABASE_URL || "horology_db",
+    dialect: "postgres",
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
   });
-  client.connect();
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  var sequelize = new Sequelize(config);
-}
+// }
 
 fs
   .readdirSync(__dirname)
