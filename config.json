@@ -2,15 +2,27 @@
   "development": {
     "database": "horology_db",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorAliases": false,
+    "define": {
+      "underscored": true
+    }
   },
   "test": {
     "database": "horology_db",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorAliases": false,
+    "define": {
+      "underscored": true
+    }
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorAliases": false,
+    "define": {
+      "underscored": true
+    }
   }
 }
