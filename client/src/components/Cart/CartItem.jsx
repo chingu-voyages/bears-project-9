@@ -15,7 +15,7 @@ export class CartItem extends PureComponent {
     return (
       <div className="cart__item" key={index}>
         <div>
-          <img src={cartData[id].image400} />
+          <img src={cartData[id].image400} alt="watch" />
         </div>
         <div className="cart__item-data">
           <h3>{cartData[id].brand} - {cartData[id].name}</h3>
@@ -28,7 +28,8 @@ export class CartItem extends PureComponent {
                     height: "15px",
                     width: "15px",
                     marginLeft: "10px"
-                  }} />
+                  }}
+                />
               ) : (
                 <Fragment>
                   <button

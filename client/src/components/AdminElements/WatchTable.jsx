@@ -29,7 +29,8 @@ export class WatchTable extends PureComponent {
     updateObject.gender = gender;
     updateObject.name = name;
     updateObject.price = price;
-    await API.adminUpdateWatch(id, updateObject);
+    const headers = this.props.buildHeaders();
+    await API.adminUpdateWatch(id, updateObject, headers);
     const watchData = await this.props.fetchWatches();
     setTimeout(() => this.setState({ watchData, loading: false }), 500);
   }
@@ -50,7 +51,8 @@ export class WatchTable extends PureComponent {
 
   deleteWatch = async id => {
     this.setState({ loading: true });
-    await API.adminDeleteWatch(id);
+    const headers = this.props.buildHeaders();
+    await API.adminDeleteWatch(id, headers);
     const watchData = await this.props.fetchWatches();
     setTimeout(async () => {
       await this.setState({ watchData, loading: false });
@@ -99,15 +101,17 @@ export class WatchTable extends PureComponent {
       watchImageData.image400 = file.eager[0].secure_url;
       watchImageData.image30 = file.eager[1].secure_url;
       watchImageData.publicId = file.public_id;
-      await API.adminUpdateWatch(id, watchImageData);
+      const headers = this.props.buildHeaders();
+      await API.adminUpdateWatch(id, watchImageData, headers);
       const watchData = await this.props.fetchWatches();
       this.setState({ watchData });
       this.props.closeModal();
     }
   }
 
-  removeImage = async (id, imageData) => {
-    await API.removeImage(id, imageData);
+  adminRemoveImage = async (id, imageData) => {
+    const headers = this.props.buildHeaders();
+    await API.adminRemoveImage(id, imageData, headers);
     const watchData = await this.props.fetchWatches();
     this.setState({ watchData });
     this.props.closeModal();
@@ -144,7 +148,6 @@ export class WatchTable extends PureComponent {
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
-          console.log(e.target)
           const watchData = [...this.state.watchData];
           watchData[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ watchData });
@@ -168,31 +171,45 @@ export class WatchTable extends PureComponent {
             width: 140,
             Cell: row => (
               <div className="table-action-icons">
-                <button onClick={() => this.updateRow(row)} title="save changes">
-                  <i className="fas fa-save" />
-                </button>
-                <button
-                  disabled={row.original.image}
-                  onClick={() => this.uploadImageModal(row)}
-                  title={row.original.image
-                    ? "you must delete the existing image before you can upload another"
-                    : "upload new image"}
-                >
-                  <i className="fas fa-upload" />
-                </button>
-                <button
-                  disabled={!row.original.image}
-                  onClick={() => this.imageModal(row)}
-                  title={!row.original.image
-                    ? "there is no image uploaded for this watch"
-                    : "see image"}
-                >
-                  <i className="fas fa-images" />
-                </button>
-                <button onClick={() => this.deleteWatchModal(row.original.id)} title="delete watch">
-                  <i className="fas fa-trash-alt" />
-                </button>
-              </div>
+                {this.state.loading
+                  ? (
+                    <Spinner
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        display: "inline-block"
+                      }}
+                    />
+                  ) : (
+                    <Fragment>
+                      <button onClick={() => this.updateRow(row)} title="save changes">
+                        <i className="fas fa-save" />
+                      </button>
+                      <button
+                        disabled={row.original.image}
+                        onClick={() => this.uploadImageModal(row)}
+                        title={row.original.image
+                          ? "you must delete the existing image before you can upload another"
+                          : "upload new image"}
+                      >
+                        <i className="fas fa-upload" />
+                      </button>
+                      <button
+                        disabled={!row.original.image}
+                        onClick={() => this.imageModal(row)}
+                        title={!row.original.image
+                          ? "there is no image uploaded for this watch"
+                          : "see image"}
+                      >
+                        <i className="fas fa-images" />
+                      </button>
+                      <button onClick={() => this.deleteWatchModal(row.original.id)} title="delete watch">
+                        <i className="fas fa-trash-alt" />
+                      </button>
+                    </Fragment>
+                  )
+                }
+              </ div >
             )
           },
           {
@@ -224,12 +241,13 @@ export class WatchTable extends PureComponent {
             Cell: this.renderEditable
           }
         ]}
-        defaultSorted={[
-          {
-            id: "name",
-            desc: false
-          }
-        ]}
+        defaultSorted={
+          [
+            {
+              id: "name",
+              desc: false
+            }
+          ]}
         defaultPageSize={10}
         className="-striped -highlight"
       />

@@ -21,7 +21,8 @@ class Admin extends Component {
   }
 
   fetchUsers = async () => {
-    const res = await API.adminGetUsers();
+    const headers = this.props.buildHeaders();
+    const res = await API.adminGetUsers(headers);
     this.setState({ userData: res.data });
     return res.data;
   }
@@ -57,6 +58,7 @@ class Admin extends Component {
               {watches && (
                 <WatchTable
                   {...modalProps}
+                  buildHeaders={this.props.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
                   watchData={this.props.watchData}
                 />
@@ -64,6 +66,7 @@ class Admin extends Component {
 
               {watchForm && (
                 <AddWatch
+                  buildHeaders={this.props.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
                   toggleDisplay={this.toggleDisplay}
                 />
@@ -72,6 +75,7 @@ class Admin extends Component {
               {users && (
                 <UserTable
                   {...modalProps}
+                  buildHeaders={this.props.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   userData={this.state.userData}
                 />
@@ -79,6 +83,7 @@ class Admin extends Component {
 
               {userForm && (
                 <AddUser
+                  buildHeaders={this.props.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   toggleDisplay={this.toggleDisplay}
                 />

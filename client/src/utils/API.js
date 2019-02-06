@@ -12,7 +12,7 @@ export const API = {
   },
 
   currentuser: function (headers) {
-    return axios.get(`${BASE_URL}/currentuser`, {...headers});
+    return axios.get(`${BASE_URL}/currentuser`, { ...headers });
   },
 
   updateUser: function (id, userData) {
@@ -24,35 +24,35 @@ export const API = {
   },
 
 
-  adminGetUsers: function () {
-    return axios.get(`${BASE_URL}/admin/users`);
+  adminGetUsers: function (headers) {
+    return axios.get(`${BASE_URL}/admin/users`, { ...headers });
   },
 
-  adminCreateUser: function (userData) {
-    return axios.post(`${BASE_URL}/admin/users`, userData)
+  adminCreateUser: function (userData, headers) {
+    return axios.post(`${BASE_URL}/admin/users`, userData, { ...headers })
   },
 
-  adminUpdateUser: function (id, userData) {
-    return axios.put(`${BASE_URL}/admin/users/${id}`, userData)
+  adminUpdateUser: function (id, userData, headers) {
+    return axios.put(`${BASE_URL}/admin/users/${id}`, userData, { ...headers })
   },
 
-  adminDeleteUser: function (id) {
-    return axios.delete(`${BASE_URL}/admin/users/${id}`)
+  adminDeleteUser: function (id, headers) {
+    return axios.delete(`${BASE_URL}/admin/users/${id}`, { ...headers });
   },
 
-  adminCreateWatch: function (watchData) {
-    return axios.post(`${BASE_URL}/admin/watch`, watchData);
+  adminCreateWatch: function (watchData, headers) {
+    return axios.post(`${BASE_URL}/admin/watch`, watchData, { ...headers });
   },
 
-  adminUpdateWatch: function (id, watchData) {
-    return axios.put(`${BASE_URL}/admin/watch/${id}`, watchData);
+  adminUpdateWatch: function (id, watchData, headers) {
+    return axios.put(`${BASE_URL}/admin/watch/${id}`, watchData, { ...headers });
   },
 
-  adminDeleteWatch: function (id) {
-    return axios.delete(`${BASE_URL}/admin/watch/${id}`);
+  adminDeleteWatch: function (id, headers) {
+    return axios.delete(`${BASE_URL}/admin/watch/${id}`, { ...headers });
   },
 
-  adminRemoveImage: function (id, watchData) {
-    return axios.put(`${BASE_URL}/admin/image/${id}`, watchData)
+  adminRemoveImage: function (id, watchData, headers) {
+    return axios.put(`${BASE_URL}/admin/image/${id}`, watchData, { ...headers });
   },
 }

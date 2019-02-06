@@ -47,7 +47,7 @@ class App extends Component {
     }
   }
 
-  buildHeaders() {
+  buildHeaders = () => {
     const { token } = this.state;
 
     return {
@@ -352,6 +352,7 @@ class App extends Component {
                 ? (
                   <Admin
                     {...routeProps}
+                    buildHeaders={this.buildHeaders}
                     fetchWatches={this.fetchWatches}
                     sharedProps={sharedProps}
                     watchData={this.state.watchData}
