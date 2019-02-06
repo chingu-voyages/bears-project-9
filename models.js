@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize({
-    database: process.env.DATABASE_URL || "horology_db",
+    database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
     define: {

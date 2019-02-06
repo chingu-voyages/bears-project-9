@@ -17,14 +17,19 @@ var db = {};
 //   // client.connect();
 //   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
 // } else {
-  var sequelize = new Sequelize({
-    database: process.env.DATABASE_URL || "horology_db",
+let connection;
+if (env === "production")
+  connection = process.env.DATABASE_URL;
+else
+  connection = {
+    database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
     define: {
       underscored: true
     }
-  });
+  }
+var sequelize = new Sequelize(connection);
 // }
 
 fs
