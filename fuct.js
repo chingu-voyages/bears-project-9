@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === 'production') {
   console.log("In production!");
   connection = process.env.DATABASE_URL;
 } else {
+  console.log("Not in production!");
   connection = {
     database: "horology_db",
     dialect: "postgres",
