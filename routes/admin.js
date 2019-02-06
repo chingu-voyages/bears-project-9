@@ -1,5 +1,6 @@
-const express = require("express");
-const adminRouter = express();
+// const express = require("express");
+// const adminRouter = express();
+const adminRouter = require('express').Router();
 const adminController = require("../controllers/adminController");
 const db = require("../models");
 const { passport } = require("../auth");
@@ -29,6 +30,4 @@ function isAdmin(req, res, next) {
   res.json({ message: "You. Shall not. Pass." });
 }
 
-module.exports = {
-  adminRouter
-}
+module.exports = adminRouter;

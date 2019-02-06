@@ -1,9 +1,11 @@
-const express = require('express');
+// const express = require('express');// const express = require("express");
+// const adminRouter = express();
+// const usersRouter = express();
+const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
 const { User } = require('../models');
 
-const usersRouter = express();
 
 usersRouter.get('/', async (req, res) => {
   try {
@@ -81,6 +83,4 @@ usersRouter.put('/:id', async (req, res) => {
   }
 })
 
-module.exports = {
-  usersRouter
-};
+module.exports = usersRouter;

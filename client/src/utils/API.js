@@ -23,6 +23,10 @@ export const API = {
     return axios.get(`${BASE_URL}/watches`);
   },
 
+  getWatch: function () {
+    return axios.get(`${BASE_URL}/watches/:id`);
+  },
+
 
   adminGetUsers: function (headers) {
     return axios.get(`${BASE_URL}/admin/users`, { ...headers });
