@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require("path");
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -20,8 +19,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// if (process.env.NODE_ENV === "production")
-//   app.use(express.static('client/build'))
+if (process.env.NODE_ENV === "production")
+  app.use(express.static('client/build'))
 
 app.get('/verify', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({ msg: 'logged in' });
@@ -34,7 +33,6 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 app.use('/watches', watchesRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
-// app.use(routes)
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

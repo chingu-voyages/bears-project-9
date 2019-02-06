@@ -1,7 +1,5 @@
-// const express = require('express');// const express = require("express");
-// const adminRouter = express();
-// const usersRouter = express();
-const usersRouter = require('express').Router();
+const express = require('express');
+const usersRouter = express();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
 const { User } = require('../models');

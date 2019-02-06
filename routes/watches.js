@@ -1,7 +1,6 @@
-// const express = require('express');
+const express = require('express');
+const watchesRouter = express();
 const { Watch } = require('../models');
-// const watchesRouter = express();
-const watchesRouter = require('express').Router();
 
 watchesRouter.get('/', async (req, res) => {
   try {

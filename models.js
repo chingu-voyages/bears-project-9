@@ -1,13 +1,21 @@
 const { Sequelize } = require("sequelize");
+let sequelize;
 
-const sequelize = new Sequelize({
-  database: process.env.DATABASE_URL || "horology_db",
-  dialect: "postgres",
-  operatorsAliases: false,
-  define: {
-    underscored: true
-  }
-});
+if (process.env.DATABASE_URL) {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres'
+  })
+}
+else {
+  sequelize = new Sequelize({
+    database: process.env.DATABASE_URL || "horology_db",
+    dialect: "postgres",
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  });
+}
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
@@ -15,7 +23,7 @@ const Watch = sequelize.define("watches", {
   price: Sequelize.INTEGER,
   image: Sequelize.STRING,
   image30: Sequelize.STRING,
-  image400:Sequelize.STRING,
+  image400: Sequelize.STRING,
   brand: Sequelize.STRING,
   gender: Sequelize.STRING,
   publicId: Sequelize.STRING
