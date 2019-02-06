@@ -21,7 +21,8 @@ const sequelize = new Sequelize({
   database: "dcoum4kfftsbu3",
   username: "pequvxxkeapnyh",
   password: "bc6389e04c51e90ed0642533360ff9bd5c42dc62c5edbd9733f2f3e306d9d0c3",
-  host: "ec2-54-163-246-159.compute-1.amazonaws.com"
+  host: "ec2-54-163-246-159.compute-1.amazonaws.com",
+  dialect: "postgres"
 })
 
 const Watch = sequelize.define("watches", {
