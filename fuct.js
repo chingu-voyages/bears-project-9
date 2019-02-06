@@ -1,6 +1,10 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize({
+let sequelize;
+if (process.env.NODE_ENV)
+  sequelize = new Sequelize(process.env.DATABASE_URL);
+else
+  sequelize = new Sequelize({
     database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
