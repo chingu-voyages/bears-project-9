@@ -18,7 +18,12 @@ const { Sequelize } = require("sequelize");
 // const sequelize = new Sequelize(connection);
 console.log(process.env.NODE_ENV);
 
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const sequelize = new Sequelize({
+  dialect: "postgres",
+  database: "dcoum4kfftsbu3",
+  host: "ec2-54-163-246-159.compute-1.amazonaws.com",
+  ssl: true
+});
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
