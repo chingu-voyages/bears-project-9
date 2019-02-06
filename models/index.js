@@ -9,9 +9,9 @@ var config = require(__dirname + '/../config.json')[env];
 var db = {};
 
 let sequelize;
-// if (process.env.DATABASE_URL)
-//   sequelize = new Sequelize(process.env.DATABASE_URL);
-// else
+if (process.env.DATABASE_URL)
+  sequelize = new Sequelize(process.env.DATABASE_URL);
+else
   sequelize = new Sequelize({
     database: "horology_db",
     dialect: "postgres",
