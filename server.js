@@ -13,6 +13,7 @@ const { adminRouter } = require('./routes/admin');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const path = require("path");
 
 app.use(logger('dev'));
 app.use(cors());
@@ -33,6 +34,11 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 app.use('/watches', watchesRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+
+// If no defined routes are hit, send the React app
+app.use(function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
