@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "chingu voyage",
   "engines": {
-    "node": ">10.xx"
+    "node": ">=8.10.0"
   },
   "main": "server.js",
   "scripts": {
