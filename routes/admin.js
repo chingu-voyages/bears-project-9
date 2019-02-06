@@ -30,4 +30,4 @@ function isAdmin(req, res, next) {
   res.json({ message: "You. Shall not. Pass." });
 }
 
-module.exports = adminRouter;
+module.exports = {adminRouter};

@@ -24,4 +24,4 @@ watchesRouter.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = watchesRouter;
+module.exports = {watchesRouter};
