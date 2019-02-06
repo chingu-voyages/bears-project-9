@@ -47,7 +47,7 @@ class App extends Component {
     }
   }
 
-  buildHeaders() {
+  buildHeaders = () => {
     const { token } = this.state;
 
     return {

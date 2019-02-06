@@ -2,6 +2,9 @@
   "name": "bears-project-9",
   "version": "1.0.0",
   "description": "chingu voyage",
+  "engines": {
+    "node": ">10.xx"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

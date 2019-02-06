@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const db =require('./models');
+const db = require('./fuct');
 
 const SECRET = 'This is my secret';
 const sign = (payload) => jwt.sign(payload, SECRET);
@@ -17,7 +17,7 @@ passport.use(new JwtStrategy(opts, async (payload, done) => {
   try {
     const user = await db.User.findByPk(payload.id);
     return done(null, user);
-  } catch(e) {
+  } catch (e) {
     return done(e, false);
   }
 }));
