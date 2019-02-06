@@ -1,9 +1,10 @@
 const { Sequelize } = require("sequelize");
 
 let sequelize;
-if (process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production') {
+  console.log("In production!");
   sequelize = new Sequelize(process.env.DATABASE_URL);
-else
+} else {
   sequelize = new Sequelize({
     database: "horology_db",
     dialect: "postgres",
@@ -12,6 +13,7 @@ else
       underscored: true
     }
   });
+}
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
