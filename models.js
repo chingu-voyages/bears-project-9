@@ -1,14 +1,23 @@
 const { Sequelize } = require("sequelize");
+// const { Client } = require("pg");
+
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: true
+// });
+// client.connect();
+
+const env = process.env.NODE_ENV || 'development';
+const config = require("./config.json")[env]
+
 let sequelize;
 
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres'
-  })
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 }
 else {
   sequelize = new Sequelize({
-    database: process.env.DATABASE_URL || "horology_db",
+    database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
     define: {
