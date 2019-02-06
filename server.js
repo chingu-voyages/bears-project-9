@@ -35,11 +35,6 @@ app.use('/watches', watchesRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 
-// If no defined routes are hit, send the React app
-app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
-
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
