@@ -21,11 +21,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === "production")
-  app.use(express.static('client/build'))
-else
-  app.use(express.static(path.join(__dirname, 'client/public')));
-
+// if (process.env.NODE_ENV === "production")
+//   app.use(express.static('client/build'))
 
 app.get('/verify', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({ msg: 'logged in' });
