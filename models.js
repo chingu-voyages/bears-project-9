@@ -1,15 +1,4 @@
 const { Sequelize } = require("sequelize");
-const { Client } = require("pg");
-const env = process.env.NODE_ENV || 'development';
-const config = require("./config.json")[env]
-
-if (config.use_env_variable) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
-  });
-  client.connect();
-}
 
 let sequelize;
 if (config.use_env_variable) {

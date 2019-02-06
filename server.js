@@ -13,11 +13,9 @@ const { adminRouter } = require('./routes/admin');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const path = require("path");
 
 app.use(logger('dev'));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production")
