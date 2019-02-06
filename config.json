@@ -1,7 +1,7 @@
 {
   "development": {
     "database": "horology_db",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres",
     "operatorAliases": false,
     "define": {
@@ -10,7 +10,7 @@
   },
   "test": {
     "database": "horology_db",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres",
     "operatorAliases": false,
     "define": {
