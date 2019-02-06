@@ -2,6 +2,7 @@ const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
 const db = require('../fuct');
+console.log(db)
 
 
 usersRouter.get('/', async (req, res) => {

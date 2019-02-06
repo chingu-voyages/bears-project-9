@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Watch = sequelize.define("watches", {
+  const Watch = sequelize.define("Watch", {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
@@ -10,5 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     gender: DataTypes.STRING,
     publicId: DataTypes.STRING
   });
+
   return Watch;
 }
