@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = "http://localhost:3001";
+let BASE_URL;
+if (process.env.NODE_ENV === "production")
+  BASE_URL = "https://ecommerce-horology.herokuapp.com/"
+else BASE_URL = "http://localhost:3001";
 
 export const API = {
   login: function (userData) {
