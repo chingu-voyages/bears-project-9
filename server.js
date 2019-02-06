@@ -28,6 +28,11 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 
 app.use(routes);
 
+console.log("+++++++the DB URL+++++++++");
+console.log(process.env.DATABASE_URL);
+console.log("+++++++the WHOLE ENV+++++++++");
+console.log(process.env);
+
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
