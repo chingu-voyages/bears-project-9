@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const routes = require('./routes');
 const { passport } = require('./auth');
-const db = require('./models');
+const db = require("./fuct");
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -28,8 +29,8 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 
 app.use(routes);
 
-db.sequelize.sync({ force: false }).then(() => {
+// db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
-});
+// });

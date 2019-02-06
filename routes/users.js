@@ -1,12 +1,12 @@
 const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
-const { User } = require('../models');
+const db = require('../fuct');
 
 
 usersRouter.get('/', async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await db.User.findAll();
     res.json(users);
   } catch (e) {
     console.log(e);
@@ -16,7 +16,7 @@ usersRouter.get('/', async (req, res) => {
 
 usersRouter.get('/:id', async (req, res) => {
   try {
-    const thisUser = await User.findByPk(req.params.id);
+    const thisUser = await db.User.findByPk(req.params.id);
     res.json(thisUser);
   } catch (e) {
     console.log(e);
@@ -26,7 +26,7 @@ usersRouter.get('/:id', async (req, res) => {
 
 usersRouter.post('/', async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await db.User.create(req.body);
     const { id, username, password } = user.dataValues;
     const token = sign({
       id,
@@ -43,7 +43,7 @@ usersRouter.post('/', async (req, res) => {
 usersRouter.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.find({ where: { username } });
+    const user = await db.User.find({ where: { username } });
     const passwordValid = await bcrypt.compare(password, user.password);
     const { admin, cart, id, wishlist } = user;
     if (passwordValid) {
@@ -71,7 +71,7 @@ usersRouter.post('/login', async (req, res) => {
 usersRouter.put('/:id', async (req, res) => {
   console.log(req.body);
   try {
-    const response = User.update(req.body, {
+    const response = db.User.update(req.body, {
       where: { id: req.params.id }
     });
     res.send(response);

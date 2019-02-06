@@ -1,4 +1,4 @@
-const db = require("../models.js");
+const db = require("../fuct");
 const cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

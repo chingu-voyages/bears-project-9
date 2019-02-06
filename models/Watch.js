@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Watch = sequelize.define("Watch", {
+  const Watch = sequelize.define("watches", {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
