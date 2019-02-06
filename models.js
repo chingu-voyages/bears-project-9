@@ -1,10 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize({
+const sequelize = new Sequelize({
     database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
@@ -12,7 +8,6 @@ if (config.use_env_variable) {
       underscored: true
     }
   });
-}
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
