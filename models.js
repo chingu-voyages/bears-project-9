@@ -7,16 +7,16 @@ if (process.env.NODE_ENV === 'production') {
   console.log(process.env.NODE_ENV)
   connection = process.env.DATABASE_URL;
 }
-// else {
-//   connection = {
-//     database: "horology_db",
-//     dialect: "postgres",
-//     operatorsAliases: false,
-//     define: {
-//       underscored: true
-//     }
-//   };
-// }
+else if (process.env.NODE_ENV === 'development') {
+  connection = {
+    database: "horology_db",
+    dialect: "postgres",
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  };
+}
 console.log("++++++++++++++++++++++++++++++++THE CONNECTION IS: +++++++++++++++++++++++++++");
 console.log(connection);
 const sequelize = new Sequelize(connection);

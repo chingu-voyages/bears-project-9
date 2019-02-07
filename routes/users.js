@@ -26,19 +26,22 @@ usersRouter.get('/:id', async (req, res) => {
 });
 
 usersRouter.post('/', async (req, res) => {
+  const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
+  req.body.password = password;
   try {
     const user = await db.User.create(req.body);
     console.log(user.username)
-    const { admin, id, username, password } = user.dataValues;
+    const { admin, cart, id, username, wishlist } = user.dataValues;
     const token = sign({
       id,
       username,
-      password
     });
     const userData = {
       admin,
+      cart,
       id,
-      username
+      username,
+      wishlist
     }
     res.json({ token, user: userData });
   } catch (e) {

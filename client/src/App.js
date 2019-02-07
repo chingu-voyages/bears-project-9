@@ -125,12 +125,16 @@ class App extends Component {
   };
 
   signup = async userData => {
-    const user = await API.signup(userData);
+    const res = await API.signup(userData);
+    const { token, user } = res.data;
     console.log(user);
     this.setState({
+      isAdmin: user.admin,
       loggedIn: true,
-      user: user.data
+      token,
+      user: user
     });
+    localStorage.setItem('token', token);
   };
 
   toggleCart = () => {
