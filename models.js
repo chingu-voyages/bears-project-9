@@ -1,7 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-// console.log(process.env);
-
 let connection;
 if (process.env.NODE_ENV === 'production') {
   console.log(process.env.NODE_ENV)
@@ -20,8 +18,6 @@ else if (process.env.NODE_ENV === 'development') {
 console.log("++++++++++++++++++++++++++++++++THE CONNECTION IS: +++++++++++++++++++++++++++");
 console.log(connection);
 const sequelize = new Sequelize(connection);
-
-// const sequelize = new Sequelize(process.env.DATABASE_URL, {dialect: 'postgres'});
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
