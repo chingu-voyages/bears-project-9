@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'production') {
     }
   };
 }
+console.log(connection);
 const sequelize = new Sequelize(connection);
 
 // const sequelize = new Sequelize(process.env.DATABASE_URL, {dialect: 'postgres'});
