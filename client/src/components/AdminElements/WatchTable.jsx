@@ -15,6 +15,11 @@ export class WatchTable extends PureComponent {
     watchData: this.props.watchData
   }
 
+  // buildHeaders = () => {
+  //   const token = localStorage.getItem('token');
+  //   return { headers: { "Authorization": `Bearer ${token}` } }
+  // }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });

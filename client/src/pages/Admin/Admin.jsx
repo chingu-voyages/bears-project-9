@@ -12,18 +12,24 @@ class Admin extends Component {
     userData: '',
     userForm: false,
     watches: true,
-    watchData: '',
+    watchData: this.props.watchData,
     watchForm: false
   }
 
   async componentDidMount() {
-    await this.fetchUsers();
+    this.fetchUsers();
+  }
+
+  buildHeaders = () => {
+    const token = localStorage.getItem('token');
+    return { headers: { "Authorization": `Bearer ${token}` } };
   }
 
   fetchUsers = async () => {
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
+    console.log(headers)
     const res = await API.adminGetUsers(headers);
-    this.setState({ userData: res.data });
+    await this.setState({ userData: res.data });
     return res.data;
   }
 
@@ -58,15 +64,15 @@ class Admin extends Component {
               {watches && (
                 <WatchTable
                   {...modalProps}
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
-                  watchData={this.props.watchData}
+                  watchData={this.state.watchData}
                 />
               )}
 
               {watchForm && (
                 <AddWatch
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
                   toggleDisplay={this.toggleDisplay}
                 />
@@ -75,7 +81,7 @@ class Admin extends Component {
               {users && (
                 <UserTable
                   {...modalProps}
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   userData={this.state.userData}
                 />
@@ -83,7 +89,7 @@ class Admin extends Component {
 
               {userForm && (
                 <AddUser
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   toggleDisplay={this.toggleDisplay}
                 />
