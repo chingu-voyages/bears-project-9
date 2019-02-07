@@ -1,5 +1,7 @@
 const { Sequelize } = require("sequelize");
 
+console.log(process.env);
+
 let connection;
 if (process.env.NODE_ENV === 'production') {
   connection = process.env.DATABASE_URL;
