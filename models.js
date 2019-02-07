@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-console.log(process.env);
+// console.log(process.env);
 
 let connection;
 // if (process.env.NODE_ENV === 'production') {
@@ -15,6 +15,7 @@ let connection;
 //     }
 //   };
 // }
+console.log("++++++++++++++++++++++++++++++++THE CONNECTION IS: +++++++++++++++++++++++++++");
 console.log(connection);
 const sequelize = new Sequelize(connection);
 
