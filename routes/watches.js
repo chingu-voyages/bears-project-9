@@ -1,10 +1,9 @@
-const express = require('express');
-const watchesRouter = express();
-const { Watch } = require('../models');
+const watchesRouter = require('express').Router();
+const db = require('../models');
 
 watchesRouter.get('/', async (req, res) => {
   try {
-    const places = await Watch.findAll({});
+    const places = await db.Watch.findAll({});
     res.json(places);
   } catch (e) {
     console.error(e);
@@ -15,7 +14,7 @@ watchesRouter.get('/', async (req, res) => {
 watchesRouter.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const place = await Watch.findByPk(id);
+    const place = await db.Watch.findByPk(id);
     res.json(place);
   } catch (e) {
     console.error(e);
@@ -23,4 +22,4 @@ watchesRouter.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = {watchesRouter};
+module.exports = watchesRouter;

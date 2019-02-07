@@ -1,13 +1,13 @@
-const express = require('express');
-const usersRouter = express();
+const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
-const { User } = require('../models');
+const db = require('../models');
+console.log(db)
 
 
 usersRouter.get('/', async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await db.User.findAll();
     res.json(users);
   } catch (e) {
     console.log(e);
@@ -17,7 +17,7 @@ usersRouter.get('/', async (req, res) => {
 
 usersRouter.get('/:id', async (req, res) => {
   try {
-    const thisUser = await User.findByPk(req.params.id);
+    const thisUser = await db.User.findByPk(req.params.id);
     res.json(thisUser);
   } catch (e) {
     console.log(e);
@@ -26,15 +26,25 @@ usersRouter.get('/:id', async (req, res) => {
 });
 
 usersRouter.post('/', async (req, res) => {
+  const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
+  req.body.password = password;
+  console.log(req.body.password);
   try {
-    const user = await User.create(req.body);
-    const { id, username, password } = user.dataValues;
+    const user = await db.User.create(req.body);
+    console.log(user.username)
+    const { admin, cart, id, username, wishlist } = user.dataValues;
     const token = sign({
       id,
       username,
-      password
     });
-    res.json({ user, token });
+    const userData = {
+      admin,
+      cart,
+      id,
+      username,
+      wishlist
+    }
+    res.json({ token, user: userData });
   } catch (e) {
     console.log(e);
     res.status(500).json({ msg: e.message });
@@ -44,7 +54,7 @@ usersRouter.post('/', async (req, res) => {
 usersRouter.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.find({ where: { username } });
+    const user = await db.User.find({ where: { username } });
     const passwordValid = await bcrypt.compare(password, user.password);
     const { admin, cart, id, wishlist } = user;
     if (passwordValid) {
@@ -72,7 +82,7 @@ usersRouter.post('/login', async (req, res) => {
 usersRouter.put('/:id', async (req, res) => {
   console.log(req.body);
   try {
-    const response = User.update(req.body, {
+    const response = db.User.update(req.body, {
       where: { id: req.params.id }
     });
     res.send(response);
@@ -81,4 +91,4 @@ usersRouter.put('/:id', async (req, res) => {
   }
 })
 
-module.exports = {usersRouter};
+module.exports = usersRouter;

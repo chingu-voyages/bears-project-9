@@ -47,7 +47,7 @@ class App extends Component {
     }
   }
 
-  buildHeaders = () => {
+  buildHeaders() {
     const { token } = this.state;
 
     return {
@@ -125,12 +125,16 @@ class App extends Component {
   };
 
   signup = async userData => {
-    const user = await API.signup(userData);
+    const res = await API.signup(userData);
+    const { token, user } = res.data;
     console.log(user);
     this.setState({
+      isAdmin: user.admin,
       loggedIn: true,
-      user: user.data
+      token,
+      user: user
     });
+    localStorage.setItem('token', token);
   };
 
   toggleCart = () => {
@@ -352,7 +356,6 @@ class App extends Component {
                 ? (
                   <Admin
                     {...routeProps}
-                    buildHeaders={this.buildHeaders}
                     fetchWatches={this.fetchWatches}
                     sharedProps={sharedProps}
                     watchData={this.state.watchData}

@@ -1,13 +1,23 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize({
+let connection;
+if (process.env.NODE_ENV === 'production') {
+  console.log(process.env.NODE_ENV)
+  connection = process.env.DATABASE_URL;
+}
+else if (process.env.NODE_ENV === 'development') {
+  connection = {
     database: "horology_db",
     dialect: "postgres",
     operatorsAliases: false,
     define: {
       underscored: true
     }
-  });
+  };
+}
+console.log("++++++++++++++++++++++++++++++++THE CONNECTION IS: +++++++++++++++++++++++++++");
+console.log(connection);
+const sequelize = new Sequelize(connection);
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
