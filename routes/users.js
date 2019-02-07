@@ -28,13 +28,19 @@ usersRouter.get('/:id', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   try {
     const user = await db.User.create(req.body);
-    const { id, username, password } = user.dataValues;
+    console.log(user.username)
+    const { admin, id, username, password } = user.dataValues;
     const token = sign({
       id,
       username,
       password
     });
-    res.json({ user, token });
+    const userData = {
+      admin,
+      id,
+      username
+    }
+    res.json({ token, user: userData });
   } catch (e) {
     console.log(e);
     res.status(500).json({ msg: e.message });
