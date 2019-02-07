@@ -1,24 +1,29 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
 import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils/API";
 import "react-table/react-table.css";
 import "./Tables.scss";
 
-export class UserTable extends PureComponent {
+export class UserTable extends Component {
   state = {
     loading: false,
     userData: this.props.userData || []
+  }
+
+  buildHeaders = () => {
+    const token = localStorage.getItem('token');
+    return { headers: { "Authorization": `Bearer ${token}` } }
   }
 
   updateRow = async row => {
     this.setState({ loading: true });
     const { admin, id, username } = row.original;
     const updateObject = { admin, username };
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
     await API.adminUpdateUser(id, updateObject, headers);
-    const userData = await this.props.fetchUsers();
-    setTimeout(() => this.setState({ userData, loading: false }), 500);
+    await this.props.fetchUsers();
+    setTimeout(() => this.setState({ loading: false }), 500);
   }
 
   deleteUserModal = id => {
@@ -37,7 +42,7 @@ export class UserTable extends PureComponent {
 
   deleteUser = async id => {
     this.setState({ loading: true });
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
     await API.adminDeleteUser(id, headers);
     const userData = await this.props.fetchUsers();
     this.props.closeModal()
@@ -65,7 +70,7 @@ export class UserTable extends PureComponent {
   render() {
     return (
       <ReactTable
-        data={this.state.userData}
+        data={this.props.userData}
         filterable
         columns={[
           {

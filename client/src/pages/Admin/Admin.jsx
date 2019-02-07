@@ -12,18 +12,20 @@ class Admin extends Component {
     userData: '',
     userForm: false,
     watches: true,
-    watchData: '',
+    watchData: this.props.watchData,
     watchForm: false
   }
 
   async componentDidMount() {
-    await this.fetchUsers();
+    this.fetchUsers();
   }
 
   fetchUsers = async () => {
-    const headers = this.props.buildHeaders();
+    const token = localStorage.getItem('token');
+    const headers = { headers: { "Authorization": `Bearer ${token}`}}
+    console.log(headers)
     const res = await API.adminGetUsers(headers);
-    this.setState({ userData: res.data });
+    await this.setState({ userData: res.data });
     return res.data;
   }
 
@@ -60,7 +62,7 @@ class Admin extends Component {
                   {...modalProps}
                   buildHeaders={this.props.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
-                  watchData={this.props.watchData}
+                  watchData={this.state.watchData}
                 />
               )}
 

@@ -28,6 +28,7 @@ usersRouter.get('/:id', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
   req.body.password = password;
+  console.log(req.body.password);
   try {
     const user = await db.User.create(req.body);
     console.log(user.username)

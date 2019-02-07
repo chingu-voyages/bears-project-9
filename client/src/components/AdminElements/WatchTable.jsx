@@ -15,6 +15,11 @@ export class WatchTable extends PureComponent {
     watchData: this.props.watchData
   }
 
+  buildHeaders = () => {
+    const token = localStorage.getItem('token');
+    return { headers: { "Authorization": `Bearer ${token}` } }
+  }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -29,7 +34,7 @@ export class WatchTable extends PureComponent {
     updateObject.gender = gender;
     updateObject.name = name;
     updateObject.price = price;
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
     await API.adminUpdateWatch(id, updateObject, headers);
     const watchData = await this.props.fetchWatches();
     setTimeout(() => this.setState({ watchData, loading: false }), 500);
@@ -51,7 +56,7 @@ export class WatchTable extends PureComponent {
 
   deleteWatch = async id => {
     this.setState({ loading: true });
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
     await API.adminDeleteWatch(id, headers);
     const watchData = await this.props.fetchWatches();
     setTimeout(async () => {
@@ -101,7 +106,7 @@ export class WatchTable extends PureComponent {
       watchImageData.image400 = file.eager[0].secure_url;
       watchImageData.image30 = file.eager[1].secure_url;
       watchImageData.publicId = file.public_id;
-      const headers = this.props.buildHeaders();
+      const headers = this.buildHeaders();
       await API.adminUpdateWatch(id, watchImageData, headers);
       const watchData = await this.props.fetchWatches();
       this.setState({ watchData });
@@ -110,7 +115,7 @@ export class WatchTable extends PureComponent {
   }
 
   adminRemoveImage = async (id, imageData) => {
-    const headers = this.props.buildHeaders();
+    const headers = this.buildHeaders();
     await API.adminRemoveImage(id, imageData, headers);
     const watchData = await this.props.fetchWatches();
     this.setState({ watchData });
