@@ -20,9 +20,13 @@ class Admin extends Component {
     this.fetchUsers();
   }
 
-  fetchUsers = async () => {
+  buildHeaders = () => {
     const token = localStorage.getItem('token');
-    const headers = { headers: { "Authorization": `Bearer ${token}`}}
+    return { headers: { "Authorization": `Bearer ${token}` } };
+  }
+
+  fetchUsers = async () => {
+    const headers = this.buildHeaders();
     console.log(headers)
     const res = await API.adminGetUsers(headers);
     await this.setState({ userData: res.data });
@@ -60,7 +64,7 @@ class Admin extends Component {
               {watches && (
                 <WatchTable
                   {...modalProps}
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
                   watchData={this.state.watchData}
                 />
@@ -68,7 +72,7 @@ class Admin extends Component {
 
               {watchForm && (
                 <AddWatch
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchWatches={this.props.fetchWatches}
                   toggleDisplay={this.toggleDisplay}
                 />
@@ -77,7 +81,7 @@ class Admin extends Component {
               {users && (
                 <UserTable
                   {...modalProps}
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   userData={this.state.userData}
                 />
@@ -85,7 +89,7 @@ class Admin extends Component {
 
               {userForm && (
                 <AddUser
-                  buildHeaders={this.props.buildHeaders}
+                  buildHeaders={this.buildHeaders}
                   fetchUsers={this.fetchUsers}
                   toggleDisplay={this.toggleDisplay}
                 />

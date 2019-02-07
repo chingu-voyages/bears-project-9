@@ -1,4 +1,5 @@
 const db = require("../models");
+const bcrypt = require('bcrypt');
 const cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -41,6 +42,8 @@ module.exports = {
 
   adminCreateUser: async (req, res) => {
     console.log(req.user);
+    const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
+    req.body.password = password;
     try {
       const user = await db.User.create(req.body);
       res.json(user);

@@ -11,16 +11,16 @@ export class UserTable extends Component {
     userData: this.props.userData || []
   }
 
-  buildHeaders = () => {
-    const token = localStorage.getItem('token');
-    return { headers: { "Authorization": `Bearer ${token}` } }
-  }
+  // buildHeaders = () => {
+  //   const token = localStorage.getItem('token');
+  //   return { headers: { "Authorization": `Bearer ${token}` } }
+  // }
 
   updateRow = async row => {
     this.setState({ loading: true });
     const { admin, id, username } = row.original;
     const updateObject = { admin, username };
-    const headers = this.buildHeaders();
+    const headers = this.props.buildHeaders();
     await API.adminUpdateUser(id, updateObject, headers);
     await this.props.fetchUsers();
     setTimeout(() => this.setState({ loading: false }), 500);
@@ -42,7 +42,7 @@ export class UserTable extends Component {
 
   deleteUser = async id => {
     this.setState({ loading: true });
-    const headers = this.buildHeaders();
+    const headers = this.props.buildHeaders();
     await API.adminDeleteUser(id, headers);
     const userData = await this.props.fetchUsers();
     this.props.closeModal()
