@@ -15,7 +15,8 @@ export class UserTable extends PureComponent {
     this.setState({ loading: true });
     const { admin, id, username } = row.original;
     const updateObject = { admin, username };
-    await API.updateUser(id, updateObject);
+    const headers = this.props.buildHeaders();
+    await API.adminUpdateUser(id, updateObject, headers);
     const userData = await this.props.fetchUsers();
     setTimeout(() => this.setState({ userData, loading: false }), 500);
   }
@@ -36,7 +37,8 @@ export class UserTable extends PureComponent {
 
   deleteUser = async id => {
     this.setState({ loading: true });
-    await API.adminDeleteUser(id);
+    const headers = this.props.buildHeaders();
+    await API.adminDeleteUser(id, headers);
     const userData = await this.props.fetchUsers();
     this.props.closeModal()
     setTimeout(() => this.setState({ userData, loading: false }), 500);
@@ -61,7 +63,6 @@ export class UserTable extends PureComponent {
   };
 
   render() {
-    const spinner = <Spinner style={{ height: "15px", width: "15px", display: "inline-block" }} />
     return (
       <ReactTable
         data={this.state.userData}
@@ -73,8 +74,15 @@ export class UserTable extends PureComponent {
             Cell: row => (
               <div className="table-action-icons">
                 {this.state.loading
-                  ? spinner
-                  : (
+                  ? (
+                    <Spinner
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        display: "inline-block"
+                      }}
+                    />
+                  ) : (
                     <Fragment>
                       <button onClick={() => this.updateRow(row)} title="save changes">
                         <i className="fas fa-save" />

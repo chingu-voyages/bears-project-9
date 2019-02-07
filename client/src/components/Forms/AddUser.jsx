@@ -21,7 +21,9 @@ export class AddUser extends PureComponent {
   createUser = async event => {
     event.preventDefault();
     await this.setState({ loading: true });
-    await API.adminCreateUser(this.state);
+    const userData = { ...this.state }
+    const headers = this.props.buildHeaders();
+    await API.adminCreateUser(userData, headers);
     const newState = {
       username: '',
       password: '',

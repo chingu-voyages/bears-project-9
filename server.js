@@ -18,13 +18,15 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 
+if (process.env.NODE_ENV === "production")
+  app.use(express.static('client/build'))
 
 app.get('/verify', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({msg: 'logged in'});
+  res.json({ msg: 'logged in' });
 });
 
 app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({msg: 'logged in', user: req.user });
+  res.json({ msg: 'logged in', user: req.user });
 });
 
 app.use('/watches', watchesRouter);

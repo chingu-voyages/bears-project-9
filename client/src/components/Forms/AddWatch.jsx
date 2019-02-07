@@ -46,13 +46,13 @@ export class AddWatch extends PureComponent {
     delete watchData.loading;
     if (this.state.data) {
       const file = await this.saveImageToCloud();
-      console.log(file);
       watchData.image = file.secure_url;
       watchData.image400 = file.eager[0].secure_url;
       watchData.image30 = file.eager[1].secure_url;
       watchData.publicId = file.public_id;
     }
-    await API.adminCreateWatch(watchData);
+    const headers = this.props.buildHeaders();
+    await API.adminCreateWatch(watchData, headers);
     const newState = {
       brand: "",
       data: "",

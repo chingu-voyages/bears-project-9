@@ -1,6 +1,6 @@
 const express = require('express');
-const { Watch } = require('../models');
 const watchesRouter = express();
+const { Watch } = require('../models');
 
 watchesRouter.get('/', async (req, res) => {
   try {
@@ -23,6 +23,4 @@ watchesRouter.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = {
-  watchesRouter
-};
+module.exports = {watchesRouter};

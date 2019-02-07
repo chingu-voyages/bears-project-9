@@ -1,13 +1,13 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize({
-  database: "horology_db",
-  dialect: "postgres",
-  operatorsAliases: false,
-  define: {
-    underscored: true
-  }
-});
+    database: "horology_db",
+    dialect: "postgres",
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  });
 
 const Watch = sequelize.define("watches", {
   name: Sequelize.STRING,
@@ -15,7 +15,7 @@ const Watch = sequelize.define("watches", {
   price: Sequelize.INTEGER,
   image: Sequelize.STRING,
   image30: Sequelize.STRING,
-  image400:Sequelize.STRING,
+  image400: Sequelize.STRING,
   brand: Sequelize.STRING,
   gender: Sequelize.STRING,
   publicId: Sequelize.STRING

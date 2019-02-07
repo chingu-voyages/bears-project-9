@@ -12,7 +12,9 @@
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "install": "cd client && yarn install"
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -37,7 +39,7 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pg": "^7.7.1",
+    "pg": "7.8.0",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
