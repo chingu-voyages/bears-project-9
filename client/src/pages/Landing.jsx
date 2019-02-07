@@ -13,6 +13,7 @@ const Landing = props => {
         filteredData={props.filteredData}
         genderFilterValue={props.genderFilterValue}
         handleProductFilter={props.handleProductFilter}
+        resetProductFilter={props.sharedProps.resetProductFilter}
         loggedIn={props.sharedProps.loggedIn}
         priceFilterValue={props.priceFilterValue}
         removeFromWishlist={props.removeFromWishlist}
