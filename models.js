@@ -3,10 +3,10 @@ const { Sequelize } = require("sequelize");
 // console.log(process.env);
 
 let connection;
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
   console.log(process.env.NODE_ENV)
   connection = process.env.DATABASE_URL;
-} 
+// } 
 // else {
 //   connection = {
 //     database: "horology_db",
