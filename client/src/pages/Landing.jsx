@@ -3,7 +3,6 @@ import PageWrapper from "../components/PageWrapper/PageWrapper";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 
 const Landing = props => {
-  console.log("Landing page", props.sharedProps.resetProductFilter);
   return (
     <PageWrapper {...props.sharedProps}>
       <ProductGrid
