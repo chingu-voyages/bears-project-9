@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const BASE_URL = "http://localhost:3001";
-const BASE_URL = "";
+const BASE_URL = REACT_APP_BASE_URL;
 
 export const API = {
   login: function (userData) {
