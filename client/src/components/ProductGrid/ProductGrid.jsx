@@ -16,7 +16,8 @@ class ProductGrid extends PureComponent {
       handleProductFilter,
       brandFilterValue,
       genderFilterValue,
-      priceFilterValue
+      priceFilterValue,
+      resetProductFilter
     } = this.props;
 
     const brandOptions = filteredData
@@ -62,23 +63,45 @@ class ProductGrid extends PureComponent {
             options={priceOptions}
             value={priceFilterValue}
           />
+          <button className="resetProductFilter" onClick={resetProductFilter}>
+            Reset Filters
+          </button>
         </div>
 
         <div className="watchGrid">
           {loggedIn
             ? filteredData.map(watch => {
-              const inWishlist = wishlist[watch.id] ? true : false;
-              const imageURL = watch.image400
-                ? watch.image400
-                : "https://via.placeholder.com/400/92c952";
-              return (
-                <AddToWishlist
-                  addToWishlist={addToWishlist}
-                  removeFromWishlist={removeFromWishlist}
-                  inWishlist={inWishlist}
-                  productId={watch.id}
-                  key={watch.id}
-                >
+                const inWishlist = wishlist[watch.id] ? true : false;
+                const imageURL = watch.image400
+                  ? watch.image400
+                  : "https://via.placeholder.com/400/92c952";
+                return (
+                  <AddToWishlist
+                    addToWishlist={addToWishlist}
+                    removeFromWishlist={removeFromWishlist}
+                    inWishlist={inWishlist}
+                    productId={watch.id}
+                    key={watch.id}
+                  >
+                    <WatchTile
+                      addToCart={addToCart}
+                      productId={watch.id}
+                      productName={watch.name}
+                      productDescription={watch.description}
+                      productPrice={watch.price}
+                      productURL={imageURL}
+                      productBrand={watch.brand}
+                      productGender={watch.gender}
+                      key={watch.id}
+                    />
+                  </AddToWishlist>
+                );
+              })
+            : filteredData.map(watch => {
+                const imageURL = watch.image400
+                  ? watch.image400
+                  : "https://via.placeholder.com/400/92c952";
+                return (
                   <WatchTile
                     addToCart={addToCart}
                     productId={watch.id}
@@ -90,31 +113,12 @@ class ProductGrid extends PureComponent {
                     productGender={watch.gender}
                     key={watch.id}
                   />
-                </AddToWishlist>
-              );
-            })
-            : filteredData.map(watch => {
-              const imageURL = watch.image400
-                ? watch.image400
-                : "https://via.placeholder.com/400/92c952";
-              return (
-                <WatchTile
-                  addToCart={addToCart}
-                  productId={watch.id}
-                  productName={watch.name}
-                  productDescription={watch.description}
-                  productPrice={watch.price}
-                  productURL={imageURL}
-                  productBrand={watch.brand}
-                  productGender={watch.gender}
-                  key={watch.id}
-                />
-              );
-            })}
+                );
+              })}
         </div>
       </div>
     );
   }
-};
+}
 
 export default ProductGrid;

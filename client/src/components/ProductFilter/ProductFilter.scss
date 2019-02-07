@@ -3,12 +3,11 @@
 .selectBox {
   font-size: 14px;
   font-family: $secondary-font-family;
-  border: none;
   box-shadow: none;
-  border-radius: 0;
   background: transparent;
   width: 20%;
   margin: 2%;
+  text-align-last: center;
   outline: none;
   border: 1px solid $dark-gray;
 }
