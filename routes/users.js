@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const { passport, sign } = require('../auth');
-const db = require('../fuct');
+const db = require('../models');
 console.log(db)
 
 

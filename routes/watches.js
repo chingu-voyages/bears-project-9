@@ -1,5 +1,5 @@
 const watchesRouter = require('express').Router();
-const db = require('../fuct');
+const db = require('../models');
 
 watchesRouter.get('/', async (req, res) => {
   try {
