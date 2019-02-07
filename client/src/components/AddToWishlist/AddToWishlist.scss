@@ -10,6 +10,7 @@
     top: 30px;
     color: white;
     z-index: 2;
+    -webkit-text-stroke: 1px $dark-backsplash;
   }
 
   .wishlist-dark {
@@ -19,5 +20,6 @@
     color: $dark-backsplash;
     color: #c51f3b;
     z-index: 2;
+    -webkit-text-stroke: 1px $dark-backsplash;
   }
 }
