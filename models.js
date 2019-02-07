@@ -3,18 +3,18 @@ const { Sequelize } = require("sequelize");
 console.log(process.env);
 
 let connection;
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
   connection = process.env.DATABASE_URL;
-} else {
-  connection = {
-    database: "horology_db",
-    dialect: "postgres",
-    operatorsAliases: false,
-    define: {
-      underscored: true
-    }
-  };
-}
+// } else {
+//   connection = {
+//     database: "horology_db",
+//     dialect: "postgres",
+//     operatorsAliases: false,
+//     define: {
+//       underscored: true
+//     }
+//   };
+// }
 console.log(connection);
 const sequelize = new Sequelize(connection);
 
