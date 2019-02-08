@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
 import Landing from "./pages/Landing";
 import About from "./pages/About/About";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Admin from "./pages/Admin/Admin";
 import { API, utils } from "./utils";
-import "./styles/App.sass";
 
 class App extends Component {
   state = {
@@ -19,7 +23,7 @@ class App extends Component {
     isAdmin: false,
     showCart: false,
     wishlist: {},
-    token: '',
+    token: "",
     user: {},
     filterFor: { brand: "", gender: "", price: "" }
   };
@@ -31,16 +35,15 @@ class App extends Component {
       filteredData: resp.data
     });
     return resp.data;
-  }
+  };
 
   async componentDidMount() {
     await this.fetchWatches();
 
-    if (localStorage.getItem('token')) {
-
+    if (localStorage.getItem("token")) {
       this.setState({
         loggedIn: true,
-        token: localStorage.getItem('token')
+        token: localStorage.getItem("token")
       });
 
       await this.getCurrentUser();
@@ -52,7 +55,7 @@ class App extends Component {
 
     return {
       headers: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     };
   }
@@ -72,10 +75,9 @@ class App extends Component {
       if (user.cart) {
         const oldCart = JSON.parse(user.cart);
         cart = utils.checkCartItems(watchData, oldCart);
-        cartData = utils.parseCartData(watchData, cart)
-      };
-      if (user.wishlist)
-        wishlist = JSON.parse(user.wishlist);
+        cartData = utils.parseCartData(watchData, cart);
+      }
+      if (user.wishlist) wishlist = JSON.parse(user.wishlist);
 
       this.setState({
         isAdmin: user.admin,
@@ -101,7 +103,7 @@ class App extends Component {
     if (user.cart) {
       const oldCart = JSON.parse(user.cart);
       cart = utils.checkCartItems(watchData, oldCart);
-      cartData = utils.parseCartData(watchData, cart)
+      cartData = utils.parseCartData(watchData, cart);
     }
 
     if (user.wishlist) wishlist = JSON.parse(user.wishlist);
@@ -116,12 +118,12 @@ class App extends Component {
       user,
       wishlist
     });
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
   };
 
   logout = () => {
     this.setState({ isAdmin: false, loggedIn: false, user: "" });
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   };
 
   signup = async userData => {
@@ -134,7 +136,7 @@ class App extends Component {
       token,
       user: user
     });
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
   };
 
   toggleCart = () => {
@@ -146,8 +148,7 @@ class App extends Component {
     const { user, watchData } = this.state;
 
     let quantity;
-    if (this.state.cart[id])
-      quantity = this.state.cart[id].quantity + 1;
+    if (this.state.cart[id]) quantity = this.state.cart[id].quantity + 1;
     else quantity = 1;
 
     const cart = { ...this.state.cart };
@@ -162,7 +163,10 @@ class App extends Component {
       await API.updateUser(user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // which might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
+    setTimeout(
+      () => this.setState({ cart, cartData, cartLoading: false }),
+      500
+    );
   };
 
   removeFromCart = async id => {
@@ -180,7 +184,10 @@ class App extends Component {
       await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
+    setTimeout(
+      () => this.setState({ cart, cartData, cartLoading: false }),
+      500
+    );
   };
 
   addOneToQty = async id => {
@@ -198,14 +205,16 @@ class App extends Component {
       await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
+    setTimeout(
+      () => this.setState({ cart, cartData, cartLoading: false }),
+      500
+    );
   };
 
   subtractOneFromQty = async id => {
     await this.setState({ cartLoading: true });
 
-    if (this.state.cart[id].quantity === 1)
-      return this.removeFromCart(id);
+    if (this.state.cart[id].quantity === 1) return this.removeFromCart(id);
 
     const quantity = this.state.cart[id].quantity - 1;
 
@@ -221,7 +230,10 @@ class App extends Component {
       await API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
     // setting a timeout to prevent the UI loading element from flashing too quickly
     // whicm might make it appear like a glitch rather than a loading indicator
-    setTimeout(() => this.setState({ cart, cartData, cartLoading: false }), 500);
+    setTimeout(
+      () => this.setState({ cart, cartData, cartLoading: false }),
+      500
+    );
   };
 
   addToWishlist = id => {
@@ -290,7 +302,7 @@ class App extends Component {
       subtractOneFromQty: this.subtractOneFromQty,
       toggleCart: this.toggleCart,
       wishlistCount
-    }
+    };
 
     return (
       <Router>
@@ -315,28 +327,24 @@ class App extends Component {
           </Route>
 
           <Route exact path="/about">
-            {routeProps => (
-              <About
-                {...routeProps}
-                sharedProps={sharedProps}
-              />
-            )}
+            {routeProps => <About {...routeProps} sharedProps={sharedProps} />}
           </Route>
 
           <Route exact path="/wishlist">
-            {routeProps => (
-              this.state.loggedIn
-                ? (
-                  <Wishlist
-                    {...routeProps}
-                    addToCart={this.addToCart}
-                    removeFromWishlist={this.removeFromWishlist}
-                    sharedProps={sharedProps}
-                    watchData={this.state.watchData}
-                    wishlist={this.state.wishlist}
-                  />
-                ) : <Redirect to="/" />
-            )}
+            {routeProps =>
+              this.state.loggedIn ? (
+                <Wishlist
+                  {...routeProps}
+                  addToCart={this.addToCart}
+                  removeFromWishlist={this.removeFromWishlist}
+                  sharedProps={sharedProps}
+                  watchData={this.state.watchData}
+                  wishlist={this.state.wishlist}
+                />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           </Route>
 
           <Route exact path="/signin">
@@ -351,17 +359,18 @@ class App extends Component {
           </Route>
 
           <Route exact path="/admin">
-            {routeProps => (
-              this.state.isAdmin
-                ? (
-                  <Admin
-                    {...routeProps}
-                    fetchWatches={this.fetchWatches}
-                    sharedProps={sharedProps}
-                    watchData={this.state.watchData}
-                  />
-                ) : <Redirect to="/" />
-            )}
+            {routeProps =>
+              this.state.isAdmin ? (
+                <Admin
+                  {...routeProps}
+                  fetchWatches={this.fetchWatches}
+                  sharedProps={sharedProps}
+                  watchData={this.state.watchData}
+                />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           </Route>
         </Switch>
       </Router>

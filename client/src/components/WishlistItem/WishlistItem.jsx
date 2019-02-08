@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import "./WishlistItem.sass";
+import "./WishlistItem.scss";
 
 class WishlistItem extends PureComponent {
   itemModal = () => {
@@ -20,7 +20,7 @@ class WishlistItem extends PureComponent {
 
   render() {
     const { addToCart, removeFromWishlist, watch } = this.props;
-    console.log(watch)
+    console.log(watch);
     const { id, name, price, gender, image30 } = watch;
     const altDesc = `${name} - ${gender}`;
     const imageURL = image30

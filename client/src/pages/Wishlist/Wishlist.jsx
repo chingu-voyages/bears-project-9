@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "../../components/Modal/Modal";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import WishlistItem from "../../components/WishlistItem/WishlistItem";
-import "./Wishlist.sass";
+import "./Wishlist.scss";
 
 function Wishlist(props) {
   const { addToCart, removeFromWishlist, sharedProps, wishlist } = props;

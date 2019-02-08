@@ -1,7 +1,7 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 .cart {
-  background: #ececec;
+  background: $light-gray;
   color: #393939;
   height: 100vh;
   min-width: 400px;
@@ -12,8 +12,9 @@
   width: 30%;
   transition: transform 0.3s;
   z-index: 9;
+
   h2 {
-    color: white;
+    color: $dark-gray;
     font-size: 3rem;
     text-align: center;
     padding: 20px;
@@ -59,10 +60,10 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: .7rem;
+    font-size: 0.7rem;
     outline: transparent;
     &:hover {
-      color: aqua;
+      color: red;
     }
   }
 }
@@ -82,7 +83,7 @@
     width: 60%;
   }
   .cart__qty-btn {
-    font-size: .6rem;
+    font-size: 0.6rem;
     padding: 0;
     height: 14px;
     margin-left: 3px;

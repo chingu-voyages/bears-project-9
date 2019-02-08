@@ -1,4 +1,4 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 .badge-component {
   position: relative;
@@ -8,11 +8,11 @@
     position: absolute;
     right: -20px;
     top: -18px;
-    background: $light-backsplash;
+    background: $blue-gray;
 
     text-align: center;
     border-radius: 3px;
-    color: $primary-font-color;
+    color: #fff;
     padding: 5px 10px;
     font-size: 0.7rem;
   }

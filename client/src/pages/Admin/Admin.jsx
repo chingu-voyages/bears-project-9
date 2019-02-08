@@ -1,37 +1,41 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import Modal from "../../components/Modal/Modal";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import { AddUser, AddWatch } from "../../components/Forms";
-import { ButtonArray, UserTable, WatchTable } from "../../components/AdminElements";
+import {
+  ButtonArray,
+  UserTable,
+  WatchTable
+} from "../../components/AdminElements";
 import { API } from "../../utils";
-import "./Admin.sass";
+import "./Admin.scss";
 
 class Admin extends Component {
   state = {
     users: false,
-    userData: '',
+    userData: "",
     userForm: false,
     watches: true,
     watchData: this.props.watchData,
     watchForm: false
-  }
+  };
 
   async componentDidMount() {
     this.fetchUsers();
   }
 
   buildHeaders = () => {
-    const token = localStorage.getItem('token');
-    return { headers: { "Authorization": `Bearer ${token}` } };
-  }
+    const token = localStorage.getItem("token");
+    return { headers: { Authorization: `Bearer ${token}` } };
+  };
 
   fetchUsers = async () => {
     const headers = this.buildHeaders();
-    console.log(headers)
+    console.log(headers);
     const res = await API.adminGetUsers(headers);
     await this.setState({ userData: res.data });
     return res.data;
-  }
+  };
 
   toggleDisplay = toShow => {
     console.log(toShow);
@@ -43,7 +47,7 @@ class Admin extends Component {
     };
     newState[toShow] = true;
     this.setState(newState);
-  }
+  };
 
   render() {
     const { users, userData, userForm, watches, watchForm } = this.state;
@@ -54,47 +58,48 @@ class Admin extends Component {
         <Modal>
           {modalProps => (
             <Fragment>
-              <h2 className="admin__title">Admin Page</h2>
-              <ButtonArray
-                className="admin__btn-wrapper"
-                state={this.state}
-                toggleDisplay={this.toggleDisplay}
-              />
-
-              {watches && (
-                <WatchTable
-                  {...modalProps}
-                  buildHeaders={this.buildHeaders}
-                  fetchWatches={this.props.fetchWatches}
-                  watchData={this.state.watchData}
-                />
-              )}
-
-              {watchForm && (
-                <AddWatch
-                  buildHeaders={this.buildHeaders}
-                  fetchWatches={this.props.fetchWatches}
+              <section className="admin__section">
+                <h2 className="admin__title">Admin Page</h2>
+                <ButtonArray
+                  className="admin__btn-wrapper"
+                  state={this.state}
                   toggleDisplay={this.toggleDisplay}
                 />
-              )}
 
-              {users && (
-                <UserTable
-                  {...modalProps}
-                  buildHeaders={this.buildHeaders}
-                  fetchUsers={this.fetchUsers}
-                  userData={this.state.userData}
-                />
-              )}
+                {watches && (
+                  <WatchTable
+                    {...modalProps}
+                    buildHeaders={this.buildHeaders}
+                    fetchWatches={this.props.fetchWatches}
+                    watchData={this.state.watchData}
+                  />
+                )}
 
-              {userForm && (
-                <AddUser
-                  buildHeaders={this.buildHeaders}
-                  fetchUsers={this.fetchUsers}
-                  toggleDisplay={this.toggleDisplay}
-                />
-              )}
+                {watchForm && (
+                  <AddWatch
+                    buildHeaders={this.buildHeaders}
+                    fetchWatches={this.props.fetchWatches}
+                    toggleDisplay={this.toggleDisplay}
+                  />
+                )}
 
+                {users && (
+                  <UserTable
+                    {...modalProps}
+                    buildHeaders={this.buildHeaders}
+                    fetchUsers={this.fetchUsers}
+                    userData={this.state.userData}
+                  />
+                )}
+
+                {userForm && (
+                  <AddUser
+                    buildHeaders={this.buildHeaders}
+                    fetchUsers={this.fetchUsers}
+                    toggleDisplay={this.toggleDisplay}
+                  />
+                )}
+              </section>
             </Fragment>
           )}
         </Modal>

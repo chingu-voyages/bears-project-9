@@ -1,24 +1,51 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
-.form label, .form input, .form textarea {
+.form label,
+.form input,
+.form textarea {
   width: 100%;
 }
 
-.login-form, .signup-form, .watch-form, .user-form {
+.login-form,
+.signup-form,
+.watch-form,
+.user-form {
   width: 300px;
   margin: 100px auto;
+  padding: 30px;
+  background-color: #fff;
+  opacity: 0.8;
+  border-radius: 2px;
 }
 
-.user-form button, .watch-form button {
+.user-form button,
+.watch-form button {
   width: 60px;
   height: 30px;
 }
 
-.login-form p, .signup-form p {
+.login-form p,
+.signup-form p {
   text-align: center;
 }
 
-.login-form button:last-child, .signup-form button:last-child {
+.login-form button,
+.signup-form button {
+  background-color: $light-gray;
+  border: 1px solid $light-gray;
+  color: #000;
+  border-radius: 2px;
+  margin: 5px 0;
+
+  &:hover {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+    color: #fff;
+  }
+}
+
+.login-form button:last-child,
+.signup-form button:last-child {
   background: transparent;
   border: none;
   outline: transparent;
