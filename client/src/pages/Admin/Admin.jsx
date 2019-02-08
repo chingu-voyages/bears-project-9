@@ -16,7 +16,6 @@ class Admin extends Component {
     userData: "",
     userForm: false,
     watches: true,
-    watchData: this.props.watchData,
     watchForm: false
   };
 
@@ -71,7 +70,7 @@ class Admin extends Component {
                     {...modalProps}
                     buildHeaders={this.buildHeaders}
                     fetchWatches={this.props.fetchWatches}
-                    watchData={this.state.watchData}
+                    watchData={this.props.watchData}
                   />
                 )}
 
