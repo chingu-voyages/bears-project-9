@@ -1,4 +1,4 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 header {
   width: 100%;
@@ -36,7 +36,7 @@ header {
 }
 
 .header__nav a:hover {
-  color: $light-gray;
+  color: $blue-gray;
 }
 
 .header__nav button {
@@ -52,5 +52,5 @@ header {
 }
 
 .header__nav button:hover {
-  color: $light-gray;
+  color: $blue-gray;
 }

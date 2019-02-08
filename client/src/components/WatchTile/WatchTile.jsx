@@ -26,6 +26,6 @@ class WatchTile extends PureComponent {
       </div>
     );
   }
-};
+}
 
 export default WatchTile;

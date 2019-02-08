@@ -1,4 +1,4 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 .spinner {
   animation: spinner 400ms linear infinite;
@@ -8,7 +8,11 @@
   border-radius: 50%;
   text-align: center;
   @keyframes spinner {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

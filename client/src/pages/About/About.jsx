@@ -1,6 +1,6 @@
 import React from "react";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
-import "./About.sass";
+import "./About.scss";
 
 const About = props => (
   <PageWrapper {...props.sharedProps}>
@@ -12,10 +12,10 @@ const About = props => (
           from the HOROLOGY brand, including the ability to process payments via
           third-party integrations with Stripe. Core features will include the
           ability to browse a selection of watches and add watches to one’s cart
-          or wishlist for eventual purchase. This system will also include a user
-          account registration system in order to save purchases and wishlist
-          items.
-      </div>
+          or wishlist for eventual purchase. This system will also include a
+          user account registration system in order to save purchases and
+          wishlist items.
+        </div>
       </section>
     </div>
   </PageWrapper>

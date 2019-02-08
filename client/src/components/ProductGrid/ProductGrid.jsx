@@ -74,7 +74,7 @@ class ProductGrid extends PureComponent {
                 const inWishlist = wishlist[watch.id] ? true : false;
                 const imageURL = watch.image400
                   ? watch.image400
-                  : "https://via.placeholder.com/400/92c952";
+                  : "https://res.cloudinary.com/horology-bear/image/upload/v1549591665/jiemyefjkv9zf3wg8kwn.jpg";
                 return (
                   <AddToWishlist
                     addToWishlist={addToWishlist}
@@ -100,7 +100,7 @@ class ProductGrid extends PureComponent {
             : filteredData.map(watch => {
                 const imageURL = watch.image400
                   ? watch.image400
-                  : "https://via.placeholder.com/400/92c952";
+                  : "https://res.cloudinary.com/horology-bear/image/upload/v1549591665/jiemyefjkv9zf3wg8kwn.jpg";
                 return (
                   <WatchTile
                     addToCart={addToCart}

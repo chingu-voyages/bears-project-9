@@ -1,32 +1,41 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 .watchTile {
-  border: 1px solid #393939;
+  border-radius: 150px;
   display: flex;
   flex-wrap: wrap;
-  height: 300px;
+  width: 280px;
+  height: 280px;
   margin: 10px 10px 75px 10px;
   position: relative;
   text-align: center;
-  width: 300px;
+  color: $primary-font-color;
+
   img {
     margin: auto;
     max-height: 100%;
     max-width: 100%;
+    border-radius: 2px;
   }
-  div:first-child {
-    background: #000;
-    display: flex;
-    height: 298px;
-    padding: 10px;
-    width: 298px;
-  }
+
   div {
     padding-top: 5px;
     width: 100%;
   }
-}
 
-.watchTile p {
-  color: $primary-font-color;
+  & h3 {
+    padding-bottom: 4px;
+  }
+
+  & button {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    border-radius: 1px;
+
+    &:hover {
+      background-color: $dark-gray;
+      border: 1px solid $dark-gray;
+      color: #fff;
+    }
+  }
 }

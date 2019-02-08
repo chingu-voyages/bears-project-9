@@ -48,6 +48,13 @@ async function createWatches() {
         price: 699.0,
         brand: "Cartier",
         gender: "Female"
+      },
+      {
+        name: "Fancy",
+        description: "fancy watch",
+        price: 699.0,
+        brand: "Cartier",
+        gender: "Female"
       }
     ]);
   } catch (e) {

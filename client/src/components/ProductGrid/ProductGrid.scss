@@ -1,4 +1,4 @@
-@import "../../styles/_variables.sass";
+@import "../../styles/_variables.scss";
 
 .watchGrid {
   display: flex;
@@ -21,5 +21,12 @@
   background: transparent;
   margin: 2%;
   outline: none;
-  border: 1px solid $dark-gray;
+  border: 1px solid $light-gray;
+  background-color: $light-gray;
+
+  &:hover {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+    color: #fff;
+  }
 }

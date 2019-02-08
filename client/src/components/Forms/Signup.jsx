@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import "./Forms.scss";
 
 export class Signup extends PureComponent {
   state = {
-    username: '',
-    password: '',
-    confirmPw: ''
-  }
+    username: "",
+    password: "",
+    confirmPw: ""
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
-  }
+  };
 
   render() {
     const { username, password, confirmPw } = this.state;
@@ -39,16 +39,13 @@ export class Signup extends PureComponent {
           onChange={this.handleInputChange}
         />
         <button
-          disabled={
-            !username
-            || !password
-            || (password !== confirmPw)
-          }
+          disabled={!username || !password || password !== confirmPw}
           onClick={() => this.props.signup({ username, password })}
         >
           Submit
         </button>
-        <p>Already have an account?
+        <p>
+          Already have an account?
           <button onClick={this.props.toggleForms}>sign in</button>
         </p>
       </div>
