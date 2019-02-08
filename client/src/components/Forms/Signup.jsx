@@ -13,10 +13,16 @@ export class Signup extends PureComponent {
     this.setState({ [name]: value });
   };
 
+  onFormSubmit = event => {
+    event.preventDefault();
+    const { username, password } = this.state;
+    this.props.signup({ username, password });
+  };
+
   render() {
     const { username, password, confirmPw } = this.state;
     return (
-      <div className="form signup-form">
+      <form className="form signup-form" onSubmit={this.onFormSubmit}>
         <label>username:</label>
         <input
           name="username"
@@ -39,8 +45,8 @@ export class Signup extends PureComponent {
           onChange={this.handleInputChange}
         />
         <button
+          type="submit"
           disabled={!username || !password || password !== confirmPw}
-          onClick={() => this.props.signup({ username, password })}
         >
           Submit
         </button>
@@ -48,7 +54,7 @@ export class Signup extends PureComponent {
           Already have an account?
           <button onClick={this.props.toggleForms}>sign in</button>
         </p>
-      </div>
+      </form>
     );
   }
 }

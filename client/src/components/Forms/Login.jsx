@@ -12,10 +12,16 @@ export class Login extends PureComponent {
     this.setState({ [name]: value });
   };
 
+  onFormSubmit = event => {
+    event.preventDefault();
+    const { username, password } = this.state;
+    this.props.login({ username, password });
+  };
+
   render() {
     const { username, password } = this.state;
     return (
-      <div className="form login-form">
+      <form className="form login-form" onSubmit={this.onFormSubmit}>
         <label>username:</label>
         <input
           name="username"
@@ -30,17 +36,14 @@ export class Login extends PureComponent {
           type="password"
           onChange={this.handleInputChange}
         />
-        <button
-          disabled={!username || !password}
-          onClick={() => this.props.login({ username, password })}
-        >
+        <button type="submit" disabled={!username || !password}>
           Submit
         </button>
         <p>
           Don't have an account?
           <button onClick={this.props.toggleForms}>create one</button>
         </p>
-      </div>
+      </form>
     );
   }
 }
