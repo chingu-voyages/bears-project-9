@@ -6,7 +6,6 @@ cloudinary.config({
   api_key: process.env.CLOUD_KEY,
   api_secret: process.env.CLOUD_SECRET
 });
-const { passport } = require("../auth");
 
 module.exports = {
   adminGetWatches: async (req, res) => {
@@ -30,7 +29,6 @@ module.exports = {
   },
 
   adminGetUsers: async (req, res) => {
-    console.log(req.user);
     try {
       const users = await db.User.findAll({});
       res.json(users);
@@ -41,7 +39,6 @@ module.exports = {
   },
 
   adminCreateUser: async (req, res) => {
-    console.log(req.user);
     const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
     req.body.password = password;
     try {
@@ -91,8 +88,12 @@ module.exports = {
 
   adminDeleteWatch: async (req, res) => {
     const { id } = req.params;
+    let result;
     try {
-      const result = await db.Watch.destroy({ where: { id } });
+      const watch = await db.Watch.find({ where: { id } });
+      const image = await cloudinary.v2.uploader.destroy(watch.publicId, { invalidate: true });
+      if (image.result === 'ok' || image.result === "not found")
+        result = await db.Watch.destroy({ where: { id } });
       res.json(result);
     } catch (e) {
       console.log(e);

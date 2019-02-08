@@ -1,8 +1,7 @@
 const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
-const { passport, sign } = require('../auth');
+const { sign } = require('../auth');
 const db = require('../models');
-console.log(db)
 
 
 usersRouter.get('/', async (req, res) => {
@@ -28,10 +27,8 @@ usersRouter.get('/:id', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   const password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
   req.body.password = password;
-  console.log(req.body.password);
   try {
     const user = await db.User.create(req.body);
-    console.log(user.username)
     const { admin, cart, id, username, wishlist } = user.dataValues;
     const token = sign({
       id,
@@ -80,7 +77,6 @@ usersRouter.post('/login', async (req, res) => {
 });
 
 usersRouter.put('/:id', async (req, res) => {
-  console.log(req.body);
   try {
     const response = db.User.update(req.body, {
       where: { id: req.params.id }

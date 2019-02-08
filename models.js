@@ -1,11 +1,9 @@
 const { Sequelize } = require("sequelize");
 
 let connection;
-if (process.env.NODE_ENV === 'production') {
-  console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production')
   connection = process.env.DATABASE_URL;
-}
-else if (process.env.NODE_ENV === 'development') {
+else if (process.env.NODE_ENV === 'development')
   connection = {
     database: "horology_db",
     dialect: "postgres",
@@ -14,9 +12,6 @@ else if (process.env.NODE_ENV === 'development') {
       underscored: true
     }
   };
-}
-console.log("++++++++++++++++++++++++++++++++THE CONNECTION IS: +++++++++++++++++++++++++++");
-console.log(connection);
 const sequelize = new Sequelize(connection);
 
 const Watch = sequelize.define("watches", {
@@ -36,7 +31,7 @@ const User = sequelize.define("users", {
   password: Sequelize.STRING,
   admin: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: true
   },
   wishlist: Sequelize.TEXT,
   cart: Sequelize.TEXT
