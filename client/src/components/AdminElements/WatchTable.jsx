@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
 import Spinner from "../Spinner/Spinner";
 import { API } from "../../utils/API";
@@ -7,7 +7,7 @@ import "./Tables.scss";
 
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload/`
 
-export class WatchTable extends PureComponent {
+export class WatchTable extends Component {
   state = {
     data: '',
     imageUrl: "",
