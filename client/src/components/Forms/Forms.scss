@@ -6,53 +6,77 @@
   width: 100%;
 }
 
+.form > input,
+.form > textarea {
+  margin-bottom: 15px;
+}
+
 .login-form,
 .signup-form,
 .watch-form,
 .user-form {
   width: 300px;
   margin: 100px auto;
-  padding: 30px;
   background-color: #fff;
   opacity: 0.8;
   border-radius: 2px;
 }
 
-.user-form button,
-.watch-form button {
-  width: 60px;
-  height: 30px;
-}
+.login-form,
+.signup-form {
+  padding: 30px;
 
-.login-form p,
-.signup-form p {
-  text-align: center;
-}
+  p {
+    text-align: center;
+  }
 
-.login-form button,
-.signup-form button {
-  background-color: $light-gray;
-  border: 1px solid $light-gray;
-  color: #000;
-  border-radius: 2px;
-  margin: 5px 0;
+  button {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    color: #000;
+    border-radius: 2px;
+    margin: 5px 0;
 
-  &:hover {
-    background-color: $dark-gray;
-    border: 1px solid $dark-gray;
-    color: #fff;
+    &:hover {
+      background-color: $dark-gray;
+      border: 1px solid $dark-gray;
+      color: #fff;
+    }
+  }
+
+  button:last-child {
+    background: transparent;
+    border: none;
+    outline: transparent;
+    text-decoration: underline;
+
+    &:hover {
+      color: $dark-gray;
+    }
   }
 }
 
-.login-form button:last-child,
-.signup-form button:last-child {
-  background: transparent;
-  border: none;
-  outline: transparent;
-  text-decoration: underline;
+.user-form,
+.watch-form {
+  padding: 0 30px;
+
+  button {
+    width: 60px;
+    height: 30px;
+  }
 }
 
-.watch-form_submit {
+.watch-form_submit,
+.user-form_submit {
   margin: 10px auto;
   width: 100px;
+  background-color: #c2c2c2;
+  border: 1px solid #c2c2c2;
+  color: #666666;
+
+  &:hover {
+    background-color: #666666;
+    border: 1px solid #666666;
+    color: #fff;
+  }
 }

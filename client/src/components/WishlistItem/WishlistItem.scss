@@ -16,7 +16,7 @@
     border: 1px solid $light-gray;
     color: $dark-gray;
     border-radius: 2px;
-    height: 30px;
+    height: 40px;
     align-self: center;
   }
 
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 40px;
+    height: 40px;
   }
 }
