@@ -91,9 +91,9 @@ module.exports = {
     let result;
     try {
       const watch = await db.Watch.find({ where: { id } });
-      const image = await cloudinary.v2.uploader.destroy(watch.publicId, { invalidate: true });
-      if (image.result === 'ok' || image.result === "not found")
-        result = await db.Watch.destroy({ where: { id } });
+      if (watch.publicId)
+        await cloudinary.v2.uploader.destroy(watch.publicId, { invalidate: true });
+      result = await db.Watch.destroy({ where: { id } });
       res.json(result);
     } catch (e) {
       console.log(e);

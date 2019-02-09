@@ -85,6 +85,7 @@ class ProductGrid extends PureComponent {
                   >
                     <WatchTile
                       addToCart={addToCart}
+                      loggedIn={loggedIn}
                       productId={watch.id}
                       productName={watch.name}
                       productDescription={watch.description}
@@ -104,6 +105,7 @@ class ProductGrid extends PureComponent {
                 return (
                   <WatchTile
                     addToCart={addToCart}
+                    loggedIn={loggedIn}
                     productId={watch.id}
                     productName={watch.name}
                     productDescription={watch.description}
