@@ -12,6 +12,8 @@ else
       underscored: true
     }
   };
+console.log("+++++++++++++++++++++CONNECTION INFO++++++++++++++++++++")
+console.log(connection);
 const sequelize = new Sequelize(connection);
 
 const Watch = sequelize.define("watches", {
