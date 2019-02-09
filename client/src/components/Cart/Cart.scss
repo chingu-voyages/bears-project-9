@@ -42,6 +42,7 @@
   margin: 12px 0;
   padding: 5px;
   width: 100%;
+
   div:first-child {
     background: #000;
     display: flex;
@@ -51,11 +52,15 @@
     max-width: 100px;
     padding: 3px;
   }
+
   img {
     margin: auto;
-    max-height: 100%;
-    max-width: 100%;
+    color: #fff;
+    text-align: center;
+    width: 94px;
+    height: 94px;
   }
+
   .cart__remove-btn {
     background: transparent;
     border: none;

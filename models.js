@@ -1,9 +1,12 @@
+const dotenv = require("dotenv");
 const { Sequelize } = require("sequelize");
 
+dotenv.config();
+
 let connection;
-if (process.env.NODE_ENV === 'production')
+if (process.env.NODE_ENV === "production")
   connection = process.env.DATABASE_URL;
-else if (process.env.NODE_ENV === 'development')
+else if (process.env.NODE_ENV === "development")
   connection = {
     database: "horology_db",
     dialect: "postgres",
@@ -12,6 +15,7 @@ else if (process.env.NODE_ENV === 'development')
       underscored: true
     }
   };
+
 const sequelize = new Sequelize(connection);
 
 const Watch = sequelize.define("watches", {
