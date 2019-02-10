@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { API } from "../../utils";
-import './Payment.scss';
+import './CheckoutForm.scss';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -19,9 +19,8 @@ class CheckoutForm extends Component {
       body: token.id
     };
     let response = await API.charge(opts);
-    // let response = await fetch("/charge", );
 
-    if (response.ok) console.log("Purchase Complete!");
+    if (response.statusText === 'OK') console.log("Purchase Complete!");
   }
 
   render() {
