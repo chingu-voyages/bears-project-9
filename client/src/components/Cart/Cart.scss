@@ -98,3 +98,14 @@
     width: 40%;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .cart__item {
+    div:first-child {
+      display: none;
+    }
+    img {
+      display: none;
+    }
+  }
+}

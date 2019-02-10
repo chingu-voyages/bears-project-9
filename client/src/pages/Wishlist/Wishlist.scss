@@ -26,3 +26,21 @@
     }
   }
 }
+
+@media screen and (max-width: 800px) {
+  .wishlist-section {
+    .wishlist-card {
+      width: 80%;
+    }
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .wishlist-section {
+    .wishlist-card {
+      width: 100%;
+      // padding: 0;
+      font-size: 1rem;
+    }
+  }
+}
