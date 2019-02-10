@@ -11,6 +11,8 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Admin from "./pages/Admin/Admin";
 import { API, utils } from "./utils";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "./components/Payment/CheckoutForm";
 
 class App extends Component {
   state = {
@@ -372,6 +374,17 @@ class App extends Component {
               )
             }
           </Route>
+          <Route exact path="/stripe">
+            {routeProps => <StripeProvider apiKey="pk_test_9VTkopDgBtPIVwjIxCWDm8gA">
+              <div className="example">
+                <h1>React Stripe Elements Example</h1>
+                <Elements>
+                  <CheckoutForm />
+                </Elements>
+              </div>
+            </StripeProvider>}
+          </Route>
+
         </Switch>
       </Router>
     );
