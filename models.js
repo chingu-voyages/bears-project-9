@@ -1,9 +1,9 @@
 const { Sequelize } = require("sequelize");
 
 let connection;
-if (process.env.NODE_ENV === 'production')
+if (process.env.NODE_ENV === "production")
   connection = process.env.DATABASE_URL;
-else if (process.env.NODE_ENV === 'development')
+else
   connection = {
     database: "horology_db",
     dialect: "postgres",

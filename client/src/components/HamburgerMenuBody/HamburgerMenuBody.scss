@@ -1,0 +1,45 @@
+@import "../../styles/_variables.scss";
+
+.menu_container {
+  display: flex;
+  flex-direction: column;
+  background-color: #131313;
+  color: $primary-font-color;
+  z-index: 2;
+}
+
+.menu_list {
+  padding-bottom: 1rem;
+  color: $primary-font-color;
+}
+
+.item_menuItem {
+  padding: 1rem 0;
+  margin: 0 5%;
+}
+
+.item_menuItem a {
+  text-decoration: none;
+  color: $primary-font-color;
+
+  &:hover {
+    color: $blue-gray;
+  }
+}
+
+.item_menuItem button {
+  background: transparent;
+  border: none;
+  color: $primary-font-color;
+  font-family: $primary-font-family;
+  outline: transparent;
+  padding: 0;
+
+  &:hover {
+    color: $dark-gray;
+  }
+}
+
+.item_menuItem_label {
+  font-size: 1.2rem;
+}

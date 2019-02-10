@@ -6,6 +6,7 @@ class WatchTile extends PureComponent {
   render() {
     const {
       addToCart,
+      loggedIn,
       productId,
       productName,
       productPrice,
@@ -20,9 +21,11 @@ class WatchTile extends PureComponent {
           <h3>{productName}</h3>
           <p>${productPrice}</p>
         </div>
-        <div>
-          <button onClick={() => addToCart(productId)}>Add to Cart</button>
-        </div>
+        {loggedIn &&
+          <div>
+            <button onClick={() => addToCart(productId)}>Add to Cart</button>
+          </div>
+        }
       </div>
     );
   }

@@ -1,26 +1,32 @@
 @import "../../styles/_variables.scss";
 
 .watchTile {
-  border-radius: 150px;
   display: flex;
   flex-wrap: wrap;
-  width: 280px;
-  height: 280px;
-  margin: 10px 10px 75px 10px;
+  margin: 40px 10px 70px 10px;
   position: relative;
   text-align: center;
+  width: 270px;
+  height: 270px;
   color: $primary-font-color;
-
-  img {
-    margin: auto;
-    max-height: 100%;
-    max-width: 100%;
-    border-radius: 2px;
-  }
 
   div {
     padding-top: 5px;
     width: 100%;
+  }
+
+  div:first-child {
+    background: #000;
+    margin: auto;
+    padding: 0;
+    width: 270px;
+    height: 270px;
+  }
+  
+  img {
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   & h3 {
