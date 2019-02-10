@@ -94,11 +94,13 @@ export class WatchTable extends PureComponent {
       body: this.state.data
     });
     const file = await res.json();
+    console.log(file);
     return file;
   }
 
   addImageToWatch = async id => {
     if (this.state.data) {
+      this.setState({ loading: true });
       const watchImageData = {};
       const file = await this.saveImageToCloud();
       console.log(file);
@@ -109,16 +111,17 @@ export class WatchTable extends PureComponent {
       const headers = this.props.buildHeaders();
       await API.adminUpdateWatch(id, watchImageData, headers);
       const watchData = await this.props.fetchWatches();
-      this.setState({ watchData });
+      this.setState({ watchData, loading: false });
       this.props.closeModal();
     }
   }
 
   adminRemoveImage = async (id, imageData) => {
+    this.setState({ loading: true });
     const headers = this.props.buildHeaders();
     await API.adminRemoveImage(id, imageData, headers);
     const watchData = await this.props.fetchWatches();
-    this.setState({ watchData });
+    this.setState({ watchData, loading: false });
     this.props.closeModal();
   }
 
