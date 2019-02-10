@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-around;
   line-height: 2.2;
+  margin-bottom: 5px;
 
   .wishlist-description {
     width: 55%;
@@ -34,5 +35,20 @@
   img {
     width: 40px;
     height: 40px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wishlist-item {
+    margin-bottom: 8px;
+    border-bottom: 1px solid $dark-gray;
+    .wishlist-description {
+      width: 30%;
+    }
+  }
+  .wishlist-img-container {
+    img {
+      display: none;
+    }
   }
 }

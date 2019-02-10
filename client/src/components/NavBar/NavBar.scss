@@ -7,16 +7,16 @@ header {
 
 .header__inner {
   max-width: 1200px;
-  padding: 50px 0;
+  padding: 50px 15px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.header__logo {
-  font-size: 4.5rem;
-  font-weight: normal;
+.hamburger-container {
+  font-size: 2rem;
+  padding: 0 20px;
 }
 
 .header__logo a {
@@ -24,33 +24,90 @@ header {
   color: $primary-font-color;
 }
 
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 .header__nav li {
   display: inline-block;
-  margin-left: 20px;
+  padding: 7px;
 }
 
 .header__nav a {
   text-decoration: none;
   color: $primary-font-color;
-  font-size: 1.6rem;
-}
 
-.header__nav a:hover {
-  color: $blue-gray;
+  &:hover {
+    color: $blue-gray;
+  }
 }
 
 .header__nav button {
   background: transparent;
   border: none;
   color: $primary-font-color;
-  cursor: pointer;
   font-family: $primary-font-family;
   font-size: 1.6rem;
   outline: transparent;
   padding: 0;
-  text-decoration: none;
+
+  &:hover {
+    color: $blue-gray;
+  }
 }
 
-.header__nav button:hover {
-  color: $blue-gray;
+.navbar_logo {
+  font-size: 4.5rem;
+  vertical-align: center;
+}
+
+.link_label {
+  font-size: 1.6rem;
+}
+
+@media screen and (max-width: 970px) {
+  .header__inner {
+    padding: 20px 30px;
+  }
+  .navbar_logo {
+    font-size: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 903px) {
+  .header__inner {
+    padding: 10px 50px;
+  }
+  .navbar_logo {
+    margin-left: 20px;
+  }
+  .header__nav {
+    margin-right: 20px;
+    width: 180px;
+  }
+  .link_label {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .header__inner {
+    padding: 10px 10px;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .header__inner {
+    padding: 30px 10px;
+    background-color: #131313;
+  }
+
+  .navbar_logo {
+    font-size: 1.8rem;
+    margin-left: 20px;
+  }
+  .header__nav li {
+    display: none;
+  }
 }
