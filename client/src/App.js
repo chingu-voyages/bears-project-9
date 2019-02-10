@@ -12,6 +12,7 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import Admin from "./pages/Admin/Admin";
 import { API, utils } from "./utils";
 
+
 class App extends Component {
   state = {
     cart: {},
@@ -372,6 +373,7 @@ class App extends Component {
               )
             }
           </Route>
+
         </Switch>
       </Router>
     );

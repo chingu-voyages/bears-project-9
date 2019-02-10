@@ -27,6 +27,9 @@ export const API = {
     return axios.get(`${BASE_URL}/watches/:id`);
   },
 
+  charge: function (opts) {
+    return axios.post(`${BASE_URL}/charge`, opts);
+  },
 
   adminGetUsers: function (headers) {
     return axios.get(`${BASE_URL}/admin/users`, { ...headers });

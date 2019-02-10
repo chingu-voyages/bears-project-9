@@ -1,5 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import { CartItem } from "./CartItem";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import "./Cart.scss";
 
 class Cart extends PureComponent {
@@ -43,6 +45,14 @@ class Cart extends PureComponent {
             )
           })}
           <h3>Total: ${total}</h3>
+          <StripeProvider apiKey="pk_test_9VTkopDgBtPIVwjIxCWDm8gA">
+            <div className="card-info">
+              
+              <Elements>
+                <CheckoutForm total={total} />
+              </Elements>
+            </div>
+          </StripeProvider>
         </div>
         {this.props.children}
       </Fragment>

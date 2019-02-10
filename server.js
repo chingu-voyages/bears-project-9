@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const routes = require('./routes');
 const { passport } = require('./auth');
-
+const stripe = require("stripe")("sk_test_nkXoZ50lGC2kqNBjXX2v78fS");
+const jsonParser = bodyParser.json();
 
 const PORT = process.env.PORT || 3001;
 
@@ -24,6 +25,21 @@ app.get('/verify', passport.authenticate('jwt', { session: false }), (req, res) 
 
 app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({ msg: 'logged in', user: req.user });
+});
+
+app.post("/charge", jsonParser, async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: req.body.total * 1000,
+      currency: "usd",
+      description: "An example charge",
+      source: req.body.body
+    });
+
+    res.json({status});
+  } catch (err) {
+    res.status(500).end();
+  }
 });
 
 app.use(routes);
