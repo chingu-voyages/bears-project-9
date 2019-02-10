@@ -11,16 +11,27 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    let { token } = await this.props.stripe.createToken({ name: "Name" });
-    console.log(token,token.id);
-    let opts = {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: token.id
-    };
-    let response = await API.charge(opts);
+    try {
+      let { token } = await this.props.stripe.createToken({ name: "Name" });
 
-    if (response.statusText === 'OK') console.log("Purchase Complete!");
+      let opts = {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: token.id,
+        total: this.props.total
+      };
+      let response = await API.charge(opts);
+
+      if (response.statusText === 'OK') console.log("Purchase Complete!");
+
+      this.setState({
+        complete: true
+      })
+
+    } catch (e) {
+      console.log('there was an error');
+    }
+
   }
 
   render() {
@@ -28,9 +39,9 @@ class CheckoutForm extends Component {
 
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
+        <h3>Enter Credit Card:</h3>
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <button onClick={this.submit}>Purchase</button>
       </div>
     );
   }

@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production")
   app.use(express.static('client/build'))
@@ -29,7 +30,7 @@ app.get('/currentuser', passport.authenticate('jwt', { session: false }), (req, 
 app.post("/charge", jsonParser, async (req, res) => {
   try {
     let {status} = await stripe.charges.create({
-      amount: 2000,
+      amount: req.body.total * 1000,
       currency: "usd",
       description: "An example charge",
       source: req.body.body
