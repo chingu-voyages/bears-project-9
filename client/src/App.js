@@ -66,8 +66,6 @@ class App extends Component {
     try {
       const headers = this.buildHeaders();
       const resp = await API.currentuser(headers);
-      console.log(resp.data);
-      console.log(resp.data.user);
       const user = resp.data.user;
       let cart = {};
       let wishlist = {};
@@ -212,6 +210,17 @@ class App extends Component {
     );
   };
 
+  emptyCart = () => {
+    this.setState({      
+    cart: {},
+    cartData: {}
+    });
+    const cart = { };
+    localStorage.setItem("horology-cart", JSON.stringify(cart));
+    API.updateUser(this.state.user.id, { cart: JSON.stringify(cart) });
+    console.log(this.state);
+  }
+
   subtractOneFromQty = async id => {
     await this.setState({ cartLoading: true });
 
@@ -294,6 +303,7 @@ class App extends Component {
       cartCount,
       cartData: this.state.cartData,
       cartLoading: this.state.cartLoading,
+      emptyCart: this.emptyCart,
       isAdmin: this.state.isAdmin,
       loggedIn: this.state.loggedIn,
       logout: this.logout,

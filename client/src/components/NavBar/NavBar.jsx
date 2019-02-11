@@ -52,7 +52,7 @@ class NavBar extends PureComponent {
                   className="hamburger-container"
                   onClick={this.handleMenuClick}
                 >
-                  <i class="fas fa-bars" />
+                  <i className="fas fa-bars" />
                 </div>
               </MediaQuery>
             )}
