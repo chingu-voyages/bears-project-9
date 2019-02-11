@@ -1,0 +1,54 @@
+@import "../../styles/_variables.scss";
+
+.wishlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  line-height: 2.2;
+  margin-bottom: 5px;
+
+  .wishlist-description {
+    width: 55%;
+  }
+
+  .wishlist-delete,
+  .add-to-cart {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    color: $dark-gray;
+    border-radius: 2px;
+    height: 40px;
+    align-self: center;
+  }
+
+  .wishlist-delete:hover,
+  .add-to-cart:hover {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+    color: #fff;
+  }
+}
+
+.wishlist-img-container {
+  display: flex;
+  align-items: center;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wishlist-item {
+    margin-bottom: 8px;
+    border-bottom: 1px solid $dark-gray;
+    .wishlist-description {
+      width: 30%;
+    }
+  }
+  .wishlist-img-container {
+    img {
+      display: none;
+    }
+  }
+}

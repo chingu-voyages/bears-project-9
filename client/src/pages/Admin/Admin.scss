@@ -1,0 +1,33 @@
+@import "../../styles/_variables.scss";
+
+.admin__section {
+  width: 100%;
+  height: 100vh;
+  padding: 30px;
+  background-color: #fff;
+
+  .admin__title {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .admin__btn-wrapper {
+    margin: 10px 0;
+    text-align: center;
+
+    button {
+      border: none;
+      background: #999;
+      cursor: pointer;
+      margin: 0 5px;
+      opacity: 0.6;
+      padding: 5px 10px;
+    }
+
+    button[disabled] {
+      color: #fff;
+      cursor: default;
+      opacity: 1;
+    }
+  }
+}

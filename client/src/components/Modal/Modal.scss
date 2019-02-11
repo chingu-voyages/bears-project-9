@@ -1,0 +1,80 @@
+@import "../../styles/_variables.scss";
+
+.modal,
+.modal__background {
+  background-color: #00000066;
+  display: flex;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  width: 100%;
+  z-index: 99;
+}
+
+.modal__content {
+  animation-duration: 0.4s;
+  animation-name: fadein;
+  background-color: #fff;
+  border: 1px solid $dark-gray;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #fff, 0 0 10px #cacaca, 0 0 20px #a3a3a3,
+    0 0 30px #777777;
+  color: $primary-font-color;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: auto;
+  max-width: 60%;
+  min-width: 300px;
+  padding: 40px 30px 30px 30px;
+  position: relative;
+  z-index: 999;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.modal__button_close {
+  color: $primary-font-color;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  outline: transparent;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  &:hover,
+  &:focus {
+    color: $light-gray;
+    cursor: pointer;
+  }
+}
+
+.modal__buttons {
+  display: flex;
+  justify-content: space-evenly;
+  button,
+  a {
+    background: none;
+    border: 1px solid $dark-gray;
+    border-radius: 5px;
+    color: $light-gray;
+    cursor: pointer;
+    font-size: 1.8rem;
+    margin-top: 20px;
+    padding: 7px 14px;
+    text-decoration: none;
+    transition: all 150ms ease-in-out;
+  }
+  button:hover,
+  a:hover {
+    background: $light-gray;
+    color: #fff;
+  }
+}

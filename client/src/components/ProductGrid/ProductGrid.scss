@@ -1,0 +1,33 @@
+@import "../../styles/_variables.scss";
+
+.watchGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 70px;
+}
+
+.selectField {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.resetProductFilter {
+  font-size: 14px;
+  font-family: $secondary-font-family;
+  box-shadow: none;
+  border-radius: 5px;
+  background: transparent;
+  margin: 2%;
+  outline: none;
+  border: 1px solid $light-gray;
+  background-color: $light-gray;
+
+  &:hover {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+    color: #fff;
+  }
+}

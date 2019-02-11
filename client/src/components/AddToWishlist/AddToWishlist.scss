@@ -1,0 +1,25 @@
+@import "../../styles/_variables.scss";
+
+.add-to-wishlist {
+  position: relative;
+  display: inline-block;
+
+  .wishlist-white {
+    position: absolute;
+    right: 30px;
+    top: 60px;
+    color: white;
+    z-index: 2;
+    -webkit-text-stroke: 1px $dark-backsplash;
+  }
+
+  .wishlist-dark {
+    position: absolute;
+    right: 30px;
+    top: 60px;
+    color: $dark-backsplash;
+    color: #c51f3b;
+    z-index: 2;
+    -webkit-text-stroke: 1px $dark-backsplash;
+  }
+}

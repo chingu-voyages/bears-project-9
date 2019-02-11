@@ -1,0 +1,47 @@
+@import "../../styles/_variables.scss";
+
+.watchTile {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 40px 10px 70px 10px;
+  position: relative;
+  text-align: center;
+  width: 270px;
+  height: 270px;
+  color: $primary-font-color;
+
+  div {
+    padding-top: 5px;
+    width: 100%;
+  }
+
+  div:first-child {
+    background: #000;
+    margin: auto;
+    padding: 0;
+    width: 270px;
+    height: 270px;
+  }
+  
+  img {
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  & h3 {
+    padding-bottom: 4px;
+  }
+
+  & button {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    border-radius: 1px;
+
+    &:hover {
+      background-color: $dark-gray;
+      border: 1px solid $dark-gray;
+      color: #fff;
+    }
+  }
+}

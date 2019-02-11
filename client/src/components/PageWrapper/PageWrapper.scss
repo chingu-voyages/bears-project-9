@@ -1,0 +1,8 @@
+@import "../../styles/_variables.scss";
+
+.page-wrapper {
+  min-height: 100vh;
+  min-width: 100%;
+  background-image: url("/images/desert-background.jpg");
+  background-size: cover;
+}

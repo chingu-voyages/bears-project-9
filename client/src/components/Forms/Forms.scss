@@ -1,0 +1,82 @@
+@import "../../styles/_variables.scss";
+
+.form label,
+.form input,
+.form textarea {
+  width: 100%;
+}
+
+.form > input,
+.form > textarea {
+  margin-bottom: 15px;
+}
+
+.login-form,
+.signup-form,
+.watch-form,
+.user-form {
+  width: 300px;
+  margin: 100px auto;
+  background-color: #fff;
+  opacity: 0.8;
+  border-radius: 2px;
+}
+
+.login-form,
+.signup-form {
+  padding: 30px;
+
+  p {
+    text-align: center;
+  }
+
+  button {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    color: #000;
+    border-radius: 2px;
+    margin: 5px 0;
+
+    &:hover {
+      background-color: $dark-gray;
+      border: 1px solid $dark-gray;
+      color: #fff;
+    }
+  }
+
+  button:last-child {
+    background: transparent;
+    border: none;
+    outline: transparent;
+    text-decoration: underline;
+
+    &:hover {
+      color: $dark-gray;
+    }
+  }
+}
+
+.user-form,
+.watch-form {
+  padding: 0 30px;
+
+  button {
+    width: 60px;
+    height: 30px;
+  }
+}
+
+.watch-form_submit,
+.user-form_submit {
+  margin: 10px auto;
+  width: 100px;
+  background-color: #c2c2c2;
+  border: 1px solid #c2c2c2;
+  color: #666666;
+
+  &:hover {
+    background-color: #666666;
+    border: 1px solid #666666;
+    color: #fff;
+  }
+}

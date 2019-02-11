@@ -1,0 +1,46 @@
+@import "../../styles/_variables.scss";
+
+.wishlist-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  .wishlist-card {
+    width: 65%;
+    opacity: 0.8;
+    min-height: 400px;
+    overflow: auto;
+    font-family: $secondary-font-family;
+    font-size: 1.2rem;
+    color: #000;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 0 15px 40px 15px;
+
+    .wishlist-title {
+      font-size: 2.5rem;
+      padding: 30px 0 20px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .wishlist-section {
+    .wishlist-card {
+      width: 80%;
+    }
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .wishlist-section {
+    .wishlist-card {
+      width: 100%;
+      // padding: 0;
+      font-size: 1rem;
+    }
+  }
+}

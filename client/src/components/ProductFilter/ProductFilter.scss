@@ -1,0 +1,22 @@
+@import "../../styles/_variables.scss";
+
+.selectBox {
+  font-size: 14px;
+  font-family: $secondary-font-family;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  background: transparent;
+  width: 20%;
+  margin: 2%;
+  outline: none;
+  border: 1px solid $light-gray;
+  background-color: $light-gray;
+  text-align-last: center;
+
+  &:hover {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+    color: #fff;
+  }
+}

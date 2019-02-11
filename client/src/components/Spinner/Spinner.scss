@@ -1,0 +1,18 @@
+@import "../../styles/_variables.scss";
+
+.spinner {
+  animation: spinner 400ms linear infinite;
+  border: solid 2px transparent;
+  border-left-color: #393939;
+  border-top-color: #393939;
+  border-radius: 50%;
+  text-align: center;
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
