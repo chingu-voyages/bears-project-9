@@ -11,7 +11,7 @@
 ### 5-Contributors
 
 ### 1-Description
-Horology is an e-commerce app for selling luxury watches. Features include account registration and user authentication, product filters, a wishlist, cart,  checkout via Stripe payments, and admin page for shop owner to manage users and products.
+[Horology](https://horology-bear.herokuapp.com/) is an e-commerce app for selling luxury watches. Features include account registration and user authentication, product filters, a wishlist, cart,  checkout via Stripe payments, and admin page for shop owner to manage users and products.
 
 ### 2-Technologies
   This project utilizes the following technologies:
