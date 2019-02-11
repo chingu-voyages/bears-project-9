@@ -7,7 +7,7 @@ const About = props => (
     <div className="about">
       <section className="about-section">
         <div className="about-card">
-          HOROLOGY is Bears Team 09’s exploration in building a fully functional
+          HOROLOGY is Bears Team 09’s (GitHub handles: @Strangebrewer, @spicybyte, @tara-fenton, @Chris Von Wilczur) exploration in building a fully functional
           e-commerce web app. HOROLOGY specializes in the sale of luxury watches
           from the HOROLOGY brand, including the ability to process payments via
           third-party integrations with Stripe. Core features will include the

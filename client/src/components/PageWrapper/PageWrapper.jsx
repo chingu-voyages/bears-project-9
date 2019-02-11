@@ -24,6 +24,7 @@ class PageWrapper extends PureComponent {
           addOneToQty={props.addOneToQty}
           cartData={props.cartData}
           cartLoading={props.cartLoading}
+          emptyCart={props.emptyCart}
           removeFromCart={props.removeFromCart}
           showCart={props.showCart}
           subtractOneFromQty={props.subtractOneFromQty}

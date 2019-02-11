@@ -6,7 +6,7 @@ import './CheckoutForm.scss';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
@@ -22,7 +22,10 @@ class CheckoutForm extends Component {
       };
       let response = await API.charge(opts);
 
-      if (response.statusText === 'OK') console.log("Purchase Complete!");
+      if (response.statusText === 'OK') {
+        console.log("Purchase Complete!");
+        this.props.emptyCart();
+      }
 
       this.setState({
         complete: true

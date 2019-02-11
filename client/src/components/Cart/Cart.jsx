@@ -11,6 +11,7 @@ class Cart extends PureComponent {
       addOneToQty,
       cartData,
       cartLoading,
+      emptyCart,
       removeFromCart,
       subtractOneFromQty,
       toggleCart
@@ -49,7 +50,7 @@ class Cart extends PureComponent {
             <div className="card-info">
               
               <Elements>
-                <CheckoutForm total={total} />
+                <CheckoutForm total={total} emptyCart={emptyCart} />
               </Elements>
             </div>
           </StripeProvider>
